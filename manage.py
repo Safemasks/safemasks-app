@@ -5,6 +5,10 @@ import sys
 
 
 def main():
+    if not os.environ.get("SAFEMASKS_ENVIRONMENT", None) or not os.environ.get(
+        "SAFEMASKS_SECRET_KEY", None
+    ):
+        raise KeyError("Could not read SAFEMASKS environment variables.")
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "safemasks.settings")
     try:
         from django.core.management import execute_from_command_line
