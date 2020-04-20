@@ -42,8 +42,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+SAFEMASKS_APPS = ["resources"]
 
-INSTALLED_APPS = [
+
+INSTALLED_APPS = SAFEMASKS_APPS + [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
