@@ -32,34 +32,31 @@ def is_email_or_url(string: str) -> bool:
     return out
 
 
-class Product(models.Model):
-    """Products represented in the safemasks tables
-    """
-
-    name = models.CharField(
-        help_text="Name of the product", unique=True, max_length=128
-    )
-
-
 class Supplier(models.Model):
     """Suppliers represented in the safemasks tables
     """
 
-    name = models.TextField(help_text="Name of the supplier.", unique=True)
+    name = models.CharField(
+        help_text="Name of the supplier.", unique=True, max_length=512
+    )
     addresses = models.TextField(
         help_text="Addresses of the supplier."
         " Comma seperated list of URLs or E-Mail addresses.",
         null=True,
         blank=True,
     )
-    products = models.ManyToManyField(to=Product, related_name="suppliers",)
     company_type = models.CharField(
         choices=[("sup", "Supplier"), ("man", "Manufacturer")], max_length=3
     )
-    # ToDo: is this a property of the product & supplier combined?
-    certificate = models.CharField(
-        null=True, help_text="Certificate of the supplier", max_length=128
+    trustworty = models.BooleanField(
+        blank=False,
+        null=False,
+        help_text="Is the supplier trustworty and fulfills standards?",
     )
+
+    def __str__(self) -> str:
+        """Name of the supplier"""
+        return self.name
 
     def address_list(self) -> List[str]:
         """Returns the addresses as a list of urls or emails.
@@ -79,8 +76,27 @@ class Supplier(models.Model):
                             address=address
                         )
                     )
-                addresses.append(addresses)
+                addresses.append(address)
             self.addresses = ", ".join(addresses)
+
+
+class SupplierList(models.Model):
+    """Table represents a list of suppliers.
+
+    This allows grouping suppliers into different categories
+    (like white list or black list).
+    """
+
+    name = models.CharField(max_length=128, help_text="Name of the list.", unique=True)
+    suppliers = models.ManyToManyField(
+        to=Supplier,
+        help_text="Suppliers contained in the list.",
+        related_name="appears_in_lists",
+    )
+
+    def __str__(self) -> str:
+        """Name of the list"""
+        return self.name
 
 
 class SupplierReview(models.Model):
@@ -111,54 +127,64 @@ class SupplierReview(models.Model):
         auto_now=True, help_text="When was the review added?"
     )
 
+    def __str__(self) -> str:
+        """Rating summary"""
+        return "Rating({user}->{supplier}, trustworty={trustworty})".format(
+            user=self.user, supplier=self.supplier, trustworty=self.trustworty
+        )
 
-class SupplierList(models.Model):
-    """Table represents a list of suppliers.
 
-    This allows grouping suppliers into different categories
-    (like white list or black list).
+class Product(models.Model):
+    """Products represented in the safemasks tables
     """
 
-    name = models.CharField(max_length=128, help_text="Name of the list.", unique=True)
-    suppliers = models.ManyToManyField(
-        to=Supplier,
-        help_text="Suppliers contained in the list.",
-        related_name="appears_in_lists",
+    name = models.CharField(
+        choices=[("mask", "Mask"), ("vent", "Ventilator"), ("sani", "Sanitizer")],
+        max_length=4,
+        help_text="Name of the product",
+        unique=True,
+    )
+    supplier = models.ForeignKey(
+        to=Supplier, on_delete=models.CASCADE, help_text="Who supplied this product?"
+    )
+    certificate = models.CharField(
+        null=True, help_text="Certificate of the supplier", max_length=128
     )
 
+    def __str__(self) -> str:
+        """Name of the product"""
+        return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
 
-class Delivery(models.Model):
+
+class ProductDelivery(models.Model):
     """Table represents executed deliveries.
 
     This allows to track if suppliers met their demands.
     """
 
-    supplier = models.ForeignKey(
-        to=Supplier,
-        on_delete=models.CASCADE,
-        related_name="appears_in_deliveries",
-        help_text="Who send out the delivery?",
-    )
+    verbose_name_plural = "Product deliveries"
+
     product = models.ForeignKey(
         to=Product, on_delete=models.CASCADE, help_text="Which product was delivered?"
     )
     amount = models.PositiveIntegerField(help_text="How many items were delivered?")
-    price_rating = models.IntegerField(
-        choices=[(1, "low price"), (2, "fair price"), (3, "high price")],
-        help_text="Was the price reasonable?",
-    )
-    receiver = models.ForeignKey(
-        to=User,
-        on_delete=models.CASCADE,
-        help_text="Who obtained the delivery?",
-        related_name="obtained_deliveries",
-    )
-    date_added = models.DateTimeField(
-        auto_now=True, help_text="When was the review added?"
+    receiver = models.CharField(max_length=512, help_text="Who obtained the delivery?",)
+    date_send = models.DateTimeField(help_text="When was the delivery received?")
+    date_received = models.DateTimeField(
+        help_text="When was the delivery received?", null=True, blank=True
     )
 
+    def __str__(self) -> str:
+        """Name of the list"""
+        return "Delivery({product}->{receiver}, {send}->{received})".format(
+            product=self.product,
+            receiver=self.receiver,
+            send=self.date_send,
+            received=self.date_received,
+        )
 
-class RemoteDataBase(models.Model):
+
+class RemoteDatabase(models.Model):
     """Table represents remote resources to extract information from.
     """
 
@@ -166,11 +192,10 @@ class RemoteDataBase(models.Model):
         max_length=128, help_text="Name of the resource", unique=True
     )
     address = models.URLField(help_text="Address of the resource")
-    products = models.ManyToManyField(
-        to=Product,
-        help_text="About which information does this resource inform?",
-        related_name="appears_in_databases",
-    )
     supplements = models.TextField(
         null=True, blank=True, help_text="Additional information about resource."
     )
+
+    def __str__(self) -> str:
+        """Name of the resource"""
+        return self.name
