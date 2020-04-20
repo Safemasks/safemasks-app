@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,11 +20,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "%*kvyc($j0=a(z5+f(m%_i!1$r^_j0&txb-)w7j-@-%q2#w0n^"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.environ.get("SAFEMASKS_SECRET_KEY", None)
+
+if SECRET_KEY is None:
+    raise ImproperlyConfigured(
+        "Could not infer 'SAFEMASKS_SECRET_KEY' from environment."
+        " This key must be set in order for the app to work"
+    )
+
+EVIRONMENT = os.environ.get("SAFEMASKS_ENIRONMENT", None) == "DEBUG"
+
+DEBUG = False
+if EVIRONMENT is None:
+    raise ImproperlyConfigured(
+        "Could not infer 'SAFEMASKS_ENIRONMENT' from environment."
+        " This key must be set in order for the app to work"
+    )
+DEBUG = EVIRONMENT == "DEBUG"
+
 
 ALLOWED_HOSTS = []
 
