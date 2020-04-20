@@ -29,16 +29,14 @@ if SECRET_KEY is None:
         " This key must be set in order for the app to work"
     )
 
-EVIRONMENT = os.environ.get("SAFEMASKS_ENIRONMENT", None) == "DEBUG"
-
+ENVIRONMENT = os.environ.get("SAFEMASKS_ENVIRONMENT", None)
 DEBUG = False
-if EVIRONMENT is None:
+if ENVIRONMENT is None:
     raise ImproperlyConfigured(
-        "Could not infer 'SAFEMASKS_ENIRONMENT' from environment."
+        "Could not infer 'SAFEMASKS_ENVIRONMENT' from environment."
         " This key must be set in order for the app to work"
     )
-DEBUG = EVIRONMENT == "DEBUG"
-
+DEBUG = ENVIRONMENT == "DEBUG"
 
 ALLOWED_HOSTS = []
 

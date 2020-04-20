@@ -12,7 +12,7 @@ python -m pip install -r requirements.txt
 
 This app needs the following two environment variables to work
 ```bash
-export SAFEMASKS_ENIRONMENT="DEBUG"
+export SAFEMASKS_ENVIRONMENT="DEBUG"
 export SAFEMASKS_SECRET_KEY="super-complicated-password"
 ```
 The super complicated password is used to encrypt sensitive data like user passwords stored in the DB.
