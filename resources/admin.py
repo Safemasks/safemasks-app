@@ -5,42 +5,36 @@ from django.contrib.admin import register, ModelAdmin
 
 from resources.models import (
     Supplier,
-    SupplierList,
-    SupplierReview,
     Product,
+    ProductReview,
     ProductDelivery,
     RemoteDatabase,
 )
 
 
-@register(Product)
-class ProductAdmin(ModelAdmin):
-    list_display = ("name",)
-
-
 @register(Supplier)
 class SupplierAdmin(ModelAdmin):
-    list_display = ("name", "addresses", "company_type", "trustworty")
+    list_display = ("name", "addresses", "company_type")
 
 
-@register(SupplierReview)
-class SupplierReviewAdmin(ModelAdmin):
-    list_display = ("supplier", "source", "user", "date_added", "trustworty")
+@register(Product)
+class ProductAdmin(ModelAdmin):
+    list_display = ("name", "supplier", "certificate", "trustworthy", "last_update")
 
 
-@register(SupplierList)
-class SupplierListAdmin(ModelAdmin):
-    list_display = ("name",)
+@register(ProductReview)
+class ProductReviewAdmin(ModelAdmin):
+    list_display = ("product", "source", "user", "date_added", "trustworthy")
 
 
 @register(ProductDelivery)
-class ProductDelivery(ModelAdmin):
+class ProductDeliveryAdmin(ModelAdmin):
     list_display = (
         "product",
         "receiver",
         "amount",
-        "date_send",
-        "date_received",
+        "price_per_unit",
+        "delivered_in_time",
     )
 
 

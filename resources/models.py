@@ -46,12 +46,10 @@ class Supplier(models.Model):
         blank=True,
     )
     company_type = models.CharField(
-        choices=[("sup", "Supplier"), ("man", "Manufacturer")], max_length=3
-    )
-    trustworty = models.BooleanField(
-        blank=False,
-        null=False,
-        help_text="Is the supplier trustworty and fulfills standards?",
+        choices=[("sup", "Supplier"), ("man", "Manufacturer")],
+        max_length=3,
+        blank=True,
+        null=True,
     )
 
     def __str__(self) -> str:
@@ -72,7 +70,7 @@ class Supplier(models.Model):
                 address = address.strip()
                 if not is_email_or_url(address):
                     raise ValidationError(
-                        "The '{address}' is neither an URL nor E-mail.".format(
+                        "The address '{address}' is neither an URL nor E-mail.".format(
                             address=address
                         )
                     )
@@ -80,41 +78,60 @@ class Supplier(models.Model):
             self.addresses = ", ".join(addresses)
 
 
-class SupplierList(models.Model):
-    """Table represents a list of suppliers.
+PRODUCT_NAME_CHOICES = {
+    "Mask": "mask",
+    "Ventilator": "vent",
+    "Sanitizer": "sani",
+    "Desinfektionsmittel": "sani",
+    "Beatmungsgerät": "vent",
+}
 
-    This allows grouping suppliers into different categories
-    (like white list or black list).
+
+class Product(models.Model):
+    """Products represented in the safemasks tables
     """
 
-    name = models.CharField(max_length=128, help_text="Name of the list.", unique=True)
-    suppliers = models.ManyToManyField(
-        to=Supplier,
-        help_text="Suppliers contained in the list.",
-        related_name="appears_in_lists",
+    name = models.CharField(
+        choices=list(zip(PRODUCT_NAME_CHOICES.values(), PRODUCT_NAME_CHOICES.keys())),
+        max_length=4,
+        help_text="Name of the product",
     )
+    supplier = models.ForeignKey(
+        to=Supplier,
+        on_delete=models.CASCADE,
+        help_text="Who supplied this product?",
+        related_name="products",
+    )
+    certificate = models.CharField(
+        null=True, help_text="Certificate of the supplier", max_length=128
+    )
+    trustworthy = models.BooleanField(
+        blank=False,
+        null=False,
+        help_text="Is the supplier trustworthy and fulfills standards?"
+        " Aggregates reviews.",
+    )
+    last_update = models.DateTimeField(help_text="When was this entry last updated?")
+
+    class Meta:
+        unique_together = ["name", "supplier"]
 
     def __str__(self) -> str:
-        """Name of the list"""
-        return self.name
+        """Name of the product"""
+        return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
 
 
-class SupplierReview(models.Model):
-    """Table represents a review for a given supplier.
+class ProductReview(models.Model):
+    """Table represents a review for a given product.
 
     This allows to track multiple sources.
     """
 
-    supplier = models.ForeignKey(
-        to=Supplier,
+    product = models.ForeignKey(
+        to=Product,
         on_delete=models.CASCADE,
-        help_text="Who is the supplier?",
+        help_text="What was the product?",
         related_name="appears_in_reviews",
-    )
-    trustworty = models.BooleanField(
-        blank=False,
-        null=False,
-        help_text="Is the supplier trustworty and fulfills standards?",
     )
     source = models.TextField(help_text="How was this information obtained?")
     user = models.ForeignKey(
@@ -126,34 +143,20 @@ class SupplierReview(models.Model):
     date_added = models.DateTimeField(
         auto_now=True, help_text="When was the review added?"
     )
+    trustworthy = models.BooleanField(
+        blank=False,
+        null=False,
+        help_text="Is the product trustworthy and fulfills standards?",
+    )
+    comment = models.TextField(
+        null=True, blank=True, help_text="Additional information to support review."
+    )
 
     def __str__(self) -> str:
         """Rating summary"""
-        return "Rating({user}->{supplier}, trustworty={trustworty})".format(
-            user=self.user, supplier=self.supplier, trustworty=self.trustworty
+        return "Rating({user}->{product}, trustworthy={trustworthy})".format(
+            user=self.user, product=self.product, trustworthy=self.trustworthy
         )
-
-
-class Product(models.Model):
-    """Products represented in the safemasks tables
-    """
-
-    name = models.CharField(
-        choices=[("mask", "Mask"), ("vent", "Ventilator"), ("sani", "Sanitizer")],
-        max_length=4,
-        help_text="Name of the product",
-        unique=True,
-    )
-    supplier = models.ForeignKey(
-        to=Supplier, on_delete=models.CASCADE, help_text="Who supplied this product?"
-    )
-    certificate = models.CharField(
-        null=True, help_text="Certificate of the supplier", max_length=128
-    )
-
-    def __str__(self) -> str:
-        """Name of the product"""
-        return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
 
 
 class ProductDelivery(models.Model):
@@ -168,19 +171,25 @@ class ProductDelivery(models.Model):
         to=Product, on_delete=models.CASCADE, help_text="Which product was delivered?"
     )
     amount = models.PositiveIntegerField(help_text="How many items were delivered?")
-    receiver = models.CharField(max_length=512, help_text="Who obtained the delivery?",)
-    date_send = models.DateTimeField(help_text="When was the delivery received?")
-    date_received = models.DateTimeField(
-        help_text="When was the delivery received?", null=True, blank=True
+    price_per_unit = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Price per unit in Euro.",
     )
+    receiver = models.CharField(max_length=512, help_text="Who obtained the delivery?",)
+    delivered_in_time = models.BooleanField(
+        null=True, blank=True, help_text="Was the product delivered in time?"
+    )
+    last_update = models.DateTimeField(help_text="When was this entry last updated?")
 
     def __str__(self) -> str:
         """Name of the list"""
-        return "Delivery({product}->{receiver}, {send}->{received})".format(
+        return ("Delivery({product}->{receiver}, in_time={delivered_in_time})").format(
             product=self.product,
             receiver=self.receiver,
-            send=self.date_send,
-            received=self.date_received,
+            delivered_in_time=self.delivered_in_time,
         )
 
 
