@@ -151,9 +151,7 @@ class ProductReview(models.Model):
         help_text="Who submitted this information?",
         related_name="reviews",
     )
-    last_update = models.DateTimeField(
-        auto_now=True, help_text="When was the review last updated?"
-    )
+    last_update = models.DateTimeField(help_text="When was the review last updated?")
     trustworthy = models.BooleanField(
         blank=False,
         null=False,
