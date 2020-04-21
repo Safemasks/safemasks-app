@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 from django.core.validators import URLValidator, EmailValidator
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import truncatechars
 
 URL_VALIDATOR = URLValidator()
 EMAIL_VALIDATOR = EmailValidator()
@@ -52,9 +53,14 @@ class Supplier(models.Model):
         null=True,
     )
 
+    @property
+    def short_name(self):
+        """Abbrevieates name to 100 chars"""
+        return truncatechars(self.name, 40)
+
     def __str__(self) -> str:
         """Name of the supplier"""
-        return self.name
+        return self.short_name
 
     def address_list(self) -> List[str]:
         """Returns the addresses as a list of urls or emails.
@@ -108,7 +114,7 @@ class Product(models.Model):
         related_name="products",
     )
     certificate = models.CharField(
-        null=True, blank=True, help_text="Certificate of the supplier", max_length=128
+        null=True, blank=True, help_text="Certificate of the product", max_length=128
     )
     trustworthy = models.BooleanField(
         blank=False,
