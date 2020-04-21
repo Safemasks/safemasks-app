@@ -45,3 +45,8 @@ python manage.py initwhitelist data/Suppliers.xlsx
 ```
 from the repo root.
 This will populate the whitelist tables.
+Similarly,
+```bash
+python manage.py initblacklist data/Suppliers.xlsx
+```
+populates the blacklist.
