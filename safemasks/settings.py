@@ -38,7 +38,11 @@ if ENVIRONMENT is None:
     )
 DEBUG = ENVIRONMENT == "DEBUG"
 
+
 ALLOWED_HOSTS = []
+CURRENT_HOST = os.environ.get("SAFEMASKS_HOST", None)
+if CURRENT_HOST:
+    ALLOWED_HOSTS.append(CURRENT_HOST)
 
 
 # Application definition
