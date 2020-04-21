@@ -1,4 +1,4 @@
-"""Script for adding default data
+"""Script for adding default data whitelist data from xlsx file
 """
 from typing import Tuple, Dict, Any
 
@@ -7,6 +7,7 @@ from logging import getLogger
 from datetime import datetime
 from pytz import timezone
 
+from xlrd import open_workbook, xldate_as_tuple
 from pandas import read_excel, isna
 
 from django.contrib.auth.models import User
@@ -58,7 +59,12 @@ class Command(BaseCommand):
             For this reason it only populates reviews if the review table is empty.
         """
 
-        now = datetime.now(tz=TZ)
+        book = open_workbook(options["suppliers_file"])
+        last_updated = book.sheet_by_index(2).cell_value(1, 1)
+        last_updated = datetime(
+            *xldate_as_tuple(last_updated, book.datemode), tzinfo=TZ
+        )
+
         df = (
             read_excel(options["suppliers_file"], sheet_name="Whitelist", skiprows=3)
             .rename(columns=self.wl_col_map)
@@ -77,27 +83,19 @@ class Command(BaseCommand):
                     continue
 
                 product, _ = self.update_or_create_product(
-                    supplier=supplier, last_update=now, **entry
+                    supplier=supplier, last_update=last_updated, **entry
                 )
 
-                if ProductReview.objects.first():
-                    continue
-
-                product_review_kwargs = self.prep_db_entry(
-                    "productreview",
-                    product=product,
-                    date_added=now,
-                    user=user,
-                    trustworthy=True,
-                    **entry
+                self.update_or_create_review(
+                    product=product, last_update=last_updated, user=user, **entry
                 )
-                if product_review_kwargs["source"]:
-                    ProductReview.objects.get_or_create(**product_review_kwargs)
+
             except Exception as e:  # pylint: disable=W0703
                 LOGGER.error(
                     "\nFailed to parse entry %s", entry.to_dict(),
                 )
                 LOGGER.exception(e)
+                breakpoint()
 
     @staticmethod
     def prep_db_entry(table_name: str, **kwargs) -> Dict[str, Any]:
@@ -162,3 +160,25 @@ class Command(BaseCommand):
             created = True
 
         return product, created
+
+    def update_or_create_review(self, **kwargs) -> Tuple[Product, bool]:
+        """Creates product review from meta information if not updates existing
+
+        Filter on name and supplier field
+        """
+        unique_fields = ["product", "user"]
+
+        data = self.prep_db_entry("productreview", trustworthy=True, **kwargs)
+        data["source"] = data["source"] or "No source"
+        unique_data = {key: data.pop(key) for key in unique_fields}
+        review = ProductReview.objects.filter(**unique_data).first()
+        if not review:
+            review = ProductReview.objects.create(**unique_data, **data)
+            created = True
+        else:
+            for key, val in data.items():
+                setattr(review, key, val)
+            review.save()
+            created = True
+
+        return review, created

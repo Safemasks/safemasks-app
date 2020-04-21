@@ -45,4 +45,3 @@ python manage.py initwhitelist data/Suppliers.xlsx
 ```
 from the repo root.
 This will populate the whitelist tables.
-Note that reviews will only be populated if the review table is empty.
