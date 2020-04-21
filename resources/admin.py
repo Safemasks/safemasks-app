@@ -19,7 +19,14 @@ class SupplierAdmin(ModelAdmin):
 
 @register(Product)
 class ProductAdmin(ModelAdmin):
-    list_display = ("name", "supplier", "certificate", "trustworthy", "last_update")
+    list_display = (
+        "name",
+        "supplier",
+        "certificate",
+        "trustworthy",
+        "n_reviews",
+        "last_update",
+    )
 
 
 @register(ProductReview)

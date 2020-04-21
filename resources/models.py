@@ -85,6 +85,11 @@ PRODUCT_NAME_CHOICES = {
     "Desinfektionsmittel": "sani",
     "Beatmungsgerät": "vent",
 }
+_PRODUCT_NAME_CHOICES = {
+    "Mask": "mask",
+    "Ventilator": "vent",
+    "Sanitizer": "sani",
+}
 
 
 class Product(models.Model):
@@ -92,7 +97,7 @@ class Product(models.Model):
     """
 
     name = models.CharField(
-        choices=list(zip(PRODUCT_NAME_CHOICES.values(), PRODUCT_NAME_CHOICES.keys())),
+        choices=list(zip(_PRODUCT_NAME_CHOICES.values(), _PRODUCT_NAME_CHOICES.keys())),
         max_length=4,
         help_text="Name of the product",
     )
@@ -119,6 +124,12 @@ class Product(models.Model):
     def __str__(self) -> str:
         """Name of the product"""
         return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
+
+    @property
+    def n_reviews(self) -> str:
+        """Returns number of reviews
+        """
+        return self.appears_in_reviews.count()
 
 
 class ProductReview(models.Model):
