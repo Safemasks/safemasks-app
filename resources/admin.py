@@ -38,6 +38,7 @@ class ProductAdmin(ModelAdmin):
         "last_update",
     )
     inlines = (ProductReviewInline,)
+    list_filter = ("name", "trustworthy")
 
 
 @register(ProductReview)
