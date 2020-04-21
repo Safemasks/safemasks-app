@@ -95,7 +95,6 @@ class Command(BaseCommand):
                     "\nFailed to parse entry %s", entry.to_dict(),
                 )
                 LOGGER.exception(e)
-                breakpoint()
 
     @staticmethod
     def prep_db_entry(table_name: str, **kwargs) -> Dict[str, Any]:
