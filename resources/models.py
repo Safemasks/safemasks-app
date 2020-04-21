@@ -108,7 +108,7 @@ class Product(models.Model):
         related_name="products",
     )
     certificate = models.CharField(
-        null=True, help_text="Certificate of the supplier", max_length=128
+        null=True, blank=True, help_text="Certificate of the supplier", max_length=128
     )
     trustworthy = models.BooleanField(
         blank=False,
@@ -151,8 +151,8 @@ class ProductReview(models.Model):
         help_text="Who submitted this information?",
         related_name="reviews",
     )
-    date_added = models.DateTimeField(
-        auto_now=True, help_text="When was the review added?"
+    last_update = models.DateTimeField(
+        auto_now=True, help_text="When was the review last updated?"
     )
     trustworthy = models.BooleanField(
         blank=False,
