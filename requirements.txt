@@ -1,3 +1,7 @@
 Django
 pandas
 xlrd
+djangorestframework
+markdown
+django-filter
+django-bootstrap4
