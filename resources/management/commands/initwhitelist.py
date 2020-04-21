@@ -53,7 +53,9 @@ class Command(BaseCommand):
 
         Updates supplier and product tables if they exist. Else creates them.
         Todo:
-            For now, always creates new reviews because no date logic is implemented
+            For now, the logic of the code always creates new reviews because
+            no date logic is implemented.
+            For this reason it only populates reviews if the review table is empty.
         """
 
         now = datetime.now(tz=TZ)
@@ -77,6 +79,9 @@ class Command(BaseCommand):
                 product, _ = self.update_or_create_product(
                     supplier=supplier, last_update=now, **entry
                 )
+
+                if ProductReview.objects.first():
+                    continue
 
                 product_review_kwargs = self.prep_db_entry(
                     "productreview",
