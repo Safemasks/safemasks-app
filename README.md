@@ -14,6 +14,10 @@ This app needs the following two environment variables to work
 ```bash
 export SAFEMASKS_ENVIRONMENT="DEBUG"
 export SAFEMASKS_SECRET_KEY="super-complicated-password"
+export SAFEMASKS_HOST="www.myhost.whatever" # not needed for local host and debug
+export SAFEMASKS_DB_BACKEND="sqlite"
+export SAFEMASKS_DB_NAME="name of db"
+# You also have to specify other keys like NAME->USER for other backends
 ```
 The super complicated password is used to encrypt sensitive data like user passwords stored in the DB.
 To simplify development, this app runs on a local `.sqlite3` backend for now.
