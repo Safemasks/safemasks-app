@@ -2,13 +2,21 @@
 
 Django web app and API interface for Safemasks project
 
-## How to run in Docker for future deploment into container
-
-- Download docker 
-- ``` docker build  -f Dockerfile -t safemasks-app .```
-- ```docket tag safemasks-app safemasks-app:latest```
-- ```docker run -d -p 8000:8000 safemasks-app:latest```
-
+## How to deploy to http://safemasks.eastus.cloudapp.azure.com/
+- ```git push git push -f origin master```
+- Deployment is Automatic. Just wait.
+- Just assign these envs in the pipeline. 
+- ```environmentVariables :	```
+- ```SAFEMASKS_HOST ```
+- ```SAFEMASKS_ENVIRONMENT ```
+- ```SAFEMASKS_SECRET_KEY ```
+- ```SAFEMASKS_DB_BACKEND ```
+- ```SAFEMASKS_DB_HOST ```	
+- ```SAFEMASKS_DB_PORT 	```
+- ```SAFEMASKS_DB_ADMIN_USER ```
+- ```SAFEMASKS_DB_ADMIN_USER_PASSWORD ```
+- ```SAFEMASKS_DB_NAME ```
+- ```imagePassword ```
 
 
 ## Install dependencies
