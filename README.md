@@ -8,16 +8,16 @@ Django web app and API interface for Safemasks project
 - Just assign these envs in the pipeline. 
 - if you dont know what they are, you can find them in keyvault.
 - ```environmentVariables :	```
-- ```SAFEMASKS_HOST ```
-- ```SAFEMASKS_ENVIRONMENT ```
-- ```SAFEMASKS_SECRET_KEY ```
-- ```SAFEMASKS_DB_BACKEND ```
-- ```SAFEMASKS_DB_HOST ```	
-- ```SAFEMASKS_DB_PORT 	```
-- ```SAFEMASKS_DB_ADMIN_USER ```
-- ```SAFEMASKS_DB_ADMIN_USER_PASSWORD ```
-- ```SAFEMASKS_DB_NAME ```
-- ```imagePassword ```
+                        - ```SAFEMASKS_HOST ```
+                        - ```SAFEMASKS_ENVIRONMENT ```
+                        - ```SAFEMASKS_SECRET_KEY ```
+                        - ```SAFEMASKS_DB_BACKEND ```
+                        - ```SAFEMASKS_DB_HOST ```	
+                        - ```SAFEMASKS_DB_PORT 	```
+                        - ```SAFEMASKS_DB_ADMIN_USER ```
+                        - ```SAFEMASKS_DB_ADMIN_USER_PASSWORD ```
+                        - ```SAFEMASKS_DB_NAME ```
+                        - ```imagePassword ```
 
 
 ## Install dependencies
