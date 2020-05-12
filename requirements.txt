@@ -1,0 +1,10 @@
+Django
+psycopg2
+pandas
+xlrd
+djangorestframework
+markdown
+django-filter
+django-bootstrap4
+whitenoise
+

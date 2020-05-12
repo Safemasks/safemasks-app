@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "containerName": {
+            "value": "safemasks-app-container"
+        },
+        "imageName": {
+            "value": "safemasksacr.azurecr.io/safemasks:app"
+        },
+        "osType": {
+            "value": "Linux"
+        },
+        "numberCpuCores": {
+            "value": "1"
+        },
+        "memory": {
+            "value": "1.5"
+        },
+        "restartPolicy": {
+            "value": "OnFailure"
+        },
+        "imageRegistryLoginServer": {
+            "value": "safemasksacr.azurecr.io"
+        },
+        "networkResourceGroup": {
+            "value": "safemasks-network-rg"
+        },
+        "imageUsername": {
+            "value": "safemasksacr"
+        },
+        "imagePassword": {
+            "value": null
+        },
+        "ports": {
+            "value": [
+                        {
+                            "protocol": "tcp",
+                            "port": "80"
+                        },
+                        {
+                            "protocol": "tcp",
+                            "port": "443"
+                        }
+                    ]
+        },
+          "vnetName": {
+            "value": "safemasks-vnet"
+          },
+          "subnetName": {
+            "value": "safemasks-app-subnet"
+          },
+          "safeMasksPublicIpName": {
+            "value": "safemasks-public-ip"
+          },
+          "domainNameLabel": {
+            "value": "safemasks"
+        }
+    }
+}

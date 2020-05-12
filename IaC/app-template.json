@@ -1,0 +1,242 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "containerName": {
+            "type": "string"
+        },
+        "imageName": {
+            "type": "string"
+        },
+        "osType": {
+            "type": "string",
+            "allowedValues": [
+                "Linux",
+                "Windows"
+            ]
+        },
+        "numberCpuCores": {
+            "type": "string"
+        },
+        "memory": {
+            "type": "string"
+        },
+        "restartPolicy": {
+            "type": "string",
+            "allowedValues": [
+                "OnFailure",
+                "Always",
+                "Never"
+            ]
+        },
+        "imageRegistryLoginServer": {
+            "type": "string"
+        },
+        "imageUsername": {
+            "type": "string"
+        },
+        "imagePassword": {
+            "type": "secureString"
+        },
+        "ports": {
+            "type": "array"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "vnetName": {
+            "type": "string"
+        },
+        "safeMasksPublicIpName": {
+            "type": "String"
+        },
+        "domainNameLabel": {
+            "type": "string"
+        },
+        "networkResourceGroup": {
+            "type": "string"
+        },
+        "SAFEMASKS_ENVIRONMENT": {
+            "type": "string"
+        },
+        "SAFEMASKS_SECRET_KEY": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_BACKEND": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_HOST": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_NAME": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_PORT": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_USER": {
+            "type": "string"
+        },
+        "SAFEMASKS_DB_PASSWORD": {
+            "type": "string"
+        },
+        "SAFEMASKS_HOST": {
+            "type": "string"
+        }        
+    },
+    "variables": {
+        "networkProfileName": "safemask-app-network-profile",
+        "interfaceConfigName": "eth0",
+        "interfaceIpConfig": "ipconfig1"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "Network-Deployment",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('networkResourceGroup')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                    },
+                    "variables": {
+                        "interfaceIpConfig": "ipconfig1",
+                        "interfaceConfigName": "eth0"
+                    },
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/publicIPAddresses",
+                            "apiVersion": "2019-08-01",
+                            "name": "[parameters('safeMasksPublicIpName')]",
+                            "location": "[resourceGroup().location]",
+                            "sku": {
+                                "name": "Standard"
+                            },
+                            "properties": {
+                                "publicIPAddressVersion": "IPv4",
+                                "publicIPAllocationMethod": "Static",
+                                "idleTimeoutInMinutes": 4,
+                                "dnsSettings": {
+                                    "domainNameLabel": "[parameters('domainNameLabel')]"
+                                },
+                                "ipTags": [
+                                ]
+                            }
+                        },
+                        {
+                            "name": "[variables('networkProfileName')]",
+                            "type": "Microsoft.Network/networkProfiles",
+                            "dependsOn": [
+                                "[concat('Microsoft.Network/publicIPAddresses', '/',  parameters('safeMasksPublicIpName'))]"
+                            ],
+                            "apiVersion": "2018-07-01",
+                            "location": "[resourceGroup().location]",
+                            "properties": {
+                                "containerNetworkInterfaceConfigurations": [
+                                    {
+                                        "name": "[variables('interfaceConfigName')]",
+                                        "properties": {
+                                            "ipConfigurations": [
+                                                {
+                                                    "name": "[variables('interfaceIpConfig')]",
+                                                    "properties": {
+                                                        "subnet": {
+                                                            "id": "[resourceId(parameters('networkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "location": "[resourceGroup().location]",
+            "name": "[parameters('containerName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/','Network-Deployment')]"
+            ],
+            "apiVersion": "2018-10-01",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containerName')]",
+                        "properties": {
+                            "image": "[parameters('imageName')]",
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[int(parameters('numberCpuCores'))]",
+                                    "memoryInGB": "[float(parameters('memory'))]"
+                                }
+                            },
+                            "ports": "[parameters('ports')]",
+                            "environmentVariables": [
+                                {
+                                    "name": "SAFEMASKS_ENVIRONMENT",
+                                    "value": "[parameters('SAFEMASKS_ENVIRONMENT')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_SECRET_KEY",
+                                    "value": "[parameters('SAFEMASKS_SECRET_KEY')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_BACKEND",
+                                    "value": "[parameters('SAFEMASKS_DB_BACKEND')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_HOST",
+                                    "value": "[parameters('SAFEMASKS_DB_HOST')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_NAME",
+                                    "value": "[parameters('SAFEMASKS_DB_NAME')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_PORT",
+                                    "value": "[parameters('SAFEMASKS_DB_PORT')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_USER",
+                                    "value": "[parameters('SAFEMASKS_DB_USER')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_DB_PASSWORD",
+                                    "value": "[parameters('SAFEMASKS_DB_PASSWORD')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_HOST",
+                                    "value": "[parameters('SAFEMASKS_HOST')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "restartPolicy": "[parameters('restartPolicy')]",
+                "osType": "[parameters('osType')]",
+                "networkProfile": {
+                    "Id": "[resourceId(parameters('networkResourceGroup') , 'Microsoft.Network/networkProfiles', variables('networkProfileName'))]"
+                },
+                "imageRegistryCredentials": [
+                    {
+                        "server": "[parameters('imageRegistryLoginServer')]",
+                        "username": "[parameters('imageUsername')]",
+                        "password": "[parameters('imagePassword')]"
+                    }
+                ]
+            },
+            "tags": {
+                "environment": "Production",
+                "owner": "Safe Masks"
+            }
+        }
+    ]
+}
