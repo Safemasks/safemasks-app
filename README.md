@@ -6,6 +6,7 @@ Django web app and API interface for Safemasks project
 - ```git push git push -f origin master```
 - Deployment is Automatic. Just wait.
 - Just assign these envs in the pipeline. 
+- if you dont know what they are, you can find them in keyvault.
 - ```environmentVariables :	```
 - ```SAFEMASKS_HOST ```
 - ```SAFEMASKS_ENVIRONMENT ```
