@@ -60,13 +60,13 @@
             "type": "string"
         },
         "SAFEMASKS_SECRET_KEY": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_DB_BACKEND": {
             "type": "string"
         },
         "SAFEMASKS_DB_HOST": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_DB_NAME": {
             "type": "string"
@@ -75,10 +75,10 @@
             "type": "string"
         },
         "SAFEMASKS_DB_USER": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_DB_PASSWORD": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_DB_SSL": {
             "type": "string"
@@ -90,13 +90,13 @@
             "type": "string"
         },
         "SAFEMASKS_EMAIL_HOST": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_EMAIL_HOST_USER": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_EMAIL_HOST_PASSWORD": {
-            "type": "secureString"
+            "type": "string"
         },
         "SAFEMASKS_EMAIL_USE_SSL": {
             "type": "string"
