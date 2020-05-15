@@ -17,24 +17,23 @@ variables:
   parametersPath: ./IaC/app-parameters.json
   dockerFileAppPath: ./IaC/Dockerfile
 
-
-jobs:    
-  - job: Image    
-    steps:    
+jobs:
+  - job: Image
+    steps:
     - script: |
         az login --service-principal --username $(spusername) --password $(spuserpassword) --tenant $(Tenant)
         az deployment group create --resource-group $(ResourceGroupACR) --template-file $(templateAcrPath) --parameters RegistryName=$(acrName) --subscription $(Subscription)
         az acr login -n $(acrName) --expose-token
         az acr repository delete --name $(acrName) --image safemasks:app -y
         az acr build -r $(acrName) -f $(dockerFileAppPath) -t safemasks:app . \
-        --subscription $(Subscription)   
+        --subscription $(Subscription)
 
-      name: Image  
+      name: Image
       displayName: 'Build Container Regsitry, Container and Base docker Image'
 
   - job: Deployment
-    dependsOn: Image    
-    steps:    
+    dependsOn: Image
+    steps:
     - script: |
         az login --service-principal --username $(spusername) --password $(spuserpassword) --tenant $(Tenant)
         az deployment group create --resource-group $(ResourceGroupAPP) --subscription $(Subscription) --template-file $(templatePath) --parameters $(parametersPath) \
@@ -47,7 +46,14 @@ jobs:
         SAFEMASKS_DB_PORT=$(SAFEMASKS_DB_PORT) \
         SAFEMASKS_DB_USER=$(SAFEMASKS_DB_ADMIN_USER) \
         SAFEMASKS_DB_PASSWORD=$(SAFEMASKS_DB_ADMIN_USER_PASSWORD) \
-        SAFEMASKS_HOST=$(SAFEMASKS_HOST) 
-        az container restart --name $(ContainerNameAPP) --resource-group $(ResourceGroupAPP)      
-      name: Deployment  
+        SAFEMASKS_DB_SSL=$(SAFEMASKS_DB_SSL) \
+        SAFEMASKS_HOST=$(SAFEMASKS_HOST)
+        SAFEMASKS_EMAIL_BACKEND=$(SAFEMASKS_EMAIL_BACKEND) \
+        SAFEMASKS_EMAIL_HOST=$(SAFEMASKS_EMAIL_HOST) \
+        SAFEMASKS_EMAIL_HOST_USER=$(SAFEMASKS_EMAIL_HOST_USER) \
+        SAFEMASKS_EMAIL_HOST_PASSWORD=$(SAFEMASKS_EMAIL_HOST_PASSWORD) \
+        SAFEMASKS_EMAIL_USE_SSL=$(SAFEMASKS_EMAIL_USE_SSL) \
+        SAFEMASKS_EMAIL_PORT=$(SAFEMASKS_EMAIL_PORT)
+        az container restart --name $(ContainerNameAPP) --resource-group $(ResourceGroupAPP)
+      name: Deployment
       displayName: 'Deploy Container with Image'
