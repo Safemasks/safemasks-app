@@ -2,9 +2,11 @@ Django
 psycopg2
 pandas
 xlrd
-djangorestframework
 markdown
+whitenoise
+djangorestframework
 django-filter
 django-bootstrap4
-whitenoise
-
+django-crispy-forms
+django-allauth
+django-ipware
