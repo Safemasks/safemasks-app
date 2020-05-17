@@ -31,6 +31,15 @@ Django web app and API interface for Safemasks project
 
 ```bash
 python -m pip install -r requirements.txt
+python -m pip install [-e] .
+```
+
+After this, you can import `safemasks` into other modules and run the `safemasks` CLI which wraps `manage.py`.
+Example:
+```python
+from safemasks.resources.models import Supplier
+
+print(Supplier.objects.all())
 ```
 
 ## Running development server
