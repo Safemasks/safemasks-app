@@ -31,5 +31,6 @@ setup(
     ],
     python_requires=">=3.7",
     keywords=[],
+    include_package_data=True,
     entry_points={"console_scripts": ["safemasks=safemasks.manage:main"],},
 )
