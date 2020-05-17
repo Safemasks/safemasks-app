@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from masks_auth.views import ProfileView
+from safemasks.masks_auth.views import ProfileView
 
 app_name = "masks_auth"
 urlpatterns = [

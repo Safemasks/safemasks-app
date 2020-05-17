@@ -10,7 +10,7 @@ def main():
         or "SAFEMASKS_SECRET_KEY" not in os.environ
     ):
         raise KeyError("Could not read SAFEMASKS environment variables.")
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "safemasks.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "safemasks.safemasks.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

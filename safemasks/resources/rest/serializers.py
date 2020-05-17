@@ -3,7 +3,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import ModelViewSet
 
-from resources.models import Product, Supplier
+from safemasks.resources.models import Product, Supplier
 
 
 class SupplierSerializer(ModelSerializer):
