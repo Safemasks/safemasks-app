@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% load bootstrap4 %}
+{% load i18n %}
 
 {% block content %}
 <div class="jumbotron">
-    <h1>Welcome to Safemasks</h1>
-    <h5>This page is currently under development</h2>
+    <h1>{% trans 'Welcome to Safe Masks!' %}</h1>
+    <h5>{% trans 'This page is currently under development' %}</h2>
 </div>
 <div class="container">
     <p>{% lorem 5 %}</p>
