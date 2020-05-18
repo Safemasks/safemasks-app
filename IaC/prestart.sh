@@ -12,4 +12,4 @@ safemasks check --deploy --fail-level ERROR
 safemasks migrate
 
 ## collect all static before run
-safemasks collectstatic
+safemasks collectstatic --noinput
