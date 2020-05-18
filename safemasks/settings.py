@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from django.core.exceptions import ImproperlyConfigured
 
-from safemasks.utils import parse_db_from_environ
+from safemasks.utils import parse_db_from_environ, parse_email_from_environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,16 +41,22 @@ if ENVIRONMENT is None:
 DEBUG = ENVIRONMENT == "DEBUG"
 
 
-ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0']
+ALLOWED_HOSTS = []
 CURRENT_HOST = os.environ.get("SAFEMASKS_HOST", None)
 if CURRENT_HOST:
     ALLOWED_HOSTS.append(CURRENT_HOST)
 
+SITE_ID = 1
+
 
 # Application definition
-SAFEMASKS_APPS = ["resources"]
+SAFEMASKS_APPS = ["masks_auth", "resources"]
 
-EXTENSION_APPS = ["rest_framework", "bootstrap4"]
+EXTENSION_APPS = [
+    "rest_framework",
+    "bootstrap4",
+    "crispy_forms",
+]
 
 INSTALLED_APPS = (
     SAFEMASKS_APPS
@@ -62,6 +68,9 @@ INSTALLED_APPS = (
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        "django.contrib.sites",
+        "allauth",
+        "allauth.account",
     ]
 )
 
@@ -81,7 +90,10 @@ ROOT_URLCONF = "safemasks.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "safemasks", "templates")],
+        "DIRS": [
+            os.path.join(BASE_DIR, "safemasks", "templates"),
+            os.path.join(BASE_DIR, "safemasks", "masks_auth", "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -128,6 +140,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+## Crispy forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -139,9 +153,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ],
+    "DEFAULT_PERMISSION_CLASSES": ["masks_auth.rest.permissions.IsReviewed"],
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
@@ -150,3 +162,37 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 100,
 }
+
+## Authentification
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/accounts/profile/"
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# See also https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USERNAME_BLACKLIST = []
+ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_FORMS = {"signup": "masks_auth.forms.SignupForm"}
+
+## Email
+_EMAIL_DATA = parse_email_from_environ()
+DEFAULT_FROM_EMAIL = "no-reply@safemasks.de"
+EMAIL_BACKEND = _EMAIL_DATA.get("EMAIL_BACKEND", None)
+EMAIL_HOST = _EMAIL_DATA.get("EMAIL_HOST", None)
+EMAIL_HOST_USER = _EMAIL_DATA.get("EMAIL_HOST_USER", None)
+EMAIL_HOST_PASSWORD = _EMAIL_DATA.get("EMAIL_HOST_PASSWORD", None)
+EMAIL_USE_TLS = _EMAIL_DATA.get("EMAIL_USE_TLS", None)
+EMAIL_USE_SSL = _EMAIL_DATA.get("EMAIL_USE_SSL", None)
+EMAIL_PORT = _EMAIL_DATA.get("EMAIL_PORT", None)

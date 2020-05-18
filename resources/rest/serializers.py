@@ -1,18 +1,24 @@
+"""Rest API serializers for resources
 """
-"""
+from rest_framework.serializers import ModelSerializer
+from rest_framework.viewsets import ModelViewSet
 
 from resources.models import Product, Supplier
-from rest_framework.serializers import ModelSerializer, RelatedField
-from rest_framework.viewsets import ModelViewSet
 
 
 class SupplierSerializer(ModelSerializer):
+    """Serializer of companies
+    """
+
     class Meta:
         model = Supplier
         fields = ["name", "addresses", "company_type"]
 
 
 class ProductSerializer(ModelSerializer):
+    """Serializer of products
+    """
+
     supplier = SupplierSerializer()
 
     class Meta:
@@ -20,6 +26,9 @@ class ProductSerializer(ModelSerializer):
         fields = ["name", "supplier", "certificate", "trustworthy", "last_update"]
 
 
-class BlackListViewSet(ModelViewSet):
+class BlackListViewSet(ModelViewSet):  # pylint: disable=R0901
+    """Serializer view for only untrustworthy products
+    """
+
     queryset = Product.objects.filter(trustworthy=False)
     serializer_class = ProductSerializer

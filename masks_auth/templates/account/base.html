@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    {% block jumbotron %}
+    {% endblock jumbotron%}
+</div>
+
+<div class="container container-fluid">
+    {% block content-body %}
+    <div class="row">
+        {% block content-row %}
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    {% block form-card %}
+                    {% endblock form-card %}
+                </div>
+            </div>
+        </div>
+        {% endblock content-row %}
+    </div>
+    {% endblock content-body %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block jumbotron %}
+    <h1>{% trans "Sign Up" %}</h1>
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+{% endblock jumbotron %}
+
+{% block content-body %}
+<div class="alert alert-info" role="alert">
+    Although, the information we provide are free, to maintain the integrity of our data, we manually review users.
+    If you want to request access, please provide information about you and why you require access to Safe Masks.
+    After we have verified your E-Mail address, we will contact you about further steps.
+</div>
+<div class="card">
+    <div class="card-body">
+        <form class="signup_form" method="POST" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+</div>
+{% endblock content-body %}
