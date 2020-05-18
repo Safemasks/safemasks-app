@@ -84,6 +84,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "safemasks.safemasks.urls"
@@ -131,7 +132,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "de"
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "safemasks", "locale"),
+    os.path.join(BASE_DIR, "resources", "locale"),
+    os.path.join(BASE_DIR, "masks_auth", "locale"),
+)
 
 TIME_ZONE = "Europe/Berlin"
 

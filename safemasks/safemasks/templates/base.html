@@ -1,5 +1,6 @@
 {% load static %}
 {% load bootstrap4 %}
+{% load i18n %}
 
 <!doctype html>
 <html>
@@ -64,7 +65,7 @@
 
         {% block content %}
         <div class="jumbotron">
-            <h1>Welcome to Safemasks</h1>
+            <h1>{% trans 'Welcome to Safemasks' %}</h1>
             <h5>This page is currently under development</h2>
         </div>
         {% if messages %}
