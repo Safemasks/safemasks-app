@@ -13,10 +13,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from django.core.exceptions import ImproperlyConfigured
 
-from safemasks.utils import parse_db_from_environ, parse_email_from_environ
+from safemasks.safemasks.utils import parse_db_from_environ, parse_email_from_environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +42,7 @@ if ENVIRONMENT is None:
 DEBUG = ENVIRONMENT == "DEBUG"
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 CURRENT_HOST = os.environ.get("SAFEMASKS_HOST", None)
 if CURRENT_HOST:
     ALLOWED_HOSTS.append(CURRENT_HOST)
@@ -50,7 +51,7 @@ SITE_ID = 1
 
 
 # Application definition
-SAFEMASKS_APPS = ["masks_auth", "resources"]
+SAFEMASKS_APPS = ["safemasks.masks_auth", "safemasks.resources"]
 
 EXTENSION_APPS = [
     "rest_framework",
@@ -85,7 +86,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "safemasks.urls"
+ROOT_URLCONF = "safemasks.safemasks.urls"
 
 TEMPLATES = [
     {
@@ -106,7 +107,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "safemasks.wsgi.application"
+WSGI_APPLICATION = "safemasks.safemasks.wsgi.application"
 
 
 # Database
@@ -147,13 +148,13 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": ["masks_auth.rest.permissions.IsReviewed"],
+    "DEFAULT_PERMISSION_CLASSES": ["safemasks.masks_auth.rest.permissions.IsReviewed"],
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
@@ -184,7 +185,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_USERNAME_BLACKLIST = []
 ACCOUNT_USERNAME_REQUIRED = False
 
-ACCOUNT_FORMS = {"signup": "masks_auth.forms.SignupForm"}
+ACCOUNT_FORMS = {"signup": "safemasks.masks_auth.forms.SignupForm"}
 
 ## Email
 _EMAIL_DATA = parse_email_from_environ()

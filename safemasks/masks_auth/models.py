@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.db import models
 
-from masks_auth.utils import has_verified_email
+from safemasks.masks_auth.utils import has_verified_email
 
 PHONE_VALIDATOR = RegexValidator(
     regex=r"^\+?1?\d{9,15}$",

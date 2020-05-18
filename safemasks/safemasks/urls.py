@@ -13,11 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 
-from masks_auth.views import ProfileView
+from django.contrib.auth.decorators import permission_required
 
-app_name = "masks_auth"
+from safemasks.safemasks.views import Index
+
+admin.site.login = permission_required("is_staff", raise_exception=True)(
+    admin.site.login
+)
+
+app_name = "safemasks"
 urlpatterns = [
-    path("profile/", ProfileView.as_view(), name="profile"),
+    path("", Index.as_view(), name="index"),
+    path("admin/", admin.site.urls),
+    path("resources/", include("safemasks.resources.urls", namespace="resources")),
+    path(r"accounts/", include("allauth.urls")),
+    path(r"accounts/", include("safemasks.masks_auth.urls")),
 ]

@@ -13,7 +13,7 @@ from pandas import read_excel, isna
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-from resources.models import (
+from safemasks.resources.models import (
     Supplier,
     Product,
     ProductReview,

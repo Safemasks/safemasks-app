@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from masks_auth.models import Profile
+from safemasks.masks_auth.models import Profile
 
 
 class ProfileInline(admin.StackedInline):

@@ -26,11 +26,30 @@ Django web app and API interface for Safemasks project
 - ```SAFEMASKS_EMAIL_USE_SSL```
 - ```SAFEMASKS_EMAIL_PORT```
 
+## Run local docker image
+
+Create an `env.list` file which contains all the environment variables and run
+```python
+docker build -t <my-tag> -f IaC/Dockerfile .
+docker run -it -p 80:80 --env-file env.list <my-tag>
+```
+
+This runs test and launches the app at `localhost:80` (you may have to disable your local server, like `apachectl` before doing so.)
+
 
 ## Install dependencies
 
 ```bash
 python -m pip install -r requirements.txt
+python -m pip install [-e] .
+```
+
+After this, you can import `safemasks` into other modules and run the `safemasks` CLI which wraps `manage.py`.
+Example:
+```python
+from safemasks.resources.models import Supplier
+
+print(Supplier.objects.all())
 ```
 
 ## Running development server

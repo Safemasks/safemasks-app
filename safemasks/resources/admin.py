@@ -5,7 +5,7 @@ from django.contrib.admin import register, ModelAdmin, TabularInline
 from django.db.models import TextField
 from django.forms import Textarea
 
-from resources.models import (
+from safemasks.resources.models import (
     Supplier,
     Product,
     ProductReview,

@@ -8,7 +8,7 @@ from ipware import get_client_ip
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 
-from masks_auth.models import Profile
+from safemasks.masks_auth.models import Profile
 
 
 class ProfileForm(ModelForm):
