@@ -1,7 +1,7 @@
 """Custom implementations of default forms
 """
 from django.forms import ModelForm, Textarea, CharField, TextInput
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from allauth.account.forms import SignupForm as AllAuthSignupForm
 from ipware import get_client_ip
