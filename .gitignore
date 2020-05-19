@@ -2,3 +2,4 @@
 staticfiles/
 build/
 env.list
+*.mo

@@ -31,4 +31,5 @@ urlpatterns = [
     path("resources/", include("safemasks.resources.urls", namespace="resources")),
     path(r"accounts/", include("allauth.urls")),
     path(r"accounts/", include("safemasks.masks_auth.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]

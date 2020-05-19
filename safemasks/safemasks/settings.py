@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
+
 
 from safemasks.safemasks.utils import parse_db_from_environ, parse_email_from_environ
 
@@ -49,7 +51,6 @@ if CURRENT_HOST:
 
 SITE_ID = 1
 
-
 # Application definition
 SAFEMASKS_APPS = ["safemasks.masks_auth", "safemasks.resources"]
 
@@ -79,6 +80,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -131,7 +133,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ("de", _("German")),
+    ("en", _("English")),
+]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "safemasks", "locale"),
+    os.path.join(BASE_DIR, "resources", "locale"),
+    os.path.join(BASE_DIR, "masks_auth", "locale"),
+)
 
 TIME_ZONE = "Europe/Berlin"
 
@@ -150,6 +162,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

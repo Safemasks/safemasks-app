@@ -13,3 +13,6 @@ safemasks migrate
 
 ## collect all static before run
 safemasks collectstatic --noinput
+
+##Compile localization files
+safemasks compilemessages

@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-19 16:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: safemasks/resources/models.py:44
+msgid "Name of the supplier."
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/models.py:48
+msgid ""
+"Addresses of the supplier. Comma seperated list of URLs or E-Mail addresses."
+msgstr "Adressen des Lieferanten (Liste: URLs, E-Mail Adresssen, ...)"
+
+#: safemasks/resources/models.py:55
+msgid "Supplier"
+msgstr "Lieferant"
+
+#: safemasks/resources/models.py:55
+msgid "Manufacturer"
+msgstr "Hersteller"
+
+#: safemasks/resources/models.py:113
+msgid "Name of the product"
+msgstr "Name des Produktes"
+
+#: safemasks/resources/models.py:118
+msgid "Who supplied this product?"
+msgstr ""
+
+#: safemasks/resources/models.py:122
+msgid "Certificate of the product"
+msgstr "Produkt Zertifikat"
+
+#: safemasks/resources/models.py:128
+msgid "Is the supplier trustworthy and fulfills standards? Aggregates reviews."
+msgstr ""
+
+#: safemasks/resources/models.py:131 safemasks/resources/models.py:210
+msgid "When was this entry last updated?"
+msgstr ""
+
+#: safemasks/resources/models.py:156
+msgid "What was the product?"
+msgstr ""
+
+#: safemasks/resources/models.py:159
+msgid "How was this information obtained?"
+msgstr ""
+
+#: safemasks/resources/models.py:163
+msgid "Who submitted this information?"
+msgstr ""
+
+#: safemasks/resources/models.py:166
+msgid "When was the review last updated?"
+msgstr ""
+
+#: safemasks/resources/models.py:170
+msgid "Is the product trustworthy and fulfills standards?"
+msgstr ""
+
+#: safemasks/resources/models.py:173
+msgid "Additional information to support review."
+msgstr ""
+
+#: safemasks/resources/models.py:189
+msgid "Product deliveries"
+msgstr ""
+
+#: safemasks/resources/models.py:194
+msgid "Which product was delivered?"
+msgstr ""
+
+#: safemasks/resources/models.py:196
+msgid "How many items were delivered?"
+msgstr ""
+
+#: safemasks/resources/models.py:202
+msgid "Price per unit in Euro."
+msgstr ""
+
+#: safemasks/resources/models.py:205
+msgid "Who obtained the delivery?"
+msgstr ""
+
+#: safemasks/resources/models.py:208
+msgid "Was the product delivered in time?"
+msgstr ""
+
+#: safemasks/resources/models.py:226
+msgid "Name of the resource"
+msgstr ""
+
+#: safemasks/resources/models.py:228
+msgid "Address of the resource"
+msgstr ""
+
+#: safemasks/resources/models.py:230
+msgid "Additional information about resource."
+msgstr ""
