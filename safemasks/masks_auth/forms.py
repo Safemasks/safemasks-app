@@ -1,6 +1,7 @@
 """Custom implementations of default forms
 """
 from django.forms import ModelForm, Textarea, CharField, TextInput
+from django.utils.translation import gettext as _
 
 from allauth.account.forms import SignupForm as AllAuthSignupForm
 from ipware import get_client_ip
@@ -19,13 +20,17 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ["phone_number", "company", "description"]
         widgets = {
-            "phone_number": TextInput(attrs={"placeholder": "+99999 max 15 digits"}),
-            "company": TextInput(attrs={"placeholder": "Your company or institution."}),
+            "phone_number": TextInput(attrs={"placeholder": _("+99999 max 15 digits")}),
+            "company": TextInput(
+                attrs={"placeholder": _("Your company or institution.")}
+            ),
             "description": Textarea(
                 attrs={
-                    "placeholder": "Why are you interested in using Safe Masks?"
-                    " Please add additional descriptions and further links"
-                    " to verify your identity."
+                    "placeholder": _(
+                        "Why are you interested in using Safe Masks?"
+                        " Please add additional descriptions and further links"
+                        " to verify your identity."
+                    )
                 }
             ),
         }
@@ -45,12 +50,12 @@ class SignupForm(AllAuthSignupForm):
 
     first_name = CharField(
         max_length=256,
-        widget=TextInput(attrs={"placeholder": "First name"}),
+        widget=TextInput(attrs={"placeholder": _("First name")}),
         required=True,
     )
     last_name = CharField(
         max_length=256,
-        widget=TextInput(attrs={"placeholder": "Last name"}),
+        widget=TextInput(attrs={"placeholder": _("Last name")}),
         required=True,
     )
 
@@ -101,5 +106,5 @@ class SignupForm(AllAuthSignupForm):
                 Column("password2", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
-            Submit("submit", "Sign Up"),
+            Submit("submit", _("Sign Up")),
         )
