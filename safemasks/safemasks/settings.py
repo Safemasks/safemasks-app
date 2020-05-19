@@ -51,7 +51,6 @@ if CURRENT_HOST:
 
 SITE_ID = 1
 
-
 # Application definition
 SAFEMASKS_APPS = ["safemasks.masks_auth", "safemasks.resources"]
 
@@ -163,6 +162,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
