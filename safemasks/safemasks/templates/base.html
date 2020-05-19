@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Safe Masks! {% block head_title %}Dev{% endblock head_title %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     {% bootstrap_css %}
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     {% bootstrap_javascript jquery='full' %}
@@ -23,7 +24,7 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <!-- Brand -->
             <a class="navbar-brand" href="{% url 'index' %}">
-                <span>Safemasks</span>
+                <span>Safe Masks!</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,6 +59,19 @@
                     </li>
                     {% endif %}
                 </ul>
+                <form action="{% url 'set_language' %}" method="post" class="form-inline my-2">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select class="form-control form-control-sm" name="language" onchange="this.form.submit()">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
         </nav>
     </header>

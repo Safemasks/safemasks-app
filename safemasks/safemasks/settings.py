@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
+
 
 from safemasks.safemasks.utils import parse_db_from_environ, parse_email_from_environ
 
@@ -79,12 +81,12 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "safemasks.safemasks.urls"
@@ -132,7 +134,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "de"
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ("de", _("German")),
+    ("en", _("English")),
+]
+
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, "safemasks", "locale"),
     os.path.join(BASE_DIR, "resources", "locale"),
