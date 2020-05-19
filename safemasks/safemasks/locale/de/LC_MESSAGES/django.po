@@ -24,7 +24,7 @@ msgstr "Deutsch"
 
 #: safemasks/safemasks/settings.py:140
 msgid "English (US)"
-msgstr ""
+msgstr "Englisch (US)"
 
 #: safemasks/safemasks/templates/base.html:69
 #: safemasks/safemasks/templates/index.html:8
