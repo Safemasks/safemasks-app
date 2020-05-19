@@ -25,6 +25,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         help_text=_("User instance."),
         related_name="profile",
+        verbose_name=_("User"),
     )
     phone_number = models.CharField(
         validators=[PHONE_VALIDATOR],
@@ -32,28 +33,37 @@ class Profile(models.Model):
         null=True,
         blank=True,
         help_text=_("+999999999 Up to 15 digits allowed"),
+        verbose_name=_("Phone number"),
     )
     company = models.CharField(
         max_length=256,
         null=True,
         blank=True,
         help_text=_("Name of your company or institution."),
+        verbose_name=_("Company"),
     )
     description = models.TextField(
         null=True,
         blank=True,
         help_text=_("Additional information, descriptions and references."),
+        verbose_name=_("Description"),
     )
     is_reviewed = models.BooleanField(
         null=False,
         default=False,
         help_text=_("Was the authenticity of the user reviewed by the administration?"),
+        verbose_name=_("Is reviewed?"),
     )
     ip = models.GenericIPAddressField(
-        null=True, blank=True, help_text=_("Ip address associated with user.")
+        null=True,
+        blank=True,
+        help_text=_("Ip address associated with user."),
+        verbose_name=_("IP address"),
     )
     last_updated = models.DateTimeField(
-        auto_now=True, help_text=_("Last time the profile was updated.")
+        auto_now=True,
+        help_text=_("Last time the profile was updated."),
+        verbose_name=_("Last update"),
     )
 
     def __str__(self) -> str:

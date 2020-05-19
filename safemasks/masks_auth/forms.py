@@ -49,11 +49,13 @@ class SignupForm(AllAuthSignupForm):
     """
 
     first_name = CharField(
+        label=_("First name"),
         max_length=256,
         widget=TextInput(attrs={"placeholder": _("First name")}),
         required=True,
     )
     last_name = CharField(
+        label=_("Last name"),
         max_length=256,
         widget=TextInput(attrs={"placeholder": _("Last name")}),
         required=True,

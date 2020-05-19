@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 16:20+0200\n"
+"POT-Creation-Date: 2020-05-19 17:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,17 +34,17 @@ msgstr ""
 "Warum sind Sie an Safe Masks interessiert? Bitte fügen Sie weitere "
 "information hinzu, die uns helfen Sie zu verifizieren."
 
-#: safemasks/masks_auth/forms.py:53
+#: safemasks/masks_auth/forms.py:52 safemasks/masks_auth/forms.py:54
 #: safemasks/masks_auth/templates/account/profile.html:36
 msgid "First name"
 msgstr "Vorname"
 
-#: safemasks/masks_auth/forms.py:58
+#: safemasks/masks_auth/forms.py:58 safemasks/masks_auth/forms.py:60
 #: safemasks/masks_auth/templates/account/profile.html:40
 msgid "Last name"
 msgstr "Nachname"
 
-#: safemasks/masks_auth/forms.py:109
+#: safemasks/masks_auth/forms.py:111
 #: safemasks/masks_auth/templates/account/signup.html:8
 msgid "Sign Up"
 msgstr "Registrieren"
@@ -61,29 +61,61 @@ msgstr ""
 msgid "User instance."
 msgstr "Nutzer Instanz"
 
-#: safemasks/masks_auth/models.py:34
+#: safemasks/masks_auth/models.py:28
+msgid "User"
+msgstr "Nutzer"
+
+#: safemasks/masks_auth/models.py:35
 msgid "+999999999 Up to 15 digits allowed"
 msgstr "'+9999' maximal 15 Stellen erlaubt"
 
-#: safemasks/masks_auth/models.py:40
+#: safemasks/masks_auth/models.py:36
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: safemasks/masks_auth/models.py:42
 msgid "Name of your company or institution."
 msgstr "Name Ihrer Firma oder Beschäftigung"
 
-#: safemasks/masks_auth/models.py:45
+#: safemasks/masks_auth/models.py:43
+msgid "Company"
+msgstr "Firma"
+
+#: safemasks/masks_auth/models.py:48
 msgid "Additional information, descriptions and references."
 msgstr "Weitere Infromationen, Beschreibungen oder Referenzen."
 
-#: safemasks/masks_auth/models.py:50
+#: safemasks/masks_auth/models.py:49
+msgid "Description"
+msgstr "Beschreibung"
+
+#: safemasks/masks_auth/models.py:54
 msgid "Was the authenticity of the user reviewed by the administration?"
 msgstr "Wurde der Nutzer von einem Administrator verifiziert?"
 
-#: safemasks/masks_auth/models.py:53
+#: safemasks/masks_auth/models.py:55
+msgid "Is reviewed?"
+msgstr "Wurde überprüft"
+
+#: safemasks/masks_auth/models.py:60
 msgid "Ip address associated with user."
 msgstr "Ip Adresse des Nutzers."
 
-#: safemasks/masks_auth/models.py:56
+#: safemasks/masks_auth/models.py:61
+#, fuzzy
+#| msgid "Email address"
+msgid "IP address"
+msgstr "E-Mail Adresse"
+
+#: safemasks/masks_auth/models.py:65
 msgid "Last time the profile was updated."
 msgstr "Letze Profiländerung."
+
+#: safemasks/masks_auth/models.py:66
+#, fuzzy
+#| msgid "Last updated:"
+msgid "Last update"
+msgstr "Letzte Bearbeitung:"
 
 #: safemasks/masks_auth/templates/account/account_inactive.html:5
 #: safemasks/masks_auth/templates/account/account_inactive.html:8
