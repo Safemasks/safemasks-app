@@ -10,6 +10,9 @@ from django.core.validators import URLValidator, EmailValidator
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
 
+from django.utils.translation import gettext_lazy as _
+
+
 URL_VALIDATOR = URLValidator()
 EMAIL_VALIDATOR = EmailValidator()
 
@@ -38,16 +41,18 @@ class Supplier(models.Model):
     """
 
     name = models.CharField(
-        help_text="Name of the supplier.", unique=True, max_length=512
+        help_text=_("Name of the supplier."), unique=True, max_length=512
     )
     addresses = models.TextField(
-        help_text="Addresses of the supplier."
-        " Comma seperated list of URLs or E-Mail addresses.",
+        help_text=_(
+            "Addresses of the supplier."
+            " Comma seperated list of URLs or E-Mail addresses."
+        ),
         null=True,
         blank=True,
     )
     company_type = models.CharField(
-        choices=[("sup", "Supplier"), ("man", "Manufacturer")],
+        choices=[("sup", _("Supplier")), ("man", _("Manufacturer"))],
         max_length=3,
         blank=True,
         null=True,
@@ -105,24 +110,25 @@ class Product(models.Model):
     name = models.CharField(
         choices=list(zip(_PRODUCT_NAME_CHOICES.values(), _PRODUCT_NAME_CHOICES.keys())),
         max_length=4,
-        help_text="Name of the product",
+        help_text=_("Name of the product"),
     )
     supplier = models.ForeignKey(
         to=Supplier,
         on_delete=models.CASCADE,
-        help_text="Who supplied this product?",
+        help_text=_("Who supplied this product?"),
         related_name="products",
     )
     certificate = models.CharField(
-        null=True, blank=True, help_text="Certificate of the product", max_length=128
+        null=True, blank=True, help_text=_("Certificate of the product"), max_length=128
     )
     trustworthy = models.BooleanField(
         blank=False,
         null=False,
-        help_text="Is the supplier trustworthy and fulfills standards?"
-        " Aggregates reviews.",
+        help_text=_(
+            "Is the supplier trustworthy and fulfills standards?" " Aggregates reviews."
+        ),
     )
-    last_update = models.DateTimeField(help_text="When was this entry last updated?")
+    last_update = models.DateTimeField(help_text=_("When was this entry last updated?"))
 
     class Meta:
         unique_together = ["name", "supplier"]
@@ -147,24 +153,24 @@ class ProductReview(models.Model):
     product = models.ForeignKey(
         to=Product,
         on_delete=models.CASCADE,
-        help_text="What was the product?",
+        help_text=_("What was the product?"),
         related_name="appears_in_reviews",
     )
-    source = models.TextField(help_text="How was this information obtained?")
+    source = models.TextField(help_text=_("How was this information obtained?"))
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
-        help_text="Who submitted this information?",
+        help_text=_("Who submitted this information?"),
         related_name="reviews",
     )
-    last_update = models.DateTimeField(help_text="When was the review last updated?")
+    last_update = models.DateTimeField(help_text=_("When was the review last updated?"))
     trustworthy = models.BooleanField(
         blank=False,
         null=False,
-        help_text="Is the product trustworthy and fulfills standards?",
+        help_text=_("Is the product trustworthy and fulfills standards?"),
     )
     comment = models.TextField(
-        null=True, blank=True, help_text="Additional information to support review."
+        null=True, blank=True, help_text=_("Additional information to support review.")
     )
 
     def __str__(self) -> str:
@@ -180,24 +186,28 @@ class ProductDelivery(models.Model):
     This allows to track if suppliers met their demands.
     """
 
-    verbose_name_plural = "Product deliveries"
+    verbose_name_plural = _("Product deliveries")
 
     product = models.ForeignKey(
-        to=Product, on_delete=models.CASCADE, help_text="Which product was delivered?"
+        to=Product,
+        on_delete=models.CASCADE,
+        help_text=_("Which product was delivered?"),
     )
-    amount = models.PositiveIntegerField(help_text="How many items were delivered?")
+    amount = models.PositiveIntegerField(help_text=_("How many items were delivered?"))
     price_per_unit = models.DecimalField(
         max_digits=8,
         decimal_places=2,
         null=True,
         blank=True,
-        help_text="Price per unit in Euro.",
+        help_text=_("Price per unit in Euro."),
     )
-    receiver = models.CharField(max_length=512, help_text="Who obtained the delivery?",)
+    receiver = models.CharField(
+        max_length=512, help_text=_("Who obtained the delivery?"),
+    )
     delivered_in_time = models.BooleanField(
-        null=True, blank=True, help_text="Was the product delivered in time?"
+        null=True, blank=True, help_text=_("Was the product delivered in time?")
     )
-    last_update = models.DateTimeField(help_text="When was this entry last updated?")
+    last_update = models.DateTimeField(help_text=_("When was this entry last updated?"))
 
     def __str__(self) -> str:
         """Name of the list"""
@@ -213,11 +223,11 @@ class RemoteDatabase(models.Model):
     """
 
     name = models.CharField(
-        max_length=128, help_text="Name of the resource", unique=True
+        max_length=128, help_text=_("Name of the resource"), unique=True
     )
-    address = models.URLField(help_text="Address of the resource")
+    address = models.URLField(help_text=_("Address of the resource"))
     supplements = models.TextField(
-        null=True, blank=True, help_text="Additional information about resource."
+        null=True, blank=True, help_text=_("Additional information about resource.")
     )
 
     def __str__(self) -> str:
