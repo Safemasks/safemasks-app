@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 15:07+0200\n"
+"POT-Creation-Date: 2020-05-19 15:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: safemasks/masks_auth/forms.py:23
+msgid "+99999 max 15 digits"
+msgstr "+9999 maximal 15 Stellen"
+
+#: safemasks/masks_auth/forms.py:25
+msgid "Your company or institution."
+msgstr "Ihre Beschäftigung"
+
+#: safemasks/masks_auth/forms.py:30
+msgid ""
+"Why are you interested in using Safe Masks? Please add additional "
+"descriptions and further links to verify your identity."
+msgstr ""
+"Warum sind Sie an Safe Masks interessiert?"
+" Bitte fügen Sie weitere information hinzu, die uns helfen Sie zu verifizieren."
+
+#: safemasks/masks_auth/forms.py:53
+#: safemasks/masks_auth/templates/account/profile.html:36
+msgid "First name"
+msgstr "Vorname"
+
+#: safemasks/masks_auth/forms.py:58
+#: safemasks/masks_auth/templates/account/profile.html:40
+msgid "Last name"
+msgstr "Nachname"
+
+#: safemasks/masks_auth/forms.py:109
+#: safemasks/masks_auth/templates/account/signup.html:8
+msgid "Sign Up"
+msgstr "Registrieren"
+
+#: safemasks/masks_auth/models.py:13
+msgid ""
+"Phone number must be entered in the format: '+999999999'. Up to 15 digits "
+"allowed."
+msgstr "Die Telefonnummer muss das folgende Format besitzen: '+9999' (maximal 15 Stellen)"
+
+#: safemasks/masks_auth/models.py:26
+msgid "User instance."
+msgstr "Nutzer Instanz"
+
+#: safemasks/masks_auth/models.py:34
+msgid "+999999999 Up to 15 digits allowed"
+msgstr "'+9999' maximal 15 Stellen erlaubt"
+
+#: safemasks/masks_auth/models.py:40
+msgid "Name of your company or institution."
+msgstr "Name Ihrer Firma oder Beschäftigung"
+
+#: safemasks/masks_auth/models.py:45
+msgid "Additional information, descriptions and references."
+msgstr "Weitere Infromationen, Beschreibungen oder Referenzen."
+
+#: safemasks/masks_auth/models.py:50
+msgid "Was the authenticity of the user reviewed by the administration?"
+msgstr "Wurde der Nutzer von einem Administrator verifiziert?"
+
+#: safemasks/masks_auth/models.py:53
+msgid "Ip address associated with user."
+msgstr "Ip Adresse des Nutzers."
+
+#: safemasks/masks_auth/models.py:56
+msgid "Last time the profile was updated."
+msgstr "Letze Profiländerung."
 
 #: safemasks/masks_auth/templates/account/account_inactive.html:5
 #: safemasks/masks_auth/templates/account/account_inactive.html:8
@@ -37,7 +102,7 @@ msgstr "Anmelden"
 #: safemasks/masks_auth/templates/account/email.html:5
 #: safemasks/masks_auth/templates/account/email.html:8
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "E-mail Adressen"
 
 #: safemasks/masks_auth/templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
@@ -103,15 +168,21 @@ msgid ""
 "To confirm this is correct, go to %(activate_url)s\n"
 "\n"
 msgstr ""
+"Hallo von Safe Masks!\n"
+"\n"
+"Sie erhalten diese Email, da der Nutzer %(user_display)s diese mit einem Safe Maks! Profil verknüpft hat.\n"
+"\n"
+"Bitte klicken Sie auf den folgenden Link um den Account zu verifizieren %(activate_url)s\n"
+"\n"
 
 #: safemasks/masks_auth/templates/account/email/email_confirmation_message.txt:8
 msgid "Thank you from Safe Masks!\n"
-msgstr ""
+msgstr "Vielen Dank von Safe Masks!"
 
 #: safemasks/masks_auth/templates/account/email_confirm.html:6
 #: safemasks/masks_auth/templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr ""
+msgstr "Bestätigen der E-Mail Adresse"
 
 #: safemasks/masks_auth/templates/account/email_confirm.html:16
 #, python-format
@@ -119,10 +190,11 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
+"Bitte bestätigen Sie, dass <a href=\"mailto:%(email)s\">%(email)s</a> eine E-Mail Adresse für Nutzer %(user_display)s ist."
 
 #: safemasks/masks_auth/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 #: safemasks/masks_auth/templates/account/email_confirm.html:27
 #, python-format
@@ -130,6 +202,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
+"Der E-Mail Verifizierungslink ist entweder ungültig oder abgelaufen. Bitte <a href="
+"\"%(email_url)s\">fordern Sie einen neuen Bestätigungslink an</a>."
 
 #: safemasks/masks_auth/templates/account/login.html:9
 #, python-format
@@ -137,20 +211,23 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
+"Falls Sie noch keinen Account erstellt haben, \n"
+"    <a href=\"%(signup_url)s\">registrieren Sie sich</a> bitte."
+
 
 #: safemasks/masks_auth/templates/account/login.html:21
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Passwort vergessen?"
 
 #: safemasks/masks_auth/templates/account/logout.html:5
 #: safemasks/masks_auth/templates/account/logout.html:8
 #: safemasks/masks_auth/templates/account/logout.html:19
 msgid "Sign Out"
-msgstr ""
+msgstr "Abmelden"
 
 #: safemasks/masks_auth/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie sich abmelden wollen?"
 
 #: safemasks/masks_auth/templates/account/password_change.html:5
 #: safemasks/masks_auth/templates/account/password_change.html:8
@@ -160,14 +237,14 @@ msgstr ""
 #: safemasks/masks_auth/templates/account/password_reset_from_key_done.html:4
 #: safemasks/masks_auth/templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: safemasks/masks_auth/templates/account/password_reset.html:6
 #: safemasks/masks_auth/templates/account/password_reset.html:10
 #: safemasks/masks_auth/templates/account/password_reset_done.html:6
 #: safemasks/masks_auth/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: safemasks/masks_auth/templates/account/password_reset.html:15
 msgid ""
@@ -216,18 +293,64 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: safemasks/masks_auth/templates/account/signup.html:5
-msgid "Signup"
+#: safemasks/masks_auth/templates/account/profile.html:7
+msgid "Profile:"
 msgstr ""
 
-#: safemasks/masks_auth/templates/account/signup.html:8
-msgid "Sign Up"
+#: safemasks/masks_auth/templates/account/profile.html:11
+msgid "Your account is set to inactive. Please contact our support."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:14
+msgid "Your do not have a verified E-mail address yet"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:15
+msgid "Please verify your email to receive further access rights"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:19
+msgid "Your profile has not been reviewed, yet"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:20
+msgid "We are going to contact you soon."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:26
+msgid "Update profile information"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:30
+#, fuzzy
+#| msgid "Add E-mail Address"
+msgid "Email address"
+msgstr "E-mail Adresse hinzufügen"
+
+#: safemasks/masks_auth/templates/account/profile.html:52
+msgid "Last updated:"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/signup.html:5
+msgid "Signup"
 msgstr ""
 
 #: safemasks/masks_auth/templates/account/signup.html:9
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/signup.html:14
+msgid ""
+"\n"
+"    Although, the information we provide are free, to maintain the integrity "
+"of our data, we manually review users.\n"
+"    If you want to request access, please provide information about you and "
+"why you require access to Safe Masks.\n"
+"    After we have verified your E-Mail address, we will contact you about "
+"further steps.\n"
+"    "
 msgstr ""
 
 #: safemasks/masks_auth/templates/account/signup_closed.html:5
