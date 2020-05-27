@@ -36,7 +36,7 @@ jobs:
     steps:
     - script: |
         az login --service-principal --username $(spusername) --password $(spuserpassword) --tenant $(Tenant)
-        az container delete --name $(ContainerNameAPP) --resource-group $(ResourceGroupAPP)      
+        az container delete --name $(ContainerNameAPP) --resource-group $(ResourceGroupAPP)  --yes    
         az deployment group create --resource-group $(ResourceGroupAPP) --subscription $(Subscription) --template-file $(templatePath) --parameters $(parametersPath) \
         imagePassword=$(imagePassword) \
         SAFEMASKS_ENVIRONMENT=$(SAFEMASKS_ENVIRONMENT) \
