@@ -2,7 +2,7 @@ FROM python:3.7-stretch
 
 
 # Install Supervisord
-RUN apt-get update && apt-get install -y supervisor \
+RUN apt-get update && apt-get install -y supervisor gettext libgettextpo-dev \
 && rm -rf /var/lib/apt/lists/*
 # Custom Supervisord config
 
@@ -15,6 +15,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY . .
+RUN pip install -e .
+
 
 EXPOSE 80
 

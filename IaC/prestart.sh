@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-##migrate django db
-python manage.py migrate
+## run tests
+safemasks test
 
+## run checks
+###ToDo: Set to warning level on later stage
+safemasks check --deploy --fail-level ERROR
+
+##migrate django db
+safemasks migrate
 
 ## collect all static before run
-python manage.py collectstatic
+safemasks collectstatic --noinput
 
-
+##Compile localization files
+safemasks compilemessages

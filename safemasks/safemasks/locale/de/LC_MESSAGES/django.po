@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-19 16:25+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: safemasks/safemasks/settings.py:139
+msgid "German"
+msgstr "Deutsch"
+
+#: safemasks/safemasks/settings.py:140
+msgid "English"
+msgstr "Englisch"
+
+#: safemasks/safemasks/templates/base.html:82
+#: safemasks/safemasks/templates/index.html:8
+msgid "Welcome to Safe Masks!"
+msgstr "Willkommen auf Safe Masks!"
+
+#: safemasks/safemasks/templates/base.html:83
+#: safemasks/safemasks/templates/index.html:9
+msgid "This page is currently under development"
+msgstr "Diese Seite wird grade aufgebaut"

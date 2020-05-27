@@ -80,9 +80,30 @@
         "SAFEMASKS_DB_PASSWORD": {
             "type": "string"
         },
+        "SAFEMASKS_DB_SSL": {
+            "type": "string"
+        },
         "SAFEMASKS_HOST": {
             "type": "string"
-        }        
+        },
+        "SAFEMASKS_EMAIL_BACKEND": {
+            "type": "string"
+        },
+        "SAFEMASKS_EMAIL_HOST": {
+            "type": "string"
+        },
+        "SAFEMASKS_EMAIL_HOST_USER": {
+            "type": "string"
+        },
+        "SAFEMASKS_EMAIL_HOST_PASSWORD": {
+            "type": "string"
+        },
+        "SAFEMASKS_EMAIL_USE_SSL": {
+            "type": "string"
+        },
+        "SAFEMASKS_EMAIL_PORT": {
+            "type": "string"
+        }
     },
     "variables": {
         "networkProfileName": "safemask-app-network-profile",
@@ -213,8 +234,36 @@
                                     "value": "[parameters('SAFEMASKS_DB_PASSWORD')]"
                                 },
                                 {
+                                    "name": "SAFEMASKS_DB_SSL",
+                                    "value": "[parameters('SAFEMASKS_DB_SSL')]"
+                                },
+                                {
                                     "name": "SAFEMASKS_HOST",
                                     "value": "[parameters('SAFEMASKS_HOST')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_BACKEND",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_BACKEND')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_HOST",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_HOST')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_HOST_USER",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_HOST_USER')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_HOST_PASSWORD",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_HOST_PASSWORD')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_USE_SSL",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_USE_SSL')]"
+                                },
+                                {
+                                    "name": "SAFEMASKS_EMAIL_PORT",
+                                    "value": "[parameters('SAFEMASKS_EMAIL_PORT')]"
                                 }
                             ]
                         }

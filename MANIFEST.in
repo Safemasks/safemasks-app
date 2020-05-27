@@ -1,0 +1,5 @@
+graft safemasks/*.html
+graft safemasks/*.js
+graft safemasks/*.css
+graft safemasks/*.py
+graft safemasks/*.po
