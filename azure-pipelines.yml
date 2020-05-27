@@ -55,6 +55,5 @@ jobs:
         SAFEMASKS_EMAIL_HOST_PASSWORD=$(SAFEMASKS_EMAIL_HOST_PASSWORD) \
         SAFEMASKS_EMAIL_USE_SSL=$(SAFEMASKS_EMAIL_USE_SSL) \
         SAFEMASKS_EMAIL_PORT=$(SAFEMASKS_EMAIL_PORT)
-        az container restart --name $(ContainerNameAPP) --resource-group $(ResourceGroupAPP)
       name: Deployment
       displayName: 'Deploy Container with Image'
