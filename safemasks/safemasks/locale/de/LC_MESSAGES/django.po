@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 16:25+0200\n"
+"POT-Creation-Date: 2020-06-30 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: safemasks/safemasks/settings.py:139
+#: safemasks/safemasks/settings.py:138
 msgid "German"
 msgstr "Deutsch"
 
-#: safemasks/safemasks/settings.py:140
+#: safemasks/safemasks/settings.py:139
 msgid "English"
 msgstr "Englisch"
 

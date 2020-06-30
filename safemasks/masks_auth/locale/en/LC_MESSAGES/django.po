@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 15:07+0200\n"
+"POT-Creation-Date: 2020-06-30 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,109 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: safemasks/masks_auth/forms.py:23
+msgid "+99999 max 15 digits"
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:25
+msgid "Your company or institution."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:28
+msgid "Your position in this company."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:33
+msgid ""
+"Why are you interested in using Safe Masks? Please add additional "
+"descriptions and further links to verify your identity."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:56 safemasks/masks_auth/forms.py:58
+#: safemasks/masks_auth/templates/account/profile.html:36
+msgid "First name"
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:62 safemasks/masks_auth/forms.py:64
+#: safemasks/masks_auth/templates/account/profile.html:40
+msgid "Last name"
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:117
+#: safemasks/masks_auth/templates/account/signup.html:8
+msgid "Sign Up"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:13
+msgid ""
+"Phone number must be entered in the format: '+999999999'. Up to 15 digits "
+"allowed."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:26
+msgid "User instance."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:28
+msgid "User"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:33
+msgid "+999999999 Up to 15 digits allowed"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:34
+msgid "Phone number"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:40
+msgid "Name of your company or institution."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:41
+msgid "Company"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:47
+msgid "Position in company or institution."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:48
+msgid "Position"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:53
+msgid "Additional information, descriptions and references."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:54
+msgid "Description"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:59
+msgid "Was the authenticity of the user reviewed by the administration?"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:60
+msgid "Is reviewed?"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:65
+msgid "Ip address associated with user."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:66
+msgid "IP address"
+msgstr ""
+
+#: safemasks/masks_auth/models.py:70
+msgid "Last time the profile was updated."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:71
+msgid "Last update"
+msgstr ""
 
 #: safemasks/masks_auth/templates/account/account_inactive.html:5
 #: safemasks/masks_auth/templates/account/account_inactive.html:8
@@ -213,18 +316,62 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: safemasks/masks_auth/templates/account/signup.html:5
-msgid "Signup"
+#: safemasks/masks_auth/templates/account/profile.html:7
+msgid "Profile:"
 msgstr ""
 
-#: safemasks/masks_auth/templates/account/signup.html:8
-msgid "Sign Up"
+#: safemasks/masks_auth/templates/account/profile.html:11
+msgid "Your account is set to inactive. Please contact our support."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:14
+msgid "Your do not have a verified E-mail address yet"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:15
+msgid "Please verify your email to receive further access rights"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:19
+msgid "Your profile has not been reviewed, yet"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:20
+msgid "We are going to contact you soon."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:26
+msgid "Update profile information"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:30
+msgid "Email address"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/profile.html:52
+msgid "Last updated:"
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/signup.html:5
+msgid "Signup"
 msgstr ""
 
 #: safemasks/masks_auth/templates/account/signup.html:9
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: safemasks/masks_auth/templates/account/signup.html:14
+msgid ""
+"\n"
+"    Although, the information we provide are free, to maintain the integrity "
+"of our data, we manually review users.\n"
+"    If you want to request access, please provide information about you and "
+"why you require access to Safe Masks.\n"
+"    After we have verified your E-Mail address, we will contact you about "
+"further steps.\n"
+"    "
 msgstr ""
 
 #: safemasks/masks_auth/templates/account/signup_closed.html:5

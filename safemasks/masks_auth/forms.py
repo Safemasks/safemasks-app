@@ -18,11 +18,14 @@ class ProfileForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["phone_number", "company", "description"]
+        fields = ["phone_number", "company", "position", "description"]
         widgets = {
             "phone_number": TextInput(attrs={"placeholder": _("+99999 max 15 digits")}),
             "company": TextInput(
                 attrs={"placeholder": _("Your company or institution.")}
+            ),
+            "position": TextInput(
+                attrs={"placeholder": _("Your position in this company.")}
             ),
             "description": Textarea(
                 attrs={
@@ -38,6 +41,7 @@ class ProfileForm(ModelForm):
             "phone_number": None,
             "company": None,
             "description": None,
+            "position": None,
         }
 
 
@@ -63,6 +67,7 @@ class SignupForm(AllAuthSignupForm):
 
     phone_number = PROFILE_FORM.fields["phone_number"]
     company = PROFILE_FORM.fields["company"]
+    position = PROFILE_FORM.fields["position"]
     description = PROFILE_FORM.fields["description"]
 
     def save(self, request):
@@ -102,6 +107,7 @@ class SignupForm(AllAuthSignupForm):
                 css_class="form-row",
             ),
             "company",
+            "position",
             "description",
             Row(
                 Column("password1", css_class="form-group col-md-6 mb-0"),

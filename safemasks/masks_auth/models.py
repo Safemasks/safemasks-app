@@ -30,8 +30,6 @@ class Profile(models.Model):
     phone_number = models.CharField(
         validators=[PHONE_VALIDATOR],
         max_length=17,
-        null=True,
-        blank=True,
         help_text=_("+999999999 Up to 15 digits allowed"),
         verbose_name=_("Phone number"),
     )
@@ -41,6 +39,13 @@ class Profile(models.Model):
         blank=True,
         help_text=_("Name of your company or institution."),
         verbose_name=_("Company"),
+    )
+    position = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+        help_text=_("Position in company or institution."),
+        verbose_name=_("Position"),
     )
     description = models.TextField(
         null=True,
