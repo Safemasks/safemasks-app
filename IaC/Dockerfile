@@ -128,6 +128,7 @@ RUN pip install -e .
 
 
 EXPOSE 80
+EXPOSE 443
 
 #domain name for SSL
 #dnslabel in template refers to first position

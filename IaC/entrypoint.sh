@@ -76,7 +76,7 @@ else
     content_server=$content_server"    ssl_stapling on;\n"
     content_server=$content_server"    ssl_stapling_verify on;\n"
     content_server=$content_server'    location / {\n'
-    content_server=$content_server'        proxy_pass http://0.0.0.0:80;\n'  
+    content_server=$content_server'        proxy_pass http://0.0.0.0:90;\n'  
     content_server=$content_server'    }\n'
     content_server=$content_server'    if ($scheme != "https") {\n'
     content_server=$content_server'        return 301 https://$host$request_uri;\n'
