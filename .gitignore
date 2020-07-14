@@ -4,3 +4,4 @@ build/
 env.list
 *.mo
 *.egg-info
+__pycache__
