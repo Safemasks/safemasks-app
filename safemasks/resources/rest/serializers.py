@@ -23,12 +23,12 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["name", "supplier", "certificate", "trustworthy", "last_update"]
+        fields = ["name", "supplier", "certificate", "last_update"]
 
 
-class BlackListViewSet(ModelViewSet):  # pylint: disable=R0901
+class ProductViewSet(ModelViewSet):  # pylint: disable=R0901
     """Serializer view for only untrustworthy products
     """
 
-    queryset = Product.objects.filter(trustworthy=False)
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
