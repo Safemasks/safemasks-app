@@ -29,6 +29,8 @@ class Profile(models.Model):
     )
     phone_number = models.CharField(
         validators=[PHONE_VALIDATOR],
+        null=True,
+        blank=False,
         max_length=17,
         help_text=_("+999999999 Up to 15 digits allowed"),
         verbose_name=_("Phone number"),
