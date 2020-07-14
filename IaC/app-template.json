@@ -15,6 +15,12 @@
                 "Windows"
             ]
         },
+        "ipAddressType": {
+            "type": "string"
+        },   
+        "dnsNameLabel": {
+            "type": "string"
+        },            
         "numberCpuCores": {
             "type": "string"
         },
@@ -40,21 +46,6 @@
         },
         "ports": {
             "type": "array"
-        },
-        "subnetName": {
-            "type": "string"
-        },
-        "vnetName": {
-            "type": "string"
-        },
-        "safeMasksPublicIpName": {
-            "type": "String"
-        },
-        "domainNameLabel": {
-            "type": "string"
-        },
-        "networkResourceGroup": {
-            "type": "string"
         },
         "SAFEMASKS_ENVIRONMENT": {
             "type": "string"
@@ -106,79 +97,8 @@
         }
     },
     "variables": {
-        "networkProfileName": "safemask-app-network-profile",
-        "interfaceConfigName": "eth0",
-        "interfaceIpConfig": "ipconfig1"
     },
     "resources": [
-        {
-            "apiVersion": "2017-05-10",
-            "name": "Network-Deployment",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('networkResourceGroup')]",
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {
-                    },
-                    "variables": {
-                        "interfaceIpConfig": "ipconfig1",
-                        "interfaceConfigName": "eth0"
-                    },
-                    "resources": [
-                        {
-                            "type": "Microsoft.Network/publicIPAddresses",
-                            "apiVersion": "2019-08-01",
-                            "name": "[parameters('safeMasksPublicIpName')]",
-                            "location": "[resourceGroup().location]",
-                            "sku": {
-                                "name": "Standard"
-                            },
-                            "properties": {
-                                "publicIPAddressVersion": "IPv4",
-                                "publicIPAllocationMethod": "Static",
-                                "idleTimeoutInMinutes": 4,
-                                "dnsSettings": {
-                                    "domainNameLabel": "[parameters('domainNameLabel')]"
-                                },
-                                "ipTags": [
-                                ]
-                            }
-                        },
-                        {
-                            "name": "[variables('networkProfileName')]",
-                            "type": "Microsoft.Network/networkProfiles",
-                            "dependsOn": [
-                                "[concat('Microsoft.Network/publicIPAddresses', '/',  parameters('safeMasksPublicIpName'))]"
-                            ],
-                            "apiVersion": "2018-07-01",
-                            "location": "[resourceGroup().location]",
-                            "properties": {
-                                "containerNetworkInterfaceConfigurations": [
-                                    {
-                                        "name": "[variables('interfaceConfigName')]",
-                                        "properties": {
-                                            "ipConfigurations": [
-                                                {
-                                                    "name": "[variables('interfaceIpConfig')]",
-                                                    "properties": {
-                                                        "subnet": {
-                                                            "id": "[resourceId(parameters('networkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
-                                                        }
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        },
         {
             "location": "[resourceGroup().location]",
             "name": "[parameters('containerName')]",
@@ -271,8 +191,10 @@
                 ],
                 "restartPolicy": "[parameters('restartPolicy')]",
                 "osType": "[parameters('osType')]",
-                "networkProfile": {
-                    "Id": "[resourceId(parameters('networkResourceGroup') , 'Microsoft.Network/networkProfiles', variables('networkProfileName'))]"
+                "ipAddress": {
+                    "type": "[parameters('ipAddressType')]",
+                    "ports": "[parameters('ports')]",
+                    "dnsNameLabel": "[parameters('dnsNameLabel')]"
                 },
                 "imageRegistryCredentials": [
                     {

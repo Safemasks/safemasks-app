@@ -44,17 +44,11 @@
                         }
                     ]
         },
-          "vnetName": {
-            "value": "safemasks-vnet"
-          },
-          "subnetName": {
-            "value": "safemasks-app-subnet"
-          },
-          "safeMasksPublicIpName": {
-            "value": "safemasks-public-ip"
-          },
           "domainNameLabel": {
-            "value": "safemasks"
+            "value": "safemasks-app-container"
+        },
+        "ipAddressType": {
+            "value": "Public"
         }
     }
 }

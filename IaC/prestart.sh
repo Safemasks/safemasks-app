@@ -16,3 +16,8 @@ safemasks collectstatic --noinput
 
 ##Compile localization files
 safemasks compilemessages
+
+git clone https://github.com/letsencrypt/letsencrypt ./letsencrypt
+
+#run the installation , nginx config for SSL has been set up in entrypoint.sh
+./letsencrypt/letsencrypt-auto certonly --standalone --email $DOMAINEMAIL --agree-tos --no-eff-email -d $DOMAIN
