@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "containerName": {
-            "value": "safemasks-app-container"
+            "value": "safemasks-app-container-pb"
         },
         "imageName": {
             "value": "safemasksacr.azurecr.io/safemasks:app"
