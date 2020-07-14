@@ -20,3 +20,7 @@ Write API to filter reviews.
 # Ideas
 
 Search engine with more clever free search fields
+
+# Deployment
+
+Make sure deployment only triggers if merged into master and master is protected with reviews.
