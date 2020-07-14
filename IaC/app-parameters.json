@@ -23,9 +23,6 @@
         "imageRegistryLoginServer": {
             "value": "safemasksacr.azurecr.io"
         },
-        "networkResourceGroup": {
-            "value": "safemasks-network-rg"
-        },
         "imageUsername": {
             "value": "safemasksacr"
         },

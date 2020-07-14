@@ -103,9 +103,6 @@
             "location": "[resourceGroup().location]",
             "name": "[parameters('containerName')]",
             "type": "Microsoft.ContainerInstance/containerGroups",
-            "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/','Network-Deployment')]"
-            ],
             "apiVersion": "2018-10-01",
             "properties": {
                 "containers": [
