@@ -9,14 +9,23 @@ from safemasks.resources.models import (
     Supplier,
     Product,
     ProductReview,
+    SupplierReview,
     ProductDelivery,
     RemoteDatabase,
 )
 
 
+class SupplierReviewInline(TabularInline):
+    model = SupplierReview
+    extra = 0
+    formfield_overrides = {
+        TextField: {"widget": Textarea(attrs={"rows": 2, "cols": 40})},
+    }
+
+
 @register(Supplier)
 class SupplierAdmin(ModelAdmin):
-    list_display = ("name", "addresses", "company_type")
+    list_display = ("name", "addresses", "company_type", "last_update")
 
 
 class ProductReviewInline(TabularInline):
@@ -33,17 +42,19 @@ class ProductAdmin(ModelAdmin):
         "name",
         "supplier",
         "certificate",
-        "trustworthy",
+        "avg_rating",
         "n_reviews",
+        "avg_product_rating",
+        "n_products",
         "last_update",
     )
     inlines = (ProductReviewInline,)
-    list_filter = ("name", "trustworthy")
+    list_filter = ("name",)
 
 
 @register(ProductReview)
 class ProductReviewAdmin(ModelAdmin):
-    list_display = ("product", "source", "user", "last_update", "trustworthy")
+    list_display = ("product", "source", "user", "last_update", "rating")
 
 
 @register(ProductDelivery)
