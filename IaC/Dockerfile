@@ -104,8 +104,6 @@ RUN apt-get update && apt-get install -y supervisor gettext libgettextpo-dev \
 
 COPY ./IaC/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-WORKDIR /usr/src/app
-
 
 # By default, allow unlimited file sizes, modify it to limit the file sizes
 # To have a maximum of 1 MB (Nginx's default) change the line to:
@@ -134,7 +132,7 @@ EXPOSE 443
 #dnslabel in template refers to first position
 
 
-ENV DOMAIN safemasks-app-service1.westeurope.azurecontainer.io
+ENV DOMAIN safemasks-app-service2.westeurope.azurecontainer.io
 
 #domain email associated with domain
 ENV DOMAINEMAIL samimkhassan@gmail.com
