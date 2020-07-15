@@ -42,7 +42,7 @@
                     ]
         },
           "dnsNameLabel": {
-            "value": "safemasks-app-container"
+            "value": "safemasks-app-container-pb1"
         },
         "ipAddressType": {
             "value": "Public"
