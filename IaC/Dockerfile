@@ -104,6 +104,8 @@ RUN apt-get update && apt-get install -y supervisor gettext libgettextpo-dev \
 
 COPY ./IaC/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+WORKDIR /usr/src/app
+
 
 # By default, allow unlimited file sizes, modify it to limit the file sizes
 # To have a maximum of 1 MB (Nginx's default) change the line to:
