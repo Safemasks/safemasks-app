@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "containerName": {
-            "value": "safemasks-app-container-pb1"
+            "value": "safemasks-app-service"
         },
         "imageName": {
             "value": "safemasksacr.azurecr.io/safemasks:app"
@@ -42,7 +42,7 @@
                     ]
         },
           "dnsNameLabel": {
-            "value": "safemasks-app-container-pb1"
+            "value": "safemasks-app-service"
         },
         "ipAddressType": {
             "value": "Public"
