@@ -2,10 +2,6 @@
 set -e
 
 
-
-#!/usr/bin/env bash
-set -e
-
 # Get the maximum upload file size for Nginx, default to 0: unlimited
 USE_NGINX_MAX_UPLOAD=${NGINX_MAX_UPLOAD:-0}
 
@@ -65,7 +61,10 @@ else
     content_server=$content_server"    ssl_stapling on;\n"
     content_server=$content_server"    ssl_stapling_verify on;\n"
     content_server=$content_server'    location / {\n'
-    content_server=$content_server'        proxy_pass http://0.0.0.0:90;\n'  
+    content_server=$content_server'        proxy_pass http://0.0.0.0:90;\n'
+    content_server=$content_server'        proxy_set_header Host $host;\n'
+    content_server=$content_server'        proxy_set_header X-Real-IP $remote_addr;\n'
+    content_server=$content_server'        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n'    
     content_server=$content_server'    }\n'
     content_server=$content_server'    if ($scheme != "https") {\n'
     content_server=$content_server'        return 301 https://$host$request_uri;\n'
