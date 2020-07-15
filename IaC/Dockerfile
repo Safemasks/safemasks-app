@@ -119,7 +119,7 @@ ENV NGINX_WORKER_PROCESSES 1
 # By default, Nginx listens on port 80.
 # To modify this, change LISTEN_PORT environment variable.
 # (in a Dockerfile or with an option for `docker run`)
-ENV LISTEN_PORT 80
+ENV LISTEN_PORT 90
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
