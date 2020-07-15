@@ -139,6 +139,12 @@ ENV DOMAIN safemasks-app-container.westeurope.azurecontainer.io
 #domain email associated with domain
 ENV DOMAINEMAIL samimkhassan@gmail.com
 
+# Copy the entrypoint that will generate Nginx additional configs
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 COPY ./IaC/start.sh /start.sh
 RUN chmod +x /start.sh
 

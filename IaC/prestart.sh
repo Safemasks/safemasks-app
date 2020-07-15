@@ -21,3 +21,13 @@ git clone https://github.com/letsencrypt/letsencrypt ./letsencrypt
 
 #run the installation , nginx config for SSL has been set up in entrypoint.sh
 ./letsencrypt/letsencrypt-auto certonly --standalone --email $DOMAINEMAIL --agree-tos --no-eff-email -d $DOMAIN
+
+##migrate django db
+python manage.py migrate
+
+
+## collect all static before run
+python manage.py collectstatic
+
+## Run server
+python manage.py runserver 0.0.0.0:90
