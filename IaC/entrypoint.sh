@@ -12,7 +12,7 @@ python manage.py migrate
 python manage.py collectstatic
 
 ## Run server
-python manage.py runserver 0.0.0.0:80
+python manage.py runserver 0.0.0.0:90
 
 #!/usr/bin/env bash
 set -e
