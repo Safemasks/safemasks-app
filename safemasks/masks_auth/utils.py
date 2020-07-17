@@ -11,7 +11,7 @@ def has_verified_email(user: User) -> bool:
     return EmailAddress.objects.filter(user=user, verified=True).exists()
 
 
-def is_reviwed(user: User) -> bool:
+def is_reviewed(user: User) -> bool:
     """Checks if user is reviewed
     """
-    return user.profile.is_reviwed
+    return user.profile.is_reviewed
