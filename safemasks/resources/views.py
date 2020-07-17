@@ -13,14 +13,14 @@ class ProductListView(ReviewedRequiredMixin, ListView):
     template_name = "product_list_view.html"
 
 
-class TrustedProductView(ListView):
-    model = Product
-    template_name = "trusted_product_view.html"
-
-
 class ProductDetailView(ReviewedRequiredMixin, DetailView):
     model = Product
     template_name = "product_detail_view.html"
+
+
+class TrustedSuppliersView(ListView):
+    model = Supplier
+    template_name = "trusted_suppliers_view.html"
 
 
 class SupplierListView(ReviewedRequiredMixin, ListView):
