@@ -5,6 +5,7 @@ xlrd
 markdown
 whitenoise
 djangorestframework
+djangorestframework-datatables
 django-filter
 django-bootstrap4
 django-crispy-forms

@@ -23,7 +23,7 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["name", "supplier", "certificate", "last_update"]
+        fields = ["name", "supplier", "certificate", "last_update", "references"]
 
 
 class ProductViewSet(ModelViewSet):  # pylint: disable=R0901
