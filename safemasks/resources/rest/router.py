@@ -7,5 +7,5 @@ from safemasks.resources.rest.serializers import SupplierViewSet, TrustedSupplie
 
 # Routers provide an easy way of automatically determining the URL conf.
 ROUTER = routers.DefaultRouter()
-ROUTER.register(r"suppliers", SupplierViewSet)
-ROUTER.register(r"suppliers-trusted", TrustedSupplierViewSet)
+ROUTER.register(r"suppliers", SupplierViewSet, "suppliers")
+ROUTER.register(r"suppliers-trusted", TrustedSupplierViewSet, "suppliers-trusted")
