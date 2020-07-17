@@ -2,15 +2,20 @@
 """
 from django.db.models import Avg, Q
 
-from rest_framework.serializers import ModelSerializer
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.serializers import (
+    ModelSerializer,
+    DateTimeField,
+    IntegerField,
+    FloatField,
+)
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from safemasks.resources.models import Product, Supplier
-from safemasks.resources.querysets import trustworty_suppliers
+from safemasks.resources.querysets import trustworty_suppliers, annotate_suppliers
 
 
 class TrustedSupplierSerializer(ModelSerializer):
-    """Serializer of companies
+    """Serializer of suppliers with limited data.
     """
 
     class Meta:
@@ -18,20 +23,37 @@ class TrustedSupplierSerializer(ModelSerializer):
         fields = [
             "id",
             "name",
-            "last_update",
+            "date_added",
         ]
 
 
 class SupplierSerializer(ModelSerializer):
-    """Serializer of companies
+    """Serializer of supliers with all available data.
     """
+
+    last_update = DateTimeField()
+    n_products = IntegerField()
+    n_reviews = IntegerField()
+    avg_rating = FloatField()
+    n_product_ratings = IntegerField()
+    avg_product_rating = FloatField()
 
     class Meta:
         model = Supplier
         fields = [
             "id",
             "name",
+            "addresses",
+            "company_type",
+            "comment",
+            "references",
+            "date_added",
             "last_update",
+            "n_products",
+            "n_reviews",
+            "avg_rating",
+            "n_product_ratings",
+            "avg_product_rating",
         ]
 
 
@@ -46,10 +68,8 @@ class ProductSerializer(ModelSerializer):
         fields = ["id", "name", "supplier", "certificate", "last_update", "references"]
 
 
-class TrustedSupplierViewSet(ModelViewSet):  # pylint: disable=R0901
-    """Serializer view for only trustworty suppliers
-
-    Trustworty is defined by avg rating of
+class TrustedSupplierViewSet(ReadOnlyModelViewSet):  # pylint: disable=R0901
+    """List of all trusted suppliers.
     """
 
     permission_classes = []
@@ -57,7 +77,15 @@ class TrustedSupplierViewSet(ModelViewSet):  # pylint: disable=R0901
     serializer_class = TrustedSupplierSerializer
 
 
-class ProductViewSet(ModelViewSet):  # pylint: disable=R0901
+class SupplierViewSet(ReadOnlyModelViewSet):  # pylint: disable=R0901
+    """List of all suppliers.
+    """
+
+    queryset = annotate_suppliers(Supplier.objects.all())
+    serializer_class = SupplierSerializer
+
+
+class ProductViewSet(ReadOnlyModelViewSet):  # pylint: disable=R0901
     """Serializer view for only untrustworthy products
     """
 
