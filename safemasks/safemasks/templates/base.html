@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Safe Masks! {% block head_title %}Dev{% endblock head_title %}</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'icons/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'icons/favicon.ico' %}" />
     {% bootstrap_css %}
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     {% bootstrap_javascript jquery='full' %}
@@ -23,7 +23,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <!-- Brand -->
-            <a class="navbar-brand" href="{% url 'index' %}">
+            <a class="navbar-brand" href="{% url 'resources:index' %}">
                 <span>Safe Masks!</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,10 +33,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'resources:api-root' %}">
+                        <a class="nav-link" href="{% url 'resources:product-trusted' %}">
+                            Trusted
+                        </a>
+                    </li>
+                    {% if user.profile.is_reviewed and user.is_authenticated%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resources:product-list' %}">
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resources:supplier-list' %}">
+                            Suppliers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resources:api:api-root' %}">
                             <i class="fa fa-code mx-1" aria-hidden="true"></i>API
                         </a>
                     </li>
+                    {% endif %}
                     {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">
@@ -66,9 +83,9 @@
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% for language in languages %}
-                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                                {{ language.name_local }} ({{ language.code }})
-                            </option>
+                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
                         {% endfor %}
                     </select>
                 </form>
@@ -85,10 +102,10 @@
         {% if messages %}
         <div>
             {% for message in messages %}
-          <div class="alert alert-primary" role="alert">
-            {{message}}
-          </div>
-          {% endfor %}
+            <div class="alert alert-primary" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
         </div>
         {% endif %}
         <div class="container">

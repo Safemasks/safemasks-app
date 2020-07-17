@@ -1,7 +1,3 @@
-# Signals
-
-Add post_save logic to update last_update fields from reviews to item if date more recent.
-
 # Models
 
 Doc strings & translations
@@ -15,7 +11,8 @@ Doc strings & translations
 
 # REST
 
-Write API to filter reviews.
+* Write API to filter reviews.
+* REST API keys?
 
 # Ideas
 
