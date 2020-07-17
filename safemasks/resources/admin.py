@@ -129,6 +129,7 @@ class SupplierAdmin(ModelAdmin):
 @register(SupplierReview)
 class ProductReviewAdmin(ModelAdmin):
     list_display = ("supplier", "source", "user", "last_update", "rating")
+    search_fields = ("supplier__name",)
 
 
 class ProductReviewInline(StackedInline):
@@ -145,14 +146,40 @@ class ProductAdmin(ModelAdmin):
         "name",
         "supplier",
         "certificate",
-        "avg_rating",
-        "n_reviews",
-        "last_update",
+        "date_added",
+        "latest_review_qs",
+        "avg_rating_qs",
+        "n_reviews_qs",
     )
     inlines = (ProductReviewInline,)
-    list_filter = ("name",)
+    list_filter = ("name", AvgRatingListFilter)
+    search_fields = ("supplier__name",)
+
+    def get_queryset(self, request):  # noqa: ignore=D102
+
+        qs = super().get_queryset(request)
+        return annotate_reviews(qs)
+
+    def n_reviews_qs(self, obj):
+        return obj.n_reviews_qs
+
+    n_reviews_qs.short_description = "# Reviews"
+    n_reviews_qs.admin_order_field = "n_reviews_qs"
+
+    def latest_review_qs(self, obj):
+        return obj.latest_review_qs
+
+    latest_review_qs.short_description = "Last update"
+    latest_review_qs.admin_order_field = "latest_review_qs"
+
+    def avg_rating_qs(self, obj):
+        return obj.avg_rating_qs
+
+    avg_rating_qs.short_description = "AVG Rating"
+    avg_rating_qs.admin_order_field = "avg_rating_qs"
 
 
 @register(ProductReview)
 class ProductReviewAdmin(ModelAdmin):
     list_display = ("product", "source", "user", "last_update", "rating")
+    search_fields = ("product__name", "product__supplier__name")

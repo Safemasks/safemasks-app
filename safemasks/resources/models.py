@@ -199,7 +199,11 @@ class Product(models.Model):
 
     @property
     def last_update(self):
-        return self.reviews.latest("last_update").last_update
+        last_update = None
+        if self.reviews.exists():
+            last_update = self.reviews.latest("last_update").last_update
+
+        return last_update
 
 
 RATING_CHOICES = [(-1, _("Negativ")), (0, _("Neutral")), (1, _("Positiv"))]
