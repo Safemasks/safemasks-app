@@ -1,17 +1,18 @@
 {% load static %}
 {% load bootstrap4 %}
 {% load i18n %}
-
+{% load static %}
 <!doctype html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Safe Masks! {% block head_title %}Dev{% endblock head_title %}</title>
+    <title>safemasks {% block head_title %}{% endblock head_title %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'icons/favicon.ico' %}" />
     {% bootstrap_css %}
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'safemasks.css' %}">
     {% bootstrap_javascript jquery='full' %}
     {% block head-extra %}
     {% endblock%}
@@ -21,10 +22,10 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white">
             <!-- Brand -->
             <a class="navbar-brand" href="{% url 'resources:index' %}">
-                <span>Safe Masks!</span>
+                <img src="{% static 'logo.png' %}" height="60" alt="safemasks">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -49,6 +50,8 @@
                         </a>
                     </li>
                     {% endif %}
+                </ul>
+                <ul class="navbar-nav ml-auto" id="account-nav">
                     {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">
@@ -56,8 +59,6 @@
                         </a>
                     </li>
                     {% endif %}
-                </ul>
-                <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'masks_auth:profile' %}"><b>{{user}}</b></a>
@@ -73,7 +74,7 @@
                 </ul>
                 <form action="{% url 'set_language' %}" method="post" class="form-inline my-2">{% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
-                    <select class="form-control form-control-sm" name="language" onchange="this.form.submit()">
+                    <select class="custom-select custom-select-sm mx-3" name="language" onchange="this.form.submit()">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}

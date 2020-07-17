@@ -3,14 +3,15 @@
 
 {% block bootstrap_theme %}
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'safemasks.css' %}">
 {% endblock %}
 
 {% block bootstrap_navbar_variant %}
-navbar-light bg-light
+navbar-light bg-white
 {% endblock bootstrap_navbar_variant %}
 
 {% block branding %}
 <a class="navbar-brand" href="{% url 'resources:index' %}">
-    <span>Safe Masks!</span>
+    <img src="{% static 'logo.png' %}" height="40" alt="safemasks">
 </a>
 {% endblock %}
