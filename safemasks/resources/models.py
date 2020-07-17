@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.validators import URLValidator, EmailValidator
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
+from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
@@ -58,7 +59,7 @@ class Supplier(models.Model):
     )
     comment = models.TextField(null=True, blank=True, help_text=_(""))
     references = models.TextField(null=True, blank=True, help_text=_(""))
-    last_update = models.DateTimeField(help_text=_(""))
+    date_added = models.DateTimeField(help_text=_(""), default=timezone.now)
 
     @property
     def short_name(self):
@@ -98,8 +99,48 @@ class Supplier(models.Model):
 
     @property
     def avg_rating(self) -> Optional[float]:
-        ratings = self.reviews.values("rating")
+        ratings = self.reviews.values_list("rating", flat=True)
         return sum(ratings) / len(ratings) if ratings else None
+
+    @property
+    def agg_rating(self) -> Optional[float]:
+        rating = weight = 0
+        if self.avg_rating is not None:
+            rating += self.avg_rating * 2
+            weight += 2
+        if self.avg_product_rating:
+            rating += self.avg_product_rating
+            weight += 1
+
+        return rating / weight if weight > 0 else None
+
+    @property
+    def avg_product_rating(self) -> Optional[float]:
+        product_ratings = self.products.values_list("reviews__rating", flat=True)
+        return sum(product_ratings) / len(product_ratings) if product_ratings else None
+
+    @property
+    def n_product_rating(self) -> int:
+        product_ratings = self.products.values_list("reviews__rating", flat=True)
+        return len(product_ratings)
+
+    @property
+    def n_products(self) -> Optional[int]:
+        return self.products.count()
+
+    @property
+    def last_update(self):
+        last_update = None
+        if self.reviews.exists():
+            last_update = self.reviews.latest("last_update").last_update
+
+        if self.products.exists():
+            latest_prod_review = self.products.latest("reviews__last_update")
+            if latest_prod_review and (
+                not last_update or latest_prod_review.last_update > last_update
+            ):
+                last_update = latest_prod_review.last_update
+        return last_update
 
 
 PRODUCT_NAME_CHOICES = {
@@ -136,7 +177,7 @@ class Product(models.Model):
     )
     comment = models.TextField(null=True, blank=True, help_text=_(""))
     references = models.TextField(null=True, blank=True, help_text=_(""))
-    last_update = models.DateTimeField(help_text=_(""))
+    date_added = models.DateTimeField(help_text=_(""), default=timezone.now)
 
     class Meta:
         unique_together = ["name", "supplier"]
@@ -153,34 +194,15 @@ class Product(models.Model):
 
     @property
     def avg_rating(self) -> Optional[float]:
-        ratings = self.reviews.values("rating")
+        ratings = self.reviews.values_list("rating", flat=True)
         return sum(ratings) / len(ratings) if ratings else None
 
     @property
-    def agg_rating(self) -> Optional[float]:
-        rating = weight = 0
-        if self.avg_rating is not None:
-            rating += self.avg_rating * 2
-            weight += 2
-        if self.avg_product_rating:
-            rating += self.avg_product_rating
-            weight += 1
+    def last_update(self):
+        return self.reviews.latest("last_update").last_update
 
-        return rating / weight if weight > 0 else None
 
-    @property
-    def avg_product_rating(self) -> Optional[float]:
-        product_ratings = self.products.values("reviews__rating")
-        return sum(product_ratings) / len(product_ratings) if product_ratings else None
-
-    @property
-    def n_product_rating(self) -> int:
-        product_ratings = self.products.values("reviews__rating")
-        return len(product_ratings)
-
-    @property
-    def n_products(self) -> Optional[int]:
-        return self.products.count()
+RATING_CHOICES = [(-1, _("Negativ")), (0, _("Neutral")), (1, _("Positiv"))]
 
 
 class Review(models.Model):
@@ -193,8 +215,11 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         help_text=_("Who submitted this information?"),
     )
-    last_update = models.DateTimeField(help_text=_("When was the review last updated?"))
+    last_update = models.DateTimeField(
+        help_text=_("When was the review last updated?"), default=timezone.now
+    )
     rating = models.IntegerField(
+        choices=RATING_CHOICES,
         blank=False,
         null=False,
         help_text=_(
@@ -219,7 +244,7 @@ class ProductReview(Review):
         to=Product,
         on_delete=models.CASCADE,
         help_text=_("What was the product?"),
-        related_name="appears_in_reviews",
+        related_name="reviews",
     )
 
     def __str__(self) -> str:
@@ -239,7 +264,7 @@ class SupplierReview(Review):
         to=Supplier,
         on_delete=models.CASCADE,
         help_text=_("Who is the supplier?"),
-        related_name="appears_in_reviews",
+        related_name="reviews",
     )
 
     def __str__(self) -> str:
