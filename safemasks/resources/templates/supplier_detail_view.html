@@ -1,5 +1,85 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
-<h2>Supplier</h2>
+<div class="jumbotron">
+    <h1>{% trans 'Supplier' %}: {{object.name}}</h1>
+    <p>Added to Safemasks: {{object.date_added}}</p>
+</div>
+<div class="container">
+    <h2>Quick Facts</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td style="width: 20%">Address</td>
+                <td style="width: 80%">{% if object.addresses %}{{object.addresses}}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>{% if object.company_type %}{{object.company_type}}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Comment</td>
+                <td>{% if object.comment %}{{object.comment}}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>References</td>
+                <td>{% if object.references %}{{object.references}}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if object.reviews.count %}
+    <hr class="my-4"/>
+    <h2>Reviews</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Source</th>
+                <th scope="col">User</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Last update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in object.reviews.all %}
+            <tr>
+                <td>{% if review.source %}{{review.source}}{% endif %}</td>
+                <td>{% if review.user %}{{review.user}}{% endif %}</td>
+                <td>{% if review.rating %}{{review.rating}}{% endif %}</td>
+                <td>{% if review.comment %}{{review.comment}}{% endif %}</td>
+                <td>{% if review.last_update %}{{review.last_update}}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if object.products %}
+    <hr class="my-4" />
+    <h2>Products</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Type</th>
+                <th scope="col">Certificate</th>
+                <th scope="col">Avg. Rating</th>
+                <th scope="col"># Ratings</th>
+                <th scope="col">Last update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in object.products.all %}
+            <tr>
+                <td scope="row">{{product.id}}</td>
+                <td>{% if product.name %}{{product.name}}{% endif %}</td>
+                <td>{% if product.certificate %}{{product.certificate}}{% endif %}</td>
+                <td>{% if product.get_avg_rating %}{{product.get_avg_rating}}{% endif %}</td>
+                <td>{% if product.get_n_reviews %}{{product.get_n_reviews}}{% endif %}</td>
+                <td>{% if product.get_last_update %}{{product.get_last_update}}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
 {% endblock %}

@@ -135,6 +135,22 @@ class Product(models.Model):
         """Name of the product"""
         return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
 
+    def get_n_reviews(self) -> int:
+        """Returns number of reviews
+        """
+        return self.reviews.count()
+
+    def get_avg_rating(self) -> Optional[float]:
+        ratings = self.reviews.values_list("rating", flat=True)
+        return sum(ratings) / len(ratings) if ratings else None
+
+    def get_last_update(self):
+        last_update = None
+        if self.reviews.exists():
+            last_update = self.reviews.latest("last_update").last_update
+
+        return last_update
+
 
 RATING_CHOICES = [(-1, _("Negativ")), (0, _("Neutral")), (1, _("Positiv"))]
 
