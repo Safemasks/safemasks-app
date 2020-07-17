@@ -39,7 +39,7 @@ class Command(BaseCommand):
         "source of information": "productreview:source",
         "Column1": "productreview:comment",
     }
-    trustworthy = False
+    rating = -1
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -57,9 +57,9 @@ class Command(BaseCommand):
         """
 
         book = open_workbook(options["suppliers_file"])
-        last_updated = book.sheet_by_index(0).cell_value(1, 1)
-        last_updated = datetime(
-            *xldate_as_tuple(last_updated, book.datemode), tzinfo=TZ
+        date_spreadsheet = book.sheet_by_index(0).cell_value(1, 1)
+        date_spreadsheet = datetime(
+            *xldate_as_tuple(date_spreadsheet, book.datemode), tzinfo=TZ
         )
 
         df = (
@@ -68,7 +68,7 @@ class Command(BaseCommand):
             .dropna(how="all")
         )
 
-        user = User.objects.get(username="admin")
+        user, _ = User.objects.get_or_create(username="admin")
 
         for _, entry in df.iterrows():
 
@@ -76,17 +76,19 @@ class Command(BaseCommand):
                 if isna(entry.get("supplier:name")):
                     continue
 
-                supplier, _ = self.update_or_create_supplier(**entry)
+                supplier, _ = self.update_or_create_supplier(
+                    date_added=date_spreadsheet, **entry
+                )
 
                 if isna(entry.get("product:name")):
                     continue
 
                 product, _ = self.update_or_create_product(
-                    supplier=supplier, last_update=last_updated, **entry
+                    supplier=supplier, date_added=date_spreadsheet, **entry
                 )
 
                 self.update_or_create_review(
-                    product=product, last_update=last_updated, user=user, **entry
+                    product=product, last_update=date_spreadsheet, user=user, **entry
                 )
 
             except Exception as e:  # pylint: disable=W0703
@@ -104,7 +106,7 @@ class Command(BaseCommand):
         """
         data = {}
         for key, val in kwargs.items():
-            if not ":" in key:
+            if ":" not in key:
                 kkey = key
             elif table_name == key.split(":")[0]:
                 kkey = key.split(":")[1]
@@ -144,7 +146,7 @@ class Command(BaseCommand):
         """
         unique_fields = ["name", "supplier"]
 
-        data = self.prep_db_entry("product", trustworthy=self.trustworthy, **kwargs)
+        data = self.prep_db_entry("product", **kwargs)
         data["name"] = PRODUCT_NAME_CHOICES[data.get("name")]
         unique_data = {key: data.pop(key) for key in unique_fields}
         product = Product.objects.filter(**unique_data).first()
@@ -164,21 +166,6 @@ class Command(BaseCommand):
 
         Filter on name and supplier field
         """
-        unique_fields = ["product", "user"]
-
-        data = self.prep_db_entry(
-            "productreview", trustworthy=self.trustworthy, **kwargs
-        )
+        data = self.prep_db_entry("productreview", rating=self.rating, **kwargs)
         data["source"] = data["source"] or "No source"
-        unique_data = {key: data.pop(key) for key in unique_fields}
-        review = ProductReview.objects.filter(**unique_data).first()
-        if not review:
-            review = ProductReview.objects.create(**unique_data, **data)
-            created = True
-        else:
-            for key, val in data.items():
-                setattr(review, key, val)
-            review.save()
-            created = True
-
-        return review, created
+        return ProductReview.objects.get_or_create(**data)
