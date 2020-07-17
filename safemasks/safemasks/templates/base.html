@@ -39,11 +39,6 @@
                     </li>
                     {% if user.profile.is_reviewed and user.is_authenticated%}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'resources:product-list' %}">
-                            Products
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'resources:supplier-list' %}">
                             Suppliers
                         </a>

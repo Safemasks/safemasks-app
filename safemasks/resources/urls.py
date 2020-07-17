@@ -14,7 +14,7 @@ from safemasks.resources.views import (
 app_name = "resources"
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("products/", ProductListView.as_view(), name="product-list"),
+    # path("products/", ProductListView.as_view(), name="product-list"),
     path(
         "products/details/<int:pk>/",
         ProductDetailView.as_view(),
