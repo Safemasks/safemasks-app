@@ -91,57 +91,6 @@ class Supplier(models.Model):
                 addresses.append(address)
             self.addresses = ", ".join(addresses)
 
-    @property
-    def n_reviews(self) -> int:
-        """Returns number of reviews
-        """
-        return self.reviews.count()
-
-    @property
-    def avg_rating(self) -> Optional[float]:
-        ratings = self.reviews.values_list("rating", flat=True)
-        return sum(ratings) / len(ratings) if ratings else None
-
-    @property
-    def agg_rating(self) -> Optional[float]:
-        rating = weight = 0
-        if self.avg_rating is not None:
-            rating += self.avg_rating * 2
-            weight += 2
-        if self.avg_product_rating:
-            rating += self.avg_product_rating
-            weight += 1
-
-        return rating / weight if weight > 0 else None
-
-    @property
-    def avg_product_rating(self) -> Optional[float]:
-        product_ratings = self.products.values_list("reviews__rating", flat=True)
-        return sum(product_ratings) / len(product_ratings) if product_ratings else None
-
-    @property
-    def n_product_rating(self) -> int:
-        product_ratings = self.products.values_list("reviews__rating", flat=True)
-        return len(product_ratings)
-
-    @property
-    def n_products(self) -> Optional[int]:
-        return self.products.count()
-
-    @property
-    def last_update(self):
-        last_update = None
-        if self.reviews.exists():
-            last_update = self.reviews.latest("last_update").last_update
-
-        if self.products.exists():
-            latest_prod_review = self.products.latest("reviews__last_update")
-            if latest_prod_review and (
-                not last_update or latest_prod_review.last_update > last_update
-            ):
-                last_update = latest_prod_review.last_update
-        return last_update
-
 
 PRODUCT_NAME_CHOICES = {
     "Mask": "mask",
@@ -185,25 +134,6 @@ class Product(models.Model):
     def __str__(self) -> str:
         """Name of the product"""
         return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
-
-    @property
-    def n_reviews(self) -> int:
-        """Returns number of reviews
-        """
-        return self.reviews.count()
-
-    @property
-    def avg_rating(self) -> Optional[float]:
-        ratings = self.reviews.values_list("rating", flat=True)
-        return sum(ratings) / len(ratings) if ratings else None
-
-    @property
-    def last_update(self):
-        last_update = None
-        if self.reviews.exists():
-            last_update = self.reviews.latest("last_update").last_update
-
-        return last_update
 
 
 RATING_CHOICES = [(-1, _("Negativ")), (0, _("Neutral")), (1, _("Positiv"))]

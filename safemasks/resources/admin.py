@@ -47,7 +47,7 @@ class RatingListFilter(SimpleListFilter):
 
 
 class AvgProductRatingListFilter(RatingListFilter):
-    parameter_name = "avg_product_rating_qs"
+    parameter_name = "avg_product_rating"
     title = _("Average Product rating")
 
     def queryset(self, request, queryset):
@@ -55,7 +55,7 @@ class AvgProductRatingListFilter(RatingListFilter):
 
 
 class AvgRatingListFilter(RatingListFilter):
-    parameter_name = "avg_rating_qs"
+    parameter_name = "avg_rating"
     title = _("Average rating")
 
     def queryset(self, request, queryset):
@@ -69,12 +69,12 @@ class SupplierAdmin(ModelAdmin):
         "addresses",
         "company_type",
         "date_added",
-        "last_update_qs",
-        "avg_rating_qs",
-        "n_reviews_qs",
-        "n_products_qs",
-        "avg_product_rating_qs",
-        "n_product_ratings_qs",
+        "last_update",
+        "avg_rating",
+        "n_reviews",
+        "n_products",
+        "avg_product_rating",
+        "n_product_ratings",
     )
     inlines = (SupplierReviewInline,)
     search_fields = ("name",)
@@ -89,41 +89,41 @@ class SupplierAdmin(ModelAdmin):
         return annotate_suppliers(qs)
 
     # below functions wrap annotations from annotate_suppliers
-    def n_reviews_qs(self, obj):
-        return obj.n_reviews_qs
+    def n_reviews(self, obj):
+        return obj.n_reviews
 
-    n_reviews_qs.short_description = "# Reviews"
-    n_reviews_qs.admin_order_field = "n_reviews_qs"
+    n_reviews.short_description = "# Reviews"
+    n_reviews.admin_order_field = "n_reviews"
 
-    def last_update_qs(self, obj):
-        return obj.last_update_qs
+    def last_update(self, obj):
+        return obj.last_update
 
-    last_update_qs.short_description = "Last update"
-    last_update_qs.admin_order_field = "last_update_qs"
+    last_update.short_description = "Last update"
+    last_update.admin_order_field = "last_update"
 
-    def n_products_qs(self, obj):
-        return obj.n_products_qs
+    def n_products(self, obj):
+        return obj.n_products
 
-    n_products_qs.short_description = "# Products"
-    n_products_qs.admin_order_field = "n_products_qs"
+    n_products.short_description = "# Products"
+    n_products.admin_order_field = "n_products"
 
-    def n_product_ratings_qs(self, obj):
-        return obj.n_product_ratings_qs
+    def n_product_ratings(self, obj):
+        return obj.n_product_ratings
 
-    n_product_ratings_qs.short_description = "# Product Ratings"
-    n_product_ratings_qs.admin_order_field = "n_product_ratings_qs"
+    n_product_ratings.short_description = "# Product Ratings"
+    n_product_ratings.admin_order_field = "n_product_ratings"
 
-    def avg_rating_qs(self, obj):
-        return obj.avg_rating_qs
+    def avg_rating(self, obj):
+        return obj.avg_rating
 
-    avg_rating_qs.short_description = "AVG Rating"
-    avg_rating_qs.admin_order_field = "avg_rating_qs"
+    avg_rating.short_description = "AVG Rating"
+    avg_rating.admin_order_field = "avg_rating"
 
-    def avg_product_rating_qs(self, obj):
-        return obj.avg_product_rating_qs
+    def avg_product_rating(self, obj):
+        return obj.avg_product_rating
 
-    avg_product_rating_qs.short_description = "AVG Prod. Rating"
-    avg_product_rating_qs.admin_order_field = "avg_product_rating_qs"
+    avg_product_rating.short_description = "AVG Prod. Rating"
+    avg_product_rating.admin_order_field = "avg_product_rating"
 
 
 @register(SupplierReview)
@@ -147,9 +147,9 @@ class ProductAdmin(ModelAdmin):
         "supplier",
         "certificate",
         "date_added",
-        "latest_review_qs",
-        "avg_rating_qs",
-        "n_reviews_qs",
+        "latest_review",
+        "avg_rating",
+        "n_reviews",
     )
     inlines = (ProductReviewInline,)
     list_filter = ("name", AvgRatingListFilter)
@@ -160,23 +160,23 @@ class ProductAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         return annotate_reviews(qs)
 
-    def n_reviews_qs(self, obj):
-        return obj.n_reviews_qs
+    def n_reviews(self, obj):
+        return obj.n_reviews
 
-    n_reviews_qs.short_description = "# Reviews"
-    n_reviews_qs.admin_order_field = "n_reviews_qs"
+    n_reviews.short_description = "# Reviews"
+    n_reviews.admin_order_field = "n_reviews"
 
-    def latest_review_qs(self, obj):
-        return obj.latest_review_qs
+    def latest_review(self, obj):
+        return obj.latest_review
 
-    latest_review_qs.short_description = "Last update"
-    latest_review_qs.admin_order_field = "latest_review_qs"
+    latest_review.short_description = "Last update"
+    latest_review.admin_order_field = "latest_review"
 
-    def avg_rating_qs(self, obj):
-        return obj.avg_rating_qs
+    def avg_rating(self, obj):
+        return obj.avg_rating
 
-    avg_rating_qs.short_description = "AVG Rating"
-    avg_rating_qs.admin_order_field = "avg_rating_qs"
+    avg_rating.short_description = "AVG Rating"
+    avg_rating.admin_order_field = "avg_rating"
 
 
 @register(ProductReview)
