@@ -81,13 +81,15 @@ class SignupForm(AllAuthSignupForm):
         if self.cleaned_data["last_name"]:
             user.last_name = self.cleaned_data["last_name"]
 
-        form = ProfileForm(request.POST)
+        try:
+            profile = user.profile
+        except Profile.DoesNotExist:
+            profile = Profile(user=request.user)
+
+        form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             profile = form.save(commit=False)
-
-            profile.user = user
             profile.ip, _ = get_client_ip(request)
-
             profile.save()
 
         return user
