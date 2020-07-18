@@ -12,7 +12,6 @@ from safemasks.masks_auth.models import Profile
 def update_username_from_email(sender, instance, **kwargs):  # pylint: disable=W0613
     """Set user name equal to email since allauth is configured to use mandatory email
     """
-    print("pre save")
     if not instance.username:
         instance.username = instance.email
 
@@ -21,6 +20,5 @@ def update_username_from_email(sender, instance, **kwargs):  # pylint: disable=W
 def update_user_profile(sender, instance, **kwargs):  # pylint: disable=W0613
     """Set user name equal to email since allauth is configured to use mandatory email
     """
-    print("post save")
     if not hasattr(instance, "profile"):
         Profile(user=instance, is_reviewed=instance.is_superuser).save()
