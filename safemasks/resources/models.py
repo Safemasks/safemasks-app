@@ -57,9 +57,20 @@ class Supplier(models.Model):
         blank=True,
         null=True,
     )
-    comment = models.TextField(null=True, blank=True, help_text=_(""))
-    references = models.TextField(null=True, blank=True, help_text=_(""))
-    date_added = models.DateTimeField(help_text=_(""), default=timezone.now)
+    comment = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Additional information which help informing about this supplier."),
+    )
+    references = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Links and references to crossh-check this supplier."),
+    )
+    date_added = models.DateTimeField(
+        help_text=_("When was this supplier added to the safemasks portal?"),
+        default=timezone.now,
+    )
 
     @property
     def short_name(self):
@@ -124,9 +135,20 @@ class Product(models.Model):
     certificate = models.CharField(
         null=True, blank=True, help_text=_("Certificate of the product"), max_length=128
     )
-    comment = models.TextField(null=True, blank=True, help_text=_(""))
-    references = models.TextField(null=True, blank=True, help_text=_(""))
-    date_added = models.DateTimeField(help_text=_(""), default=timezone.now)
+    comment = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Additional information which help informing about this product."),
+    )
+    references = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Links and references to crossh-check this product."),
+    )
+    date_added = models.DateTimeField(
+        help_text=_("When was this product added to the safemasks portal?"),
+        default=timezone.now,
+    )
 
     class Meta:
         unique_together = ["name", "supplier"]
@@ -173,7 +195,7 @@ class Review(models.Model):
         blank=False,
         null=False,
         help_text=_(
-            "Is the supplier trustworthy and fulfills standards?" " Aggregates reviews."
+            "Is the entry trustworthy? Ranges from -1 (negativ) to +1 (positiv)."
         ),
     )
     comment = models.TextField(
