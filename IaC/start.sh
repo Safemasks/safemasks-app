@@ -13,7 +13,5 @@ fi
 
 
 
-python manage.py runserver 0.0.0.0:90
-
 # Start Supervisor, Django
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
