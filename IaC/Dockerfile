@@ -129,6 +129,12 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN pip install -e .
 
+# Build static assets
+RUN SECRET_KEY=secret python3 manage.py collectstatic
+
+# Copy static files
+COPY --from=build /usr/src/app/build/ /var/www/html/static
+RUN chown -R nginx:nginx /var/www/html
 
 EXPOSE 80
 EXPOSE 443
@@ -137,7 +143,7 @@ EXPOSE 443
 #dnslabel in template refers to first position
 
 
-ENV DOMAIN safemasks-app-portal-16.westeurope.azurecontainer.io
+ENV DOMAIN safemasks-app-portal-17.westeurope.azurecontainer.io
 
 #domain email associated with domain
 ENV DOMAINEMAIL samimkhassan@gmail.com
