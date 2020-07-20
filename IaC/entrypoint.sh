@@ -50,7 +50,6 @@ else
     content_server=$content_server"    listen ${USE_LISTEN_PORT};\n"
     content_server=$content_server"    server_name www.${DOMAIN} ${DOMAIN};\n"
     content_server=$content_server"    listen 443 ssl;\n"
-    content_server=$content_server"    /var/www/html;\n"
     content_server=$content_server"    ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;\n"
     content_server=$content_server"    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;\n"
     content_server=$content_server"    ssl_session_timeout 1440m;\n"
@@ -61,9 +60,7 @@ else
     content_server=$content_server"    ssl_prefer_server_ciphers on;\n"
     content_server=$content_server"    add_header Strict-Transport-Security max-age=15768000;\n"
     content_server=$content_server"    ssl_stapling on;\n"
-    content_server=$content_server"    ssl_stapling_verify on;\n"
-    content_server=$content_server'    location ~ ^/static/ {\n' 
-    content_server=$content_server'    }\n'    
+    content_server=$content_server"    ssl_stapling_verify on;\n"  
     content_server=$content_server'    location / {\n'
     content_server=$content_server'        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n' 
     content_server=$content_server'        proxy_set_header X-Forwarded-Proto $scheme;\n'

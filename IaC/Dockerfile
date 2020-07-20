@@ -129,12 +129,6 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN pip install -e .
 
-# Build static assets
-RUN SECRET_KEY=secret python3 manage.py collectstatic
-
-# Copy static files
-COPY --from=build /usr/src/app/build/ /var/www/html/static
-RUN chown -R nginx:nginx /var/www/html
 
 EXPOSE 80
 EXPOSE 443
