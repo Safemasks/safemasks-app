@@ -18,7 +18,7 @@
             "value": "1.5"
         },
         "restartPolicy": {
-            "value": "OnFailure"
+            "value": "Never"
         },
         "imageRegistryLoginServer": {
             "value": "safemasksacr.azurecr.io"
