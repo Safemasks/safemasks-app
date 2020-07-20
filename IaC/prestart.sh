@@ -23,9 +23,9 @@ git clone https://github.com/letsencrypt/letsencrypt ./letsencrypt
 ./letsencrypt/letsencrypt-auto certonly --standalone --email $DOMAINEMAIL --agree-tos --no-eff-email -d $DOMAIN
 
 ##migrate django db
-python manage.py migrate
+safemasks migrate
 
 
 ## collect all static before run
-python manage.py collectstatic
+safemasks collectstatic
 
