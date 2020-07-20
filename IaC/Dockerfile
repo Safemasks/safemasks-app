@@ -97,6 +97,9 @@ EXPOSE 80
 # apt-key adv --no-tty
 # Standard set up Nginx finished
 
+# Remove default configuration from Nginx
+RUN rm /etc/nginx/conf.d/default.conf
+
 # Install Supervisord
 RUN apt-get update && apt-get install -y supervisor gettext libgettextpo-dev \
 && rm -rf /var/lib/apt/lists/*
