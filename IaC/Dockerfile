@@ -137,7 +137,7 @@ EXPOSE 443
 #dnslabel in template refers to first position
 
 
-ENV DOMAIN safemasks-app-portal-14.westeurope.azurecontainer.io
+ENV DOMAIN safemasks-app-portal-15.westeurope.azurecontainer.io
 
 #domain email associated with domain
 ENV DOMAINEMAIL samimkhassan@gmail.com

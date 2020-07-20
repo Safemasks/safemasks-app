@@ -29,6 +29,7 @@ else
     content=$content'http {\n'
     content=$content'    include       /etc/nginx/mime.types;\n'
     content=$content'    default_type  application/octet-stream;\n'
+    content=$content'    server_names_hash_bucket_size   128;\n'
     content=$content'    log_format  main  '"'\$remote_addr - \$remote_user [\$time_local] \"\$request\" '\n"
     content=$content'                      '"'\$status \$body_bytes_sent \"\$http_referer\" '\n"
     content=$content'                      '"'\"\$http_user_agent\" \"\$http_x_forwarded_for\"';\n"
