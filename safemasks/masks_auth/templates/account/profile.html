@@ -14,13 +14,6 @@
         <h2>{% blocktrans %}Your do not have a verified E-mail address yet{% endblocktrans %}</h2>
         <a href="{% url 'account_email' %}">{% blocktrans %}Please verify your email to receive further access rights{% endblocktrans %}</a>
     {% elif user.is_active and user.profile.has_verified_email %}
-        {% if not user.profile.is_reviewed %}
-            <div class="alert alert-danger" role="alert">
-            <h3>{% blocktrans %}Your profile has not been reviewed, yet{% endblocktrans %}</h3>
-            <p>{% blocktrans %}We are going to contact you soon.{% endblocktrans %}
-            </p>
-            </div>
-        {% endif %}
             <div class="card">
                 <div class="card-header">
                     {% blocktrans %}Update profile information{% endblocktrans %}

@@ -90,6 +90,13 @@
   </header>
   <main role="main">
     <div class="conatiner clear-top mb-4" id="content">
+      {% if user.is_authenticated and not user.profile.is_reviewed %}
+      <div class="alert alert-danger" role="alert">
+        <h3>{% blocktrans %}Your profile has not been reviewed, yet{% endblocktrans %}</h3>
+        <p>{% blocktrans %}We are going to contact you soon.{% endblocktrans %}
+        </p>
+      </div>
+      {% endif %}
       {% block content %}
       <div class="jumbotron">
         <h1>{% trans 'Welcome to safemasks!' %}</h1>
@@ -161,11 +168,11 @@
                 </div>
                 <div class="modal-body">
                   {% if LANGUAGE_CODE == 'de' %}
-                  {% include 'privacy/privacy-policy-de.html' %}
+                  {% include 'legal/privacy-policy-de.html' %}
                   {% elif LANGUAGE_CODE == 'en'%}
-                  {% include 'privacy/privacy-policy-en.html' %}
+                  {% include 'legal/privacy-policy-en.html' %}
                   {% else %}
-                  {% include 'privacy/privacy-policy-en.html' %}
+                  {% include 'legal/privacy-policy-en.html' %}
                   {% endif %}
                 </div>
               </div>
