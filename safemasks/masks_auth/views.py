@@ -12,7 +12,12 @@ class ProfileView(UpdateView, LoginRequiredMixin):
 
     model = Profile
     template_name = "account/profile.html"
-    fields = PROFILE_FORM.fields.keys()
+    fields = [
+        "phone_number",
+        "company",
+        "position",
+        "description",
+    ]
     success_url = reverse_lazy("masks_auth:profile")
 
     def get_object(self, queryset=None):
