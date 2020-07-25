@@ -1,22 +1,35 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;0,700;0,800;1,600&display=swap);
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Montserrat', sans-serif !important;
     color: #333333;
 }
 
+main {
+    min-height: 100%;
+}
+
+#content {
+    overflow: auto;
+    padding-bottom: 350px;
+}
 
 nav .navbar-nav li a {
     font-weight: 700;
 }
 
 a {
-    color: #CC3366;!important;
+    color: #CC3366;
+     !important;
 }
 
 a:hover, a:active {
-  color: #333366; }
-
+    color: #333366;
+}
 
 #account-nav li a {
     font-weight: 400;
@@ -24,4 +37,10 @@ a:hover, a:active {
 
 .jumbotron {
     background-color: white;
+}
+
+.footer {
+    position: relative;
+    margin-top: -350px;
+    height: 350px;
 }

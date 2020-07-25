@@ -20,7 +20,9 @@ urlpatterns = [
         ProductDetailView.as_view(),
         name="product-detail",
     ),
-    path("suppliers/trusted/", TrustedSuppliersView.as_view(), name="product-trusted"),
+    path(
+        "suppliers/trusted/", TrustedSuppliersView.as_view(), name="suppliers-trusted"
+    ),
     path("suppliers/", SupplierListView.as_view(), name="supplier-list"),
     path(
         "suppliers/details/<int:pk>/",
