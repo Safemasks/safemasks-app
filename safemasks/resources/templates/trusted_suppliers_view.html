@@ -26,26 +26,22 @@
     </a>
   </p>
   <div class="collapse" id="help">
-    {% blocktrans %}
-    <ul class="list-group">
       <table class="table">
         <tbody>
           <tr>
-            <td><code>Id</code></td>
-            <td> Index for supplier entry in our database</td>
+            <td><code>{% trans 'Id' %}</code></td>
+            <td>{% trans ' Index for supplier entry in our database' %}</td>
           </tr>
           <tr>
-            <td><code>Name</code></td>
-            <td> Name of the supplier</td>
+            <td><code>{% trans 'Name' %}</code></td>
+            <td>{% trans ' Name of the supplier' %}</td>
           </tr>
           <tr>
-            <td><code>Date added</code></td>
-            <td> The first time we reviewd this supplier</td>
+            <td><code>{% trans 'Date added' %}</code></td>
+            <td>{% trans ' The first time we reviewd this supplier' %}</td>
           </tr>
         </tbody>
       </table>
-    </ul>
-    {% endblocktrans %}
   </div>
 </div>
 
@@ -53,15 +49,13 @@
   <div class="row">
     <div class="col-sm-12">
       <table id="trusted-suppliers" class="table table-striped table-bordered" style="width:100%">
-        {% blocktrans %}
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Date added</th>
+            <th>{% trans 'Id' %}</th>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Date added' %}</th>
           </tr>
         </thead>
-        {% endblocktrans %}
       </table>
     </div>
   </div>

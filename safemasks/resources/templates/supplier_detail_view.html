@@ -31,17 +31,15 @@
     <hr class="my-4"/>
     <h2>{% trans 'Reviews' %}</h2>
     <table class="table">
-        {% blocktrans %}
         <thead>
             <tr>
-                <th scope="col">Source</th>
-                <th scope="col">User</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Comment</th>
-                <th scope="col">Last update</th>
+                <th scope="col">{% trans 'Source' %}</th>
+                <th scope="col">{% trans 'User' %}</th>
+                <th scope="col">{% trans 'Rating' %}</th>
+                <th scope="col">{% trans 'Comment' %}</th>
+                <th scope="col">{% trans 'Last update' %}</th>
             </tr>
         </thead>
-        {% endblocktrans %}
         <tbody>
             {% for review in object.reviews.all %}
             <tr>
@@ -59,18 +57,16 @@
     <hr class="my-4" />
     <h2>{% trans 'Products' %}</h2>
     <table class="table">
-        {% blocktrans %}
         <thead>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">Type</th>
-                <th scope="col">Certificate</th>
-                <th scope="col">Avg. Rating</th>
-                <th scope="col"># Ratings</th>
-                <th scope="col">Last update</th>
+                <th scope="col">{% trans 'id' %}</th>
+                <th scope="col">{% trans 'Type' %}</th>
+                <th scope="col">{% trans 'Certificate' %}</th>
+                <th scope="col">{% trans 'Avg. Rating' %}</th>
+                <th scope="col">{% trans '# Ratings' %}</th>
+                <th scope="col">{% trans 'Last update' %}</th>
             </tr>
         </thead>
-        {% endblocktrans %}
         <tbody>
             {% for product in object.products.all %}
             <tr>
