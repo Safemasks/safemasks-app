@@ -59,8 +59,12 @@ class ProfileForm(ModelForm):
             "accepted_privacy": None,
         }
         labels = {
-            "accepted_terms": _("I have read and accept the terms and conditions."),
-            "accepted_privacy": _("I have read and accept the privacy policy."),
+            "accepted_terms": _(
+                """I have read and accept the <a href="#privacy-policy" data-toggle="modal" data-target="#privacy-policy">terms and conditions</a>."""
+            ),
+            "accepted_privacy": _(
+                """I have read and accept the <a href="#privacy-policy" data-toggle="modal" data-target="#privacy-policy">privacy policy</a>."""
+            ),
         }
 
 
