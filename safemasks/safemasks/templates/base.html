@@ -64,11 +64,11 @@
                         <a class="nav-link" href="{% url 'masks_auth:profile' %}"><b>{{user}}</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa fa-sign-out mx-1" aria-hidden="true"></i>Logout</a>
+                        <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa fa-sign-out mx-1" aria-hidden="true"></i>Sign Out</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}"><i class="fa fa-sign-in mx-1" aria-hidden="true"></i>Login</a>
+                        <a class="nav-link" href="{% url 'account_login' %}"><i class="fa fa-sign-in mx-1" aria-hidden="true"></i>Sign In</a>
                     </li>
                     {% endif %}
                 </ul>
