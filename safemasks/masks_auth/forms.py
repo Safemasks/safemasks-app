@@ -30,7 +30,7 @@ class ProfileForm(ModelForm):
             "description": Textarea(
                 attrs={
                     "placeholder": _(
-                        "Why are you interested in using Safe Masks?"
+                        "Why are you interested in using safemasks?"
                         " Please add additional descriptions and further links"
                         " to verify your identity."
                     )
