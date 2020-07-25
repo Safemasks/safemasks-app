@@ -153,15 +153,63 @@
               </li>
               {% endif %}
               <li>
+                <a href="#cookies" data-toggle="modal" data-target="#cookies">{% trans 'Cookies' %}</a>
+              </li>
+              <li>
+                <a href="#terms" data-toggle="modal" data-target="#terms">{% trans 'Terms & Conditions' %}</a>
+              </li>
+              <li>
                 <a href="#privacy-policy" data-toggle="modal" data-target="#privacy-policy">{% trans 'Privacy Policy' %}</a>
               </li>
             </ul>
+          </div>
+          <div class="modal fade" id="cookies" tabindex="-1" role="dialog" aria-labelledby="cookies" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="cookies">{% trans 'Cookies' %}</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {% if LANGUAGE_CODE == 'de' %}
+                  {% include 'legal/cookies-de.html' %}
+                  {% elif LANGUAGE_CODE == 'en'%}
+                  {% include 'legal/cookies-en.html' %}
+                  {% else %}
+                  {% include 'legal/cookies-en.html' %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="terms" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="terms">{% trans 'Terms & Conditions' %}</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {% if LANGUAGE_CODE == 'de' %}
+                  {% include 'legal/terms-de.html' %}
+                  {% elif LANGUAGE_CODE == 'en'%}
+                  {% include 'legal/terms-en.html' %}
+                  {% else %}
+                  {% include 'legal/terms-en.html' %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal fade" id="privacy-policy" tabindex="-1" role="dialog" aria-labelledby="privacy-policy" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLabel">{% trans 'Privacy Policy' %}</h3>
+                  <h3 class="modal-title" id="privacy-policy">{% trans 'Privacy Policy' %}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
