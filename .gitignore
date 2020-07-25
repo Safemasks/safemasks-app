@@ -5,3 +5,4 @@ env.list
 *.mo
 *.egg-info
 __pycache__
+safemasks-www.css
