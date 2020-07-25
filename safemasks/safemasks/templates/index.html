@@ -5,28 +5,59 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1><span class="brand">safemasks</span> Portal</h1>
-    <h5>{% trans 'Access to healthcare procurement data' %}</h2>
+  <h1><span class="brand">safemasks</span> Portal</h1>
+  <h5>{% trans 'Access to healthcare procurement data' %}</h2>
 </div>
-<div class="container mb-4">
-    <section>
-    <h1>Abou the portal</h1>
-    <p>{% lorem %}</p>
-    </section>
-    <hr/>
-    <section>
-    <h1>How we store data</h1>
-    <p>{% lorem %}</p>
-    </section>
-    <hr/>
-    <section>
-    <h1>Rating</h1>
-    <p>{% lorem %}</p>
-    </section>
-    <hr/>
-    <section>
-    <h1>API</h1>
-    <p>{% lorem %}</p>
-    </section>
+<div class="container mb-5">
+  <section class="my-5">
+    <h3>{% trans 'About the portal' %}</h3>
+    {% blocktrans %}
+    <p>Welcome to the safemasks data portal. We provide</p>
+    <ol>
+      <li>Open access to our trusted suppliers</li>
+      <li>Free access to all our data here</li>
+    </ol>
+    <p>To ensure integrety for our data, we review individual user before providing access to our entire data. <a href="">Learn about our review process.</a>
+    </p>
+    {% endblocktrans %}
+  </section>
+  <hr />
+  <section class="my-5">
+    <h3>{% trans 'How do we obtain data?' %}</h3>
+    {% blocktrans %}
+    <p>
+      We automatically acquire data from remote sources like (...), our partners (...) and trusted buyers.
+      After careful review and consideration, our experts rate individually obtained products or suppliers.
+      We aggreate all ratings to formulate recommendations.
+    </p>
+    {% endblocktrans %}
+  </section>
+  <hr />
+  <section class="my-5">
+    <h3>{% trans 'How does our rating work?' %}</h3>
+    {% blocktrans %}
+    We review both, the supplier and products provided by the supplier, on a 3-scale basis&mdash;positive <code>(+1)</code>, neutral <code>(0)</code> and negative <code>(-1)</code>&mdash;utilizing different sources.
+    This allows as to formulate aggreate ratings from different sources based on
+    </p>
+    <ul>
+      <li>the number <i>(how many source do we have?)</i>,</li>
+      <li>date <i>(when was the last update?)</i>,</li>
+      <li>accuracy <i>(how detailed was the report?)</i> and</li>
+      <li>outcome <i>(was the review positive?)</i></li>
+    </ul>
+    <p>A supplier is considered trustworthy if the average rating is above <code>0.5</code>.
+    </p>
+    {% endblocktrans %}
+  </section>
+  <hr />
+  <section class="my-5">
+    <h3>{% trans 'API' %}</h3>
+    {% url 'resources:api:api-root' as api_url %}
+    {% blocktrans %}
+    <p>
+      For verified users, we provide acces to our supplier database in machine readable format (rest-API, JSON) at <a href="{{ api_url }}">portal.safemasks.de/api</a>.
+    </p>
+    {% endblocktrans %}
+  </section>
 </div>
 {% endblock %}
