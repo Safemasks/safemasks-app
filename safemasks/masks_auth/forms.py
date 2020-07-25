@@ -1,6 +1,12 @@
 """Custom implementations of default forms
 """
-from django.forms import ModelForm, Textarea, CharField, TextInput
+from django.forms import (
+    ModelForm,
+    Textarea,
+    CharField,
+    TextInput,
+    ValidationError,
+)
 from django.utils.translation import gettext_lazy as _
 
 from allauth.account.forms import SignupForm as AllAuthSignupForm
@@ -18,7 +24,14 @@ class ProfileForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["phone_number", "company", "position", "description"]
+        fields = [
+            "phone_number",
+            "company",
+            "position",
+            "description",
+            "accepted_terms",
+            "accepted_privacy",
+        ]
         widgets = {
             "phone_number": TextInput(attrs={"placeholder": _("+99999 max 15 digits")}),
             "company": TextInput(
@@ -42,6 +55,12 @@ class ProfileForm(ModelForm):
             "company": None,
             "description": None,
             "position": None,
+            "accepted_terms": None,
+            "accepted_privacy": None,
+        }
+        labels = {
+            "accepted_terms": _("I have read and accept the terms and conditions."),
+            "accepted_privacy": _("I have read and accept the privacy policy."),
         }
 
 
@@ -69,6 +88,22 @@ class SignupForm(AllAuthSignupForm):
     company = PROFILE_FORM.fields["company"]
     position = PROFILE_FORM.fields["position"]
     description = PROFILE_FORM.fields["description"]
+    accepted_terms = PROFILE_FORM.fields["accepted_terms"]
+    accepted_privacy = PROFILE_FORM.fields["accepted_privacy"]
+
+    def clean_accepted_terms(self):
+        data = self.cleaned_data["accepted_terms"]
+        if not data:
+            raise ValidationError(
+                _("You must accept the terms and conditions to register.")
+            )
+        return data
+
+    def clean_accepted_privacy(self):
+        data = self.cleaned_data["accepted_privacy"]
+        if not data:
+            raise ValidationError(_("You must accept the privacy policy to register."))
+        return data
 
     def save(self, request):
         """Adds additional info to user & user profile
@@ -116,5 +151,7 @@ class SignupForm(AllAuthSignupForm):
                 Column("password2", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
+            "accepted_terms",
+            "accepted_privacy",
             Submit("submit", _("Sign Up")),
         )

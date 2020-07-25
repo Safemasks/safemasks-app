@@ -72,6 +72,18 @@ class Profile(models.Model):
         help_text=_("Last time the profile was updated."),
         verbose_name=_("Last update"),
     )
+    accepted_terms = models.BooleanField(
+        null=False,
+        default=False,
+        help_text=_("User has accepted safemasks terms and conditions."),
+        verbose_name=_("Is reviewed?"),
+    )
+    accepted_privacy = models.BooleanField(
+        null=False,
+        default=False,
+        help_text=_("User has accepted safemasks privcacy."),
+        verbose_name=_("Is reviewed?"),
+    )
 
     def __str__(self) -> str:
         return f"Profile({self.user})"
