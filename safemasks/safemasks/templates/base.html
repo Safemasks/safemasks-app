@@ -131,7 +131,7 @@
                 <a href="{% url 'resources:index' %}">{% trans 'Home' %}</a>
               </li>
               <li>
-                <a href="{% url 'resources:suppliers-trusted' %}">{% trans 'Suppliers' %}</a>
+                <a href="{% url 'resources:suppliers-trusted' %}">{% trans 'Trusted Suppliers' %}</a>
               </li>
               {% if user.profile.is_reviewed and user.is_authenticated%}
               <li>
@@ -151,7 +151,7 @@
             </ul>
           </div>
           <div class="modal fade" id="privacy-policy" tabindex="-1" role="dialog" aria-labelledby="privacy-policy" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h3 class="modal-title" id="exampleModalLabel">{% trans 'Privacy Policy' %}</h3>
@@ -160,7 +160,13 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                  {% if LANGUAGE_CODE == 'de' %}
+                  {% include 'privacy/privacy-policy-de.html' %}
+                  {% elif LANGUAGE_CODE == 'en'%}
                   {% include 'privacy/privacy-policy-en.html' %}
+                  {% else %}
+                  {% include 'privacy/privacy-policy-en.html' %}
+                  {% endif %}
                 </div>
               </div>
             </div>
