@@ -106,6 +106,33 @@
         ['10', '25', '50', 'All']
       ],
       dom: 'Blfrtip',
+      createdRow: function ( row, data, index ) {
+          console.log(data.last_update - new Date)
+          if (data.avg_rating < 0.0) {
+              $("td", row).eq(5).addClass('bg-danger text-white');
+          } else if (data.avg_rating != null && data.avg_rating < 0.5){
+              $("td", row).eq(5).addClass('bg-warning');
+          }
+          if (data.avg_product_rating < 0.0) {
+              $("td", row).eq(7).addClass('bg-danger text-white');
+          } else if (data.avg_product_rating != null && data.avg_product_rating < 0.5){
+              $("td", row).eq(7).addClass('bg-warning');
+          }
+          if (data.last_update) {
+              var today = new Date();
+              console.log(data.last_update);
+              var update = Date.parse(data.last_update);
+              var months = (today - update) / 1000 / 3600 / 24 / 30;
+              console.log(today);
+              console.log(update);
+              console.log(months);
+              if (months > 3){
+                  $("td", row).eq(2).addClass('bg-danger text-white');
+              } else if (months > 1){
+                $("td", row).eq(2).addClass('bg-warning');
+              }
+          }
+        },
       ajax: "/api/suppliers/?format=datatables",
       buttons: [{
         extend: 'copy',
