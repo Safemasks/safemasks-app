@@ -5,24 +5,38 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block jumbotron %}
-    <h1>{% trans "Sign Up" %}</h1>
-    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<h1>{% trans "Sign Up" %}</h1>
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 {% endblock jumbotron %}
 
 {% block content-body %}
 <div class="alert alert-info" role="alert">
-    {% blocktrans %}
-    Although, the information we provide are free, to maintain the integrity of our data, we manually review users.
-    If you want to request access, please provide information about you and why you require access to safemasks.
-    After we have verified your E-Mail address, we will contact you about further steps.
-    {% endblocktrans %}
+  {% blocktrans %}
+  <h2>Use of the database</h2>
+  <p>You can access the database in just a few steps:</p>
+  <ol>
+    <li>You first have to register with your email address and information helping to verify your identity,</li>
+    <li>Your email address will be verified using a confirmation link,</li>
+    <li>Our admins will verify your information to grant you full access to our data.</li>
+  </ol>
+  <p>
+    Wwe consider these verifications steps necessary to ensure the security and integrity of the database.
+    After completing the registration, you will have extensive access to our data.
+    Our database contains reviews for individual suppliers and products.
+  </p>
+</div>
+<div class="alert alert-warning" role="alert">
+  <h5>This database is currently a demo version.</h5>
+  <p>We would therefore ask you to take part in our survey in order to improve the database with us.
+    We look forward to your open feedback!</p>
+  {% endblocktrans %}
 </div>
 <div class="card">
-    <div class="card-body">
-        <form class="signup_form" method="POST" action="{% url 'account_signup' %}">
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
-    </div>
+  <div class="card-body">
+    <form class="signup_form" method="POST" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {% crispy form %}
+    </form>
+  </div>
 </div>
 {% endblock content-body %}
