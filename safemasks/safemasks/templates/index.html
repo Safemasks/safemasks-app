@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron">
   <h1><span class="brand">safemasks</span> Portal</h1>
-  <h5>{% trans 'Access to healthcare procurement data' %}</h2>
+  <h5>{% trans 'Access to secure healthcare procurement data' %}</h2>
 </div>
 <div class="container mb-5">
   <section class="my-5">
@@ -56,6 +56,14 @@
     {% blocktrans %}
     <p>
       For verified users, we provide acces to our supplier database in machine readable format (rest-API, JSON) at <a href="{{ api_url }}">portal.safemasks.de/api</a>.
+    </p>
+    <p>Example python access:
+    <pre><code>
+        import requests
+        url = "https://portal.safemask.de/api/suppliers/?format=json"
+        response = requests.get(url, auth=("{user}","{password}"))
+        print(reponse.data)
+    </code></pre>
     </p>
     {% endblocktrans %}
   </section>
