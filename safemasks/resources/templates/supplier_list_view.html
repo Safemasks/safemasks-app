@@ -119,6 +119,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/date-eu.js"></script>
 <script>
   $(document).ready(function() {
     var table = $('#trusted-suppliers').DataTable({
@@ -134,7 +135,8 @@
         ['10', '25', '50', 'All']
       ],
       dom: 'Blfrtip',
-      order: [[ 7, "asc" ]],
+      order: [[ 7, "desc" ]],
+      columnDefs : [{"targets":7, "type":"date-eu"}],
       createdRow: function ( row, data, index ) {
           console.log(data.last_update - new Date)
           if (data.avg_rating < 0.0) {
