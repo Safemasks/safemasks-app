@@ -1,6 +1,6 @@
 """Rest API serializers for resources
 """
-from django.db.models import Avg, Q
+from django.db.models import Q
 
 from rest_framework.serializers import (
     ModelSerializer,
@@ -81,7 +81,9 @@ class SupplierViewSet(ReadOnlyModelViewSet):  # pylint: disable=R0901
     """List of all suppliers.
     """
 
-    queryset = annotate_suppliers(Supplier.objects.all())
+    queryset = annotate_suppliers(Supplier.objects.all()).exclude(
+        Q(n_reviews=0) & Q(n_product_ratings=0)
+    )
     serializer_class = SupplierSerializer
 
 
