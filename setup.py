@@ -29,7 +29,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     keywords=[],
     include_package_data=True,
     entry_points={"console_scripts": ["safemasks=safemasks.manage:main"],},
