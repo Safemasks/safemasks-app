@@ -21,11 +21,12 @@
 
 <div class="container mb-5 mt-0">
   <p>
-    <a class="btn btn-info" data-toggle="collapse" href="#help" role="button" aria-expanded="false" aria-controls="help">
-      {% trans 'Legend' %}
-    </a>
+      <a class="btn btn-info" data-toggle="collapse" href="#help" role="button" aria-expanded="false" aria-controls="help">
+          <i class="fa fa-info mr-2" aria-hidden="true"></i>{% trans 'Legend' %}
+      </a>
   </p>
   <div class="collapse" id="help">
+     <h6>{% trans 'Columns' %}</h6>
     <table class="table">
       <tbody>
         <tr>
@@ -62,6 +63,33 @@
         </tr>
       </tbody>
     </table>
+    <h6>{% trans 'Color coding' %}</h6>
+   <table class="table">
+       <thead>
+           <tr>
+             <td>{% trans 'Column' %}</td>
+             <td class="bg-warning">{% trans 'Yellow' %}</td>
+             <td class="bg-danger text-white">{% trans 'Red' %}</td>
+           </tr>
+       </thead>
+     <tbody>
+         <tr>
+           <td><code>{% trans 'Last update' %}</code></td>
+           <td>{% trans 'Older than a month' %}</td>
+           <td>{% trans 'Older than three months' %}</td>
+         </tr>
+         <tr>
+           <td><code>{% trans 'Avg. rating' %}</code></td>
+           <td>{% trans 'Smaller' %} <code>0.5</code></td>
+           <td>{% trans 'Smaller' %} <code>0.0</code></td>
+         </tr>
+         <tr>
+           <td><code>{% trans 'Avg. product rating' %}</code></td>
+           <td>{% trans 'Smaller' %} <code>0.5</code></td>
+           <td>{% trans 'Smaller' %} <code>0.0</code></td>
+         </tr>
+     </tbody>
+   </table>
   </div>
 </div>
 <div class="container">
@@ -72,12 +100,12 @@
           <tr>
             <th>{% trans 'Id' %}</th>
             <th>{% trans 'Name' %}</th>
-            <th>{% trans 'Last update' %}</th>
             <th>{% trans '# Products' %}</th>
             <th>{% trans '# Reviews' %}</th>
             <th>{% trans 'Avg. rating' %}</th>
             <th>{% trans '# Rated products' %}</th>
             <th>{% trans 'Avg. product rating' %}</th>
+            <th>{% trans 'Last update' %}</th>
           </tr>
         </thead>
       </table>
@@ -106,30 +134,27 @@
         ['10', '25', '50', 'All']
       ],
       dom: 'Blfrtip',
+      order: [[ 7, "asc" ]],
       createdRow: function ( row, data, index ) {
           console.log(data.last_update - new Date)
           if (data.avg_rating < 0.0) {
-              $("td", row).eq(5).addClass('bg-danger text-white');
+              $("td", row).eq(4).addClass('bg-danger text-white');
           } else if (data.avg_rating != null && data.avg_rating < 0.5){
-              $("td", row).eq(5).addClass('bg-warning');
+              $("td", row).eq(4).addClass('bg-warning');
           }
           if (data.avg_product_rating < 0.0) {
-              $("td", row).eq(7).addClass('bg-danger text-white');
+              $("td", row).eq(6).addClass('bg-danger text-white');
           } else if (data.avg_product_rating != null && data.avg_product_rating < 0.5){
-              $("td", row).eq(7).addClass('bg-warning');
+              $("td", row).eq(6).addClass('bg-warning');
           }
           if (data.last_update) {
               var today = new Date();
-              console.log(data.last_update);
-              var update = Date.parse(data.last_update);
+              var update = new Date(Date.parse(data.last_update));
               var months = (today - update) / 1000 / 3600 / 24 / 30;
-              console.log(today);
-              console.log(update);
-              console.log(months);
               if (months > 3){
-                  $("td", row).eq(2).addClass('bg-danger text-white');
+                  $("td", row).eq(7).addClass('bg-danger text-white');
               } else if (months > 1){
-                $("td", row).eq(2).addClass('bg-warning');
+                $("td", row).eq(7).addClass('bg-warning');
               }
           }
         },
@@ -160,9 +185,6 @@
           }
         },
         {
-          "data": "last_update",
-        },
-        {
           "data": "n_products",
         },
         {
@@ -176,6 +198,15 @@
         },
         {
           "data": "avg_product_rating",
+        },
+        {
+          "data": "last_update",
+          "render": function(data, type, row, meta) {
+            if (data) {
+                data = new Date(Date.parse(data)).toLocaleDateString("de");
+            }
+            return data
+          }
         },
       ]
     });

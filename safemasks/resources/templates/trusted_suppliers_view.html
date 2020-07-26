@@ -8,7 +8,11 @@
 {% block content %}
 <div class="jumbotron mb-0 pb-1">
   <h1>{% trans 'List of trusted suppliers' %}</h1>
-  <h5>{% trans 'Preview of our data. Login for more details.' %}</h5>
+  {% url 'account_login' as login_url %}
+  <h5>{% blocktrans %}
+      Preview of our data. <a href="{{login_url}}">Sign in</a> for more details.
+      {% endblocktrans %}
+  </h5>
   <div class="container mt-4 mb-0">
     <div class="alert alert-warning" role="alert">
       {% blocktrans %}
@@ -22,7 +26,7 @@
 <div class="container mb-5 mt-0">
   <p>
     <a class="btn btn-info" data-toggle="collapse" href="#help" role="button" aria-expanded="false" aria-controls="help">
-        {% trans 'Legend' %}
+        <i class="fa fa-info mr-2" aria-hidden="true"></i>{% trans 'Legend' %}
     </a>
   </p>
   <div class="collapse" id="help">
@@ -83,6 +87,7 @@
       ],
       dom: 'Blfrtip',
       ajax: "/api/suppliers-trusted/?format=datatables",
+      order: [[ 2, "desc" ]],
       buttons: [{
         extend: 'copy',
         className: "btn btn-outline-secondary"
@@ -110,6 +115,12 @@
         },
         {
           "data": "date_added",
+          "render": function(data, type, row, meta) {
+            if (data) {
+                data = new Date(Date.parse(data)).toLocaleDateString("de");
+            }
+            return data
+          }
         },
       ]
     });
