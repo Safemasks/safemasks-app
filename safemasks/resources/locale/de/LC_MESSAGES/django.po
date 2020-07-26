@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-30 16:19+0200\n"
+"POT-Creation-Date: 2020-07-26 13:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: safemasks/resources/admin.py:22
+#: safemasks/resources/templates/supplier_detail_view.html:38
+msgid "Rating"
+msgstr ""
+
+#: safemasks/resources/admin.py:29
+msgid "Positive"
+msgstr ""
+
+#: safemasks/resources/admin.py:30 safemasks/resources/models.py:177
+msgid "Neutral"
+msgstr ""
+
+#: safemasks/resources/admin.py:31 safemasks/resources/models.py:177
+msgid "Negativ"
+msgstr ""
+
+#: safemasks/resources/admin.py:51
+msgid "Average Product rating"
+msgstr ""
+
+#: safemasks/resources/admin.py:59
+msgid "Average rating"
+msgstr ""
 
 #: safemasks/resources/models.py:44
 msgid "Name of the supplier."
@@ -28,6 +53,7 @@ msgid ""
 msgstr "Adressen des Lieferanten (Liste: URLs, E-Mail Adresssen, ...)"
 
 #: safemasks/resources/models.py:55
+#: safemasks/resources/templates/supplier_detail_view.html:5
 msgid "Supplier"
 msgstr "Lieferant"
 
@@ -35,82 +61,348 @@ msgstr "Lieferant"
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: safemasks/resources/models.py:113
+#: safemasks/resources/models.py:63
+msgid "Additional information which help informing about this supplier."
+msgstr ""
+
+#: safemasks/resources/models.py:68
+msgid "Links and references to crossh-check this supplier."
+msgstr ""
+
+#: safemasks/resources/models.py:71
+msgid "When was this supplier added to the safemasks portal?"
+msgstr ""
+
+#: safemasks/resources/models.py:127
 msgid "Name of the product"
 msgstr "Name des Produktes"
 
-#: safemasks/resources/models.py:118
+#: safemasks/resources/models.py:132
 msgid "Who supplied this product?"
 msgstr ""
 
-#: safemasks/resources/models.py:122
+#: safemasks/resources/models.py:136
 msgid "Certificate of the product"
 msgstr "Produkt Zertifikat"
 
-#: safemasks/resources/models.py:128
-msgid "Is the supplier trustworthy and fulfills standards? Aggregates reviews."
+#: safemasks/resources/models.py:141
+msgid "Additional information which help informing about this product."
 msgstr ""
 
-#: safemasks/resources/models.py:131 safemasks/resources/models.py:210
-msgid "When was this entry last updated?"
+#: safemasks/resources/models.py:146
+msgid "Links and references to crossh-check this product."
 msgstr ""
 
-#: safemasks/resources/models.py:156
-msgid "What was the product?"
+#: safemasks/resources/models.py:149
+msgid "When was this product added to the safemasks portal?"
 msgstr ""
 
-#: safemasks/resources/models.py:159
+#: safemasks/resources/models.py:177
+msgid "Positiv"
+msgstr ""
+
+#: safemasks/resources/models.py:184
 msgid "How was this information obtained?"
 msgstr ""
 
-#: safemasks/resources/models.py:163
+#: safemasks/resources/models.py:188
 msgid "Who submitted this information?"
 msgstr ""
 
-#: safemasks/resources/models.py:166
+#: safemasks/resources/models.py:191
 msgid "When was the review last updated?"
 msgstr ""
 
-#: safemasks/resources/models.py:170
-msgid "Is the product trustworthy and fulfills standards?"
-msgstr ""
-
-#: safemasks/resources/models.py:173
-msgid "Additional information to support review."
-msgstr ""
-
-#: safemasks/resources/models.py:189
-msgid "Product deliveries"
-msgstr ""
-
-#: safemasks/resources/models.py:194
-msgid "Which product was delivered?"
-msgstr ""
-
-#: safemasks/resources/models.py:196
-msgid "How many items were delivered?"
+#: safemasks/resources/models.py:198
+msgid "Is the entry trustworthy? Ranges from -1 (negativ) to +1 (positiv)."
 msgstr ""
 
 #: safemasks/resources/models.py:202
+msgid "Additional information to support review."
+msgstr ""
+
+#: safemasks/resources/models.py:218
+msgid "What was the product?"
+msgstr ""
+
+#: safemasks/resources/models.py:238
+#, fuzzy
+#| msgid "Name of the supplier."
+msgid "Who is the supplier?"
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/models.py:255
+msgid "Product deliveries"
+msgstr ""
+
+#: safemasks/resources/models.py:260
+msgid "Which product was delivered?"
+msgstr ""
+
+#: safemasks/resources/models.py:262
+msgid "How many items were delivered?"
+msgstr ""
+
+#: safemasks/resources/models.py:268
 msgid "Price per unit in Euro."
 msgstr ""
 
-#: safemasks/resources/models.py:205
+#: safemasks/resources/models.py:271
 msgid "Who obtained the delivery?"
 msgstr ""
 
-#: safemasks/resources/models.py:208
+#: safemasks/resources/models.py:274
 msgid "Was the product delivered in time?"
 msgstr ""
 
-#: safemasks/resources/models.py:226
+#: safemasks/resources/models.py:276
+msgid "When was this entry last updated?"
+msgstr ""
+
+#: safemasks/resources/models.py:292
 msgid "Name of the resource"
 msgstr ""
 
-#: safemasks/resources/models.py:228
+#: safemasks/resources/models.py:294
 msgid "Address of the resource"
 msgstr ""
 
-#: safemasks/resources/models.py:230
+#: safemasks/resources/models.py:296
 msgid "Additional information about resource."
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:6
+msgid "Added to Safemasks"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:9
+msgid "Quick Facts"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:13
+msgid "Address"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:17
+#: safemasks/resources/templates/supplier_detail_view.html:63
+msgid "Type"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:21
+#: safemasks/resources/templates/supplier_detail_view.html:39
+msgid "Comment"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:25
+msgid "References"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:32
+msgid "Reviews"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:36
+msgid "Source"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:37
+msgid "User"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:40
+#: safemasks/resources/templates/supplier_detail_view.html:67
+#: safemasks/resources/templates/supplier_list_view.html:41
+#: safemasks/resources/templates/supplier_list_view.html:77
+#: safemasks/resources/templates/supplier_list_view.html:108
+msgid "Last update"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:58
+msgid "Products"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:62
+msgid "id"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:64
+msgid "Certificate"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:65
+msgid "Avg. Rating"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_detail_view.html:66
+msgid "# Ratings"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:10
+#, fuzzy
+#| msgid "Name of the supplier."
+msgid "List of suppliers"
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/templates/supplier_list_view.html:11
+#, fuzzy
+#| msgid "Name of the supplier."
+msgid "Summary of our supplier data."
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/templates/supplier_list_view.html:14
+#: safemasks/resources/templates/trusted_suppliers_view.html:18
+msgid ""
+"\n"
+"      We note that while we do our best to provide accurate estimates of "
+"trustworthyness of suppliers, our aggreated reviews shouild not be "
+"considered a buying recommendation.\n"
+"      See also our terms and conditions\n"
+"      "
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:25
+#: safemasks/resources/templates/trusted_suppliers_view.html:29
+msgid "Legend"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:29
+msgid "Columns"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:33
+#: safemasks/resources/templates/supplier_list_view.html:101
+#: safemasks/resources/templates/trusted_suppliers_view.html:36
+#: safemasks/resources/templates/trusted_suppliers_view.html:58
+msgid "Id"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:34
+msgid "Index for supplier entry in our database"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:37
+#: safemasks/resources/templates/supplier_list_view.html:102
+#: safemasks/resources/templates/trusted_suppliers_view.html:40
+#: safemasks/resources/templates/trusted_suppliers_view.html:59
+msgid "Name"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:38
+#: safemasks/resources/templates/trusted_suppliers_view.html:41
+#, fuzzy
+#| msgid "Name of the supplier."
+msgid " Name of the supplier"
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/templates/supplier_list_view.html:42
+msgid ""
+" The last time we reviewed either the supplier or a corresponding product"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:45
+#: safemasks/resources/templates/supplier_list_view.html:103
+msgid "# Products"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:46
+msgid " Number of products associated with supplier in our database"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:49
+#: safemasks/resources/templates/supplier_list_view.html:104
+msgid "# Reviews"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:50
+msgid " Number of supplier reviews in our database"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:53
+#: safemasks/resources/templates/supplier_list_view.html:82
+#: safemasks/resources/templates/supplier_list_view.html:105
+msgid "Avg. rating"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:54
+msgid " The average rating of the supplier (excluding products)"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:57
+#: safemasks/resources/templates/supplier_list_view.html:106
+#, fuzzy
+#| msgid "Name of the product"
+msgid "# Rated products"
+msgstr "Name des Produktes"
+
+#: safemasks/resources/templates/supplier_list_view.html:58
+msgid " Total number of products associated with supplier in our database"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:61
+#: safemasks/resources/templates/supplier_list_view.html:87
+#: safemasks/resources/templates/supplier_list_view.html:107
+msgid "Avg. product rating"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:62
+msgid " The average rating over all products associated with supplier"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:66
+msgid "Color coding"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:70
+msgid "Column"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:71
+msgid "Yellow"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:72
+msgid "Red"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:78
+msgid "Older than a month"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:79
+msgid "Older than three months"
+msgstr ""
+
+#: safemasks/resources/templates/supplier_list_view.html:83
+#: safemasks/resources/templates/supplier_list_view.html:84
+#: safemasks/resources/templates/supplier_list_view.html:88
+#: safemasks/resources/templates/supplier_list_view.html:89
+msgid "Smaller"
+msgstr ""
+
+#: safemasks/resources/templates/trusted_suppliers_view.html:10
+#, fuzzy
+#| msgid "Name of the supplier."
+msgid "List of trusted suppliers"
+msgstr "Name des Lieferanten."
+
+#: safemasks/resources/templates/trusted_suppliers_view.html:12
+#, python-format
+msgid ""
+"\n"
+"      Preview of our data. <a href=\"%(login_url)s\">Sign in</a> for more "
+"details.\n"
+"      "
+msgstr ""
+
+#: safemasks/resources/templates/trusted_suppliers_view.html:37
+msgid " Index for supplier entry in our database"
+msgstr ""
+
+#: safemasks/resources/templates/trusted_suppliers_view.html:44
+#: safemasks/resources/templates/trusted_suppliers_view.html:60
+msgid "Date added"
+msgstr ""
+
+#: safemasks/resources/templates/trusted_suppliers_view.html:45
+msgid " The first time we reviewd this supplier"
 msgstr ""

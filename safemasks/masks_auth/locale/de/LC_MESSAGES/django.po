@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-30 16:19+0200\n"
+"POT-Creation-Date: 2020-07-26 13:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,37 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: safemasks/masks_auth/forms.py:23
+#: safemasks/masks_auth/forms.py:36
 msgid "+99999 max 15 digits"
 msgstr "+9999 maximal 15 Stellen"
 
-#: safemasks/masks_auth/forms.py:25
+#: safemasks/masks_auth/forms.py:38
 msgid "Your company or institution."
 msgstr "Ihre Beschäftigung"
 
-#: safemasks/masks_auth/forms.py:28
+#: safemasks/masks_auth/forms.py:41
 msgid "Your position in this company."
 msgstr "Ihre Position innerhalb dieser Firma."
 
-#: safemasks/masks_auth/forms.py:33
+#: safemasks/masks_auth/forms.py:46
+#, fuzzy
+#| msgid ""
+#| "Why are you interested in using Safe Masks? Please add additional "
+#| "descriptions and further links to verify your identity."
 msgid ""
-"Why are you interested in using Safe Masks? Please add additional "
+"Why are you interested in using safemasks? Please add additional "
 "descriptions and further links to verify your identity."
 msgstr ""
 "Warum sind Sie an Safe Masks interessiert? Bitte fügen Sie weitere "
 "information hinzu, die uns helfen Sie zu verifizieren."
 
-#: safemasks/masks_auth/forms.py:56 safemasks/masks_auth/forms.py:58
-#: safemasks/masks_auth/templates/account/profile.html:36
+#: safemasks/masks_auth/forms.py:63
+msgid ""
+"I have read and accept the <a href=\"#privacy-policy\" data-toggle=\"modal\" "
+"data-target=\"#privacy-policy\">terms and conditions</a>."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:66
+msgid ""
+"I have read and accept the <a href=\"#privacy-policy\" data-toggle=\"modal\" "
+"data-target=\"#privacy-policy\">privacy policy</a>."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:79 safemasks/masks_auth/forms.py:81
+#: safemasks/masks_auth/templates/account/profile.html:29
 msgid "First name"
 msgstr "Vorname"
 
-#: safemasks/masks_auth/forms.py:62 safemasks/masks_auth/forms.py:64
-#: safemasks/masks_auth/templates/account/profile.html:40
+#: safemasks/masks_auth/forms.py:85 safemasks/masks_auth/forms.py:87
+#: safemasks/masks_auth/templates/account/profile.html:33
 msgid "Last name"
 msgstr "Nachname"
 
-#: safemasks/masks_auth/forms.py:117
+#: safemasks/masks_auth/forms.py:102
+msgid "You must accept the terms and conditions to register."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:109
+msgid "You must accept the privacy policy to register."
+msgstr ""
+
+#: safemasks/masks_auth/forms.py:160
 #: safemasks/masks_auth/templates/account/signup.html:8
 msgid "Sign Up"
 msgstr "Registrieren"
@@ -69,61 +93,70 @@ msgstr "Nutzer Instanz"
 msgid "User"
 msgstr "Nutzer"
 
-#: safemasks/masks_auth/models.py:33
+#: safemasks/masks_auth/models.py:35
 msgid "+999999999 Up to 15 digits allowed"
 msgstr "'+9999' maximal 15 Stellen erlaubt"
 
-#: safemasks/masks_auth/models.py:34
+#: safemasks/masks_auth/models.py:36
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: safemasks/masks_auth/models.py:40
+#: safemasks/masks_auth/models.py:42
 msgid "Name of your company or institution."
 msgstr "Name Ihrer Firma oder Beschäftigung"
 
-#: safemasks/masks_auth/models.py:41
+#: safemasks/masks_auth/models.py:43
 msgid "Company"
 msgstr "Firma"
 
-#: safemasks/masks_auth/models.py:47
+#: safemasks/masks_auth/models.py:49
 msgid "Position in company or institution."
 msgstr "Ihre Beschäftigung"
 
-#: safemasks/masks_auth/models.py:48
+#: safemasks/masks_auth/models.py:50
 msgid "Position"
 msgstr "Position"
 
-#: safemasks/masks_auth/models.py:53
+#: safemasks/masks_auth/models.py:55
 msgid "Additional information, descriptions and references."
 msgstr "Weitere Infromationen, Beschreibungen oder Referenzen."
 
-#: safemasks/masks_auth/models.py:54
+#: safemasks/masks_auth/models.py:56
 msgid "Description"
 msgstr "Beschreibung"
 
-#: safemasks/masks_auth/models.py:59
+#: safemasks/masks_auth/models.py:61
 msgid "Was the authenticity of the user reviewed by the administration?"
 msgstr "Wurde der Nutzer von einem Administrator verifiziert?"
 
-#: safemasks/masks_auth/models.py:60
+#: safemasks/masks_auth/models.py:62 safemasks/masks_auth/models.py:79
+#: safemasks/masks_auth/models.py:85
 msgid "Is reviewed?"
 msgstr "Wurde überprüft"
 
-#: safemasks/masks_auth/models.py:65
+#: safemasks/masks_auth/models.py:67
 msgid "Ip address associated with user."
 msgstr "Ip Adresse des Nutzers."
 
-#: safemasks/masks_auth/models.py:66
+#: safemasks/masks_auth/models.py:68
 msgid "IP address"
 msgstr "IP Adresse"
 
-#: safemasks/masks_auth/models.py:70
+#: safemasks/masks_auth/models.py:72
 msgid "Last time the profile was updated."
 msgstr "Letze Profiländerung."
 
-#: safemasks/masks_auth/models.py:71
+#: safemasks/masks_auth/models.py:73
 msgid "Last update"
 msgstr "Letzte Bearbeitung:"
+
+#: safemasks/masks_auth/models.py:78
+msgid "User has accepted safemasks terms and conditions."
+msgstr ""
+
+#: safemasks/masks_auth/models.py:84
+msgid "User has accepted safemasks privcacy."
+msgstr ""
 
 #: safemasks/masks_auth/templates/account/account_inactive.html:5
 #: safemasks/masks_auth/templates/account/account_inactive.html:8
@@ -200,9 +233,17 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Möchten Sie wirklich die ausgewählte E-Mail Adresse entfernen?"
 
 #: safemasks/masks_auth/templates/account/email/email_confirmation_message.txt:1
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from Safe Masks!\n"
+#| "\n"
+#| "You're receiving this e-mail because user %(user_display)s has given "
+#| "yours as an e-mail address to connect their account.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s\n"
+#| "\n"
 msgid ""
-"Hello from Safe Masks!\n"
+"Safemasks Registration\n"
 "\n"
 "You're receiving this e-mail because user %(user_display)s has given yours "
 "as an e-mail address to connect their account.\n"
@@ -220,7 +261,9 @@ msgstr ""
 "\n"
 
 #: safemasks/masks_auth/templates/account/email/email_confirmation_message.txt:8
-msgid "Thank you from Safe Masks!\n"
+#, fuzzy
+#| msgid "Thank you from Safe Masks!\n"
+msgid "Thank you from safemasks!\n"
 msgstr "Vielen Dank von Safe Masks!\n"
 
 #: safemasks/masks_auth/templates/account/email_confirm.html:6
@@ -365,22 +408,14 @@ msgstr ""
 "erhalten"
 
 #: safemasks/masks_auth/templates/account/profile.html:19
-msgid "Your profile has not been reviewed, yet"
-msgstr "Ihr Profil wurde noch nicht geprüft"
-
-#: safemasks/masks_auth/templates/account/profile.html:20
-msgid "We are going to contact you soon."
-msgstr "Wir werden Sie bald kontaktieren"
-
-#: safemasks/masks_auth/templates/account/profile.html:26
 msgid "Update profile information"
 msgstr "Profilinformationen bearbeiten"
 
-#: safemasks/masks_auth/templates/account/profile.html:30
+#: safemasks/masks_auth/templates/account/profile.html:23
 msgid "Email address"
 msgstr "E-mail Adresse"
 
-#: safemasks/masks_auth/templates/account/profile.html:52
+#: safemasks/masks_auth/templates/account/profile.html:45
 msgid "Last updated:"
 msgstr "Letzte Bearbeitung:"
 
@@ -399,24 +434,30 @@ msgstr ""
 #: safemasks/masks_auth/templates/account/signup.html:14
 msgid ""
 "\n"
-"    Although, the information we provide are free, to maintain the integrity "
-"of our data, we manually review users.\n"
-"    If you want to request access, please provide information about you and "
-"why you require access to Safe Masks.\n"
-"    After we have verified your E-Mail address, we will contact you about "
-"further steps.\n"
-"    "
+"  <h2>Use of the database</h2>\n"
+"  <p>You can access the database in just a few steps:</p>\n"
+"  <ol>\n"
+"    <li>You first have to register with your email address and information "
+"helping to verify your identity,</li>\n"
+"    <li>Your email address will be verified using a confirmation link,</li>\n"
+"    <li>Our admins will verify your information to grant you full access to "
+"our data.</li>\n"
+"  </ol>\n"
+"  <p>\n"
+"    Wwe consider these verifications steps necessary to ensure the security "
+"and integrity of the database.\n"
+"    After completing the registration, you will have extensive access to our "
+"data.\n"
+"    Our database contains reviews for individual suppliers and products.\n"
+"  </p>\n"
+"</div>\n"
+"<div class=\"alert alert-warning\" role=\"alert\">\n"
+"  <h5>This database is currently a demo version.</h5>\n"
+"  <p>We would therefore ask you to take part in our survey in order to "
+"improve the database with us.\n"
+"    We look forward to your open feedback!</p>\n"
+"  "
 msgstr ""
-"\n"
-"    Wir stellen unsere Information umsonst zur Verfügung.    Trotzdem "
-"erfordern wir ein Registrierung, um die Integrität unser Daten zu "
-"gewährleisten.\n"
-"    Bitte lassen Sie uns wissen, wofür Sie den Zugang zu Safe Masks! "
-"benötigen und geben Sie weitere Informationen preis, die bei der "
-"Verifizierung helfen.\n"
-"    Nach der Verifizierung dieser Daten kontaktieren wir Sie bezüglich "
-"nächster Schritte.\n"
-"    "
 
 #: safemasks/masks_auth/templates/account/signup_closed.html:5
 #: safemasks/masks_auth/templates/account/signup_closed.html:8
@@ -470,3 +511,30 @@ msgid ""
 msgstr ""
 "<strong>Hinweis:</strong> Sie können weiterhin Ihre <a href=\"%(email_url)s"
 "\">E-Mail Adresse ändern</a>."
+
+#~ msgid "Your profile has not been reviewed, yet"
+#~ msgstr "Ihr Profil wurde noch nicht geprüft"
+
+#~ msgid "We are going to contact you soon."
+#~ msgstr "Wir werden Sie bald kontaktieren"
+
+#~ msgid ""
+#~ "\n"
+#~ "    Although, the information we provide are free, to maintain the "
+#~ "integrity of our data, we manually review users.\n"
+#~ "    If you want to request access, please provide information about you "
+#~ "and why you require access to Safe Masks.\n"
+#~ "    After we have verified your E-Mail address, we will contact you about "
+#~ "further steps.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    Wir stellen unsere Information umsonst zur Verfügung.    Trotzdem "
+#~ "erfordern wir ein Registrierung, um die Integrität unser Daten zu "
+#~ "gewährleisten.\n"
+#~ "    Bitte lassen Sie uns wissen, wofür Sie den Zugang zu Safe Masks! "
+#~ "benötigen und geben Sie weitere Informationen preis, die bei der "
+#~ "Verifizierung helfen.\n"
+#~ "    Nach der Verifizierung dieser Daten kontaktieren wir Sie bezüglich "
+#~ "nächster Schritte.\n"
+#~ "    "
