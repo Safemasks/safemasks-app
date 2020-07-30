@@ -59,7 +59,7 @@ else
     content_server=$content_server"    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';\n"
     content_server=$content_server"    ssl_prefer_server_ciphers on;\n"
     content_server=$content_server"    add_header Strict-Transport-Security max-age=15768000;\n"
-    content_server=$content_server"    ssl_stapling on;\n"
+    content_server=$content_server"    ssl_stapling off;\n"
     content_server=$content_server"    ssl_stapling_verify on;\n"  
     content_server=$content_server'    location / {\n'
     content_server=$content_server'        proxy_redirect off;\n'
