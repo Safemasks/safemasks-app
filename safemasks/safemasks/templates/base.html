@@ -153,7 +153,7 @@
               </li>
               {% endif %}
               <li>
-                <a href="#cookies" data-toggle="modal" data-target="#cookies">{% trans 'Cookies' %}</a>
+                <a href="#cookies" data-toggle="modal" data-target="#cookies">{% trans 'Legal Disclaimer' %}</a>
               </li>
               <li>
                 <a href="#terms" data-toggle="modal" data-target="#terms">{% trans 'Terms & Conditions' %}</a>
@@ -167,18 +167,18 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h3 class="modal-title" id="cookies">{% trans 'Cookies' %}</h3>
+                  <h3 class="modal-title" id="cookies">{% trans 'Legal Disclaimer' %}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   {% if LANGUAGE_CODE == 'de' %}
-                  {% include 'legal/cookies-de.html' %}
+                  {% include 'legal/disclaimer-de.html' %}
                   {% elif LANGUAGE_CODE == 'en'%}
-                  {% include 'legal/cookies-en.html' %}
+                  {% include 'legal/disclaimer-en.html' %}
                   {% else %}
-                  {% include 'legal/cookies-en.html' %}
+                  {% include 'legal/disclaimer-en.html' %}
                   {% endif %}
                 </div>
               </div>
