@@ -5,24 +5,75 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block jumbotron %}
-    <h1>{% trans "Sign Up" %}</h1>
-    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<h1>{% trans "Sign Up" %}</h1>
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 {% endblock jumbotron %}
 
 {% block content-body %}
-<div class="alert alert-info" role="alert">
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <h2>
+    {% trans 'Use of the database' %}
+  </h2>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <p>
+    {% trans 'You can access the database in just a few steps:' %}
+  </p>
+  <ol>
+    <li>
+      {% trans 'You first have to register with your email address and information helping to verify your identity,' %}
+    </li>
+    <li>
+      {% trans 'Your email address will be verified using a confirmation link,' %}
+    </li>
+    <li>
+      {% trans 'Our admins will verify your information to grant you full access to our data.' %}
+    </li>
+  </ol>
+  <p>
     {% blocktrans %}
-    Although, the information we provide are free, to maintain the integrity of our data, we manually review users.
-    If you want to request access, please provide information about you and why you require access to Safe Masks.
-    After we have verified your E-Mail address, we will contact you about further steps.
+    We consider these verifications steps necessary to ensure the security and integrity of the database.
+    After completing the registration, you will have extensive access to our data.
+    Our database contains reviews for individual suppliers and products.
     {% endblocktrans %}
+  </p>
+</div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <h5>
+    {% trans 'This database is currently a demo version.' %}
+  </h5>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <p>
+    {% blocktrans %}
+    We would therefore ask you to take part in our survey in order to improve the database with us.
+    We look forward to your open feedback!
+    {% endblocktrans %}
+  </p>
+</div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <h5>
+    {% trans 'Legal Disclaimer' %}
+  </h5>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {% if LANGUAGE_CODE == 'de' %}
+  {% include 'legal/disclaimer-de.html' %}
+  {% elif LANGUAGE_CODE == 'en'%}
+  {% include 'legal/disclaimer-en.html' %}
+  {% else %}
+  {% include 'legal/disclaimer-en.html' %}
+  {% endif %}
 </div>
 <div class="card">
-    <div class="card-body">
-        <form class="signup_form" method="POST" action="{% url 'account_signup' %}">
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
-    </div>
+  <div class="card-body">
+    <form class="signup_form" method="POST" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {% crispy form %}
+    </form>
+  </div>
 </div>
 {% endblock content-body %}

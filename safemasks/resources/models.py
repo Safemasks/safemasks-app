@@ -1,7 +1,6 @@
 """This file implements the tables storing information about suppliers
-
 """
-from typing import List
+from typing import List, Optional
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -9,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.validators import URLValidator, EmailValidator
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
+from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
@@ -56,6 +56,20 @@ class Supplier(models.Model):
         max_length=3,
         blank=True,
         null=True,
+    )
+    comment = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Additional information which help informing about this supplier."),
+    )
+    references = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Links and references to crossh-check this supplier."),
+    )
+    date_added = models.DateTimeField(
+        help_text=_("When was this supplier added to the safemasks portal?"),
+        default=timezone.now,
     )
 
     @property
@@ -121,14 +135,20 @@ class Product(models.Model):
     certificate = models.CharField(
         null=True, blank=True, help_text=_("Certificate of the product"), max_length=128
     )
-    trustworthy = models.BooleanField(
-        blank=False,
-        null=False,
-        help_text=_(
-            "Is the supplier trustworthy and fulfills standards?" " Aggregates reviews."
-        ),
+    comment = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Additional information which help informing about this product."),
     )
-    last_update = models.DateTimeField(help_text=_("When was this entry last updated?"))
+    references = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Links and references to crossh-check this product."),
+    )
+    date_added = models.DateTimeField(
+        help_text=_("When was this product added to the safemasks portal?"),
+        default=timezone.now,
+    )
 
     class Meta:
         unique_together = ["name", "supplier"]
@@ -137,14 +157,56 @@ class Product(models.Model):
         """Name of the product"""
         return "{product}, {supplier}".format(product=self.name, supplier=self.supplier)
 
-    @property
-    def n_reviews(self) -> str:
+    def get_n_reviews(self) -> int:
         """Returns number of reviews
         """
-        return self.appears_in_reviews.count()
+        return self.reviews.count()
+
+    def get_avg_rating(self) -> Optional[float]:
+        ratings = self.reviews.values_list("rating", flat=True)
+        return sum(ratings) / len(ratings) if ratings else None
+
+    def get_last_update(self):
+        last_update = None
+        if self.reviews.exists():
+            last_update = self.reviews.latest("last_update").last_update
+
+        return last_update
 
 
-class ProductReview(models.Model):
+RATING_CHOICES = [(-1, _("Negativ")), (0, _("Neutral")), (1, _("Positiv"))]
+
+
+class Review(models.Model):
+    """
+    """
+
+    source = models.TextField(help_text=_("How was this information obtained?"))
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        help_text=_("Who submitted this information?"),
+    )
+    last_update = models.DateTimeField(
+        help_text=_("When was the review last updated?"), default=timezone.now
+    )
+    rating = models.IntegerField(
+        choices=RATING_CHOICES,
+        blank=False,
+        null=False,
+        help_text=_(
+            "Is the entry trustworthy? Ranges from -1 (negativ) to +1 (positiv)."
+        ),
+    )
+    comment = models.TextField(
+        null=True, blank=True, help_text=_("Additional information to support review.")
+    )
+
+    class Meta:
+        abstract = True
+
+
+class ProductReview(Review):
     """Table represents a review for a given product.
 
     This allows to track multiple sources.
@@ -154,29 +216,33 @@ class ProductReview(models.Model):
         to=Product,
         on_delete=models.CASCADE,
         help_text=_("What was the product?"),
-        related_name="appears_in_reviews",
-    )
-    source = models.TextField(help_text=_("How was this information obtained?"))
-    user = models.ForeignKey(
-        to=User,
-        on_delete=models.CASCADE,
-        help_text=_("Who submitted this information?"),
         related_name="reviews",
-    )
-    last_update = models.DateTimeField(help_text=_("When was the review last updated?"))
-    trustworthy = models.BooleanField(
-        blank=False,
-        null=False,
-        help_text=_("Is the product trustworthy and fulfills standards?"),
-    )
-    comment = models.TextField(
-        null=True, blank=True, help_text=_("Additional information to support review.")
     )
 
     def __str__(self) -> str:
         """Rating summary"""
-        return "Rating({user}->{product}, trustworthy={trustworthy})".format(
-            user=self.user, product=self.product, trustworthy=self.trustworthy
+        return "Rating({user}->{product}, rating={rating})".format(
+            user=self.user, product=self.product, rating=self.rating
+        )
+
+
+class SupplierReview(Review):
+    """Table represents a review for a given product.
+
+    This allows to track multiple sources.
+    """
+
+    supplier = models.ForeignKey(
+        to=Supplier,
+        on_delete=models.CASCADE,
+        help_text=_("Who is the supplier?"),
+        related_name="reviews",
+    )
+
+    def __str__(self) -> str:
+        """Rating summary"""
+        return "Rating({user}->{supplier}, rating={rating})".format(
+            user=self.user, supplier=self.supplier, rating=self.rating
         )
 
 

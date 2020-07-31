@@ -167,19 +167,27 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": ["safemasks.masks_auth.rest.permissions.IsReviewed"],
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
+        "rest_framework_datatables.renderers.DatatablesRenderer",
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "rest_framework_datatables.filters.DatatablesFilterBackend",
     ),
     "UNICODE_JSON": False,
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 100,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework_datatables.pagination.DatatablesPageNumberPagination",
+    "PAGE_SIZE": 50,
 }
 
 ## Authentification
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/accounts/profile/"
+LOGIN_REDIRECT_URL = "/"
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",

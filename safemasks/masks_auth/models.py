@@ -29,6 +29,8 @@ class Profile(models.Model):
     )
     phone_number = models.CharField(
         validators=[PHONE_VALIDATOR],
+        null=True,
+        blank=False,
         max_length=17,
         help_text=_("+999999999 Up to 15 digits allowed"),
         verbose_name=_("Phone number"),
@@ -69,6 +71,18 @@ class Profile(models.Model):
         auto_now=True,
         help_text=_("Last time the profile was updated."),
         verbose_name=_("Last update"),
+    )
+    accepted_terms = models.BooleanField(
+        null=False,
+        default=False,
+        help_text=_("User has accepted safemasks terms and conditions."),
+        verbose_name=_("Is reviewed?"),
+    )
+    accepted_privacy = models.BooleanField(
+        null=False,
+        default=False,
+        help_text=_("User has accepted safemasks privcacy."),
+        verbose_name=_("Is reviewed?"),
     )
 
     def __str__(self) -> str:

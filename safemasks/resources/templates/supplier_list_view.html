@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head-extra  %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+{% endblock head-extra  %}
+
+{% block content %}
+<div class="jumbotron mb-0 pb-1">
+  <h1>{% trans 'List of suppliers' %}</h1>
+  <h5>{% trans 'Summary of our supplier data.' %}</h5>
+  <div class="container mt-4 mb-0">
+    <div class="alert alert-warning" role="alert">
+      {% blocktrans %}
+      We note that while we do our best to provide accurate estimates of trustworthyness of suppliers, our aggreated reviews shouild not be considered a buying recommendation.
+      {% endblocktrans %}
+      <a href="#cookies" data-toggle="modal" data-target="#cookies">{% trans 'See also our disclaimer' %}</a>.
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5 mt-0">
+  <p>
+      <a class="btn btn-info" data-toggle="collapse" href="#help" role="button" aria-expanded="false" aria-controls="help">
+          <i class="fa fa-info mr-2" aria-hidden="true"></i>{% trans 'Legend' %}
+      </a>
+  </p>
+  <div class="collapse" id="help">
+     <h6>{% trans 'Columns' %}</h6>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><code>{% trans 'Id' %}</code></td>
+          <td>{% trans 'Index for supplier entry in our database' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans 'Name' %}</code></td>
+          <td>{% trans ' Name of the supplier' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans 'Last update' %}</code></td>
+          <td>{% trans ' The last time we reviewed either the supplier or a corresponding product' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans '# Products' %}</code></td>
+          <td>{% trans ' Number of products associated with supplier in our database' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans '# Reviews' %}</code></td>
+          <td>{% trans ' Number of supplier reviews in our database' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans 'Avg. rating' %}</code></td>
+          <td>{% trans ' The average rating of the supplier (excluding products)' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans '# Rated products' %}</code></td>
+          <td>{% trans ' Total number of products associated with supplier in our database' %}</td>
+        </tr>
+        <tr>
+          <td><code>{% trans 'Avg. product rating' %}</code></td>
+          <td>{% trans ' The average rating over all products associated with supplier' %}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h6>{% trans 'Color coding' %}</h6>
+   <table class="table">
+       <thead>
+           <tr>
+             <td>{% trans 'Column' %}</td>
+             <td class="bg-warning">{% trans 'Yellow' %}</td>
+             <td class="bg-danger text-white">{% trans 'Red' %}</td>
+           </tr>
+       </thead>
+     <tbody>
+         <tr>
+           <td><code>{% trans 'Last update' %}</code></td>
+           <td>{% trans 'Older than a month' %}</td>
+           <td>{% trans 'Older than three months' %}</td>
+         </tr>
+         <tr>
+           <td><code>{% trans 'Avg. rating' %}</code></td>
+           <td>{% trans 'Smaller' %} <code>0.5</code></td>
+           <td>{% trans 'Smaller' %} <code>0.0</code></td>
+         </tr>
+         <tr>
+           <td><code>{% trans 'Avg. product rating' %}</code></td>
+           <td>{% trans 'Smaller' %} <code>0.5</code></td>
+           <td>{% trans 'Smaller' %} <code>0.0</code></td>
+         </tr>
+     </tbody>
+   </table>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="trusted-suppliers" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+            <th>{% trans 'Id' %}</th>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans '# Products' %}</th>
+            <th>{% trans '# Reviews' %}</th>
+            <th>{% trans 'Avg. rating' %}</th>
+            <th>{% trans '# Rated products' %}</th>
+            <th>{% trans 'Avg. product rating' %}</th>
+            <th>{% trans 'Last update' %}</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/date-eu.js"></script>
+<script>
+  $(document).ready(function() {
+    var table = $('#trusted-suppliers').DataTable({
+      dom: 'Blfrtip',
+      serverSide: false,
+      {% if LANGUAGE_CODE == "de" %}
+      language: {
+          "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/German.json"
+      },
+      {% endif %}
+      lengthMenu: [
+        [10, 25, 50, -1],
+        ['10', '25', '50', 'All']
+      ],
+      dom: 'Blfrtip',
+      order: [[ 7, "desc" ]],
+      columnDefs : [{"targets":7, "type":"date-eu"}],
+      createdRow: function ( row, data, index ) {
+          console.log(data.last_update - new Date)
+          if (data.avg_rating < 0.0) {
+              $("td", row).eq(4).addClass('bg-danger text-white');
+          } else if (data.avg_rating != null && data.avg_rating < 0.5){
+              $("td", row).eq(4).addClass('bg-warning');
+          }
+          if (data.avg_product_rating < 0.0) {
+              $("td", row).eq(6).addClass('bg-danger text-white');
+          } else if (data.avg_product_rating != null && data.avg_product_rating < 0.5){
+              $("td", row).eq(6).addClass('bg-warning');
+          }
+          if (data.last_update) {
+              var today = new Date();
+              var update = new Date(Date.parse(data.last_update));
+              var months = (today - update) / 1000 / 3600 / 24 / 30;
+              if (months > 3){
+                  $("td", row).eq(7).addClass('bg-danger text-white');
+              } else if (months > 1){
+                $("td", row).eq(7).addClass('bg-warning');
+              }
+          }
+        },
+      ajax: "/api/suppliers/?format=datatables",
+      buttons: [{
+        extend: 'copy',
+        className: "btn btn-outline-secondary"
+      }, {
+        extend: 'csv',
+        className: "btn btn-outline-secondary"
+      }, {
+        extend: 'excel',
+        className: "btn btn-outline-secondary"
+      }, {
+        extend: 'print',
+        className: "btn btn-outline-secondary"
+      }],
+      columns: [{
+          "data": "id",
+        },
+        {
+          "data": "name",
+          "render": function(data, type, row, meta) {
+            if (type === 'display') {
+              data = '<a href="/suppliers/details/' + row.id + '/">' + row.name + '</a>';
+            }
+            return data;
+          }
+        },
+        {
+          "data": "n_products",
+        },
+        {
+          "data": "n_reviews",
+        },
+        {
+          "data": "avg_rating",
+        },
+        {
+          "data": "n_product_ratings",
+        },
+        {
+          "data": "avg_product_rating",
+        },
+        {
+          "data": "last_update",
+          "render": function(data, type, row, meta) {
+            if (data) {
+                data = new Date(Date.parse(data)).toLocaleDateString("de");
+            }
+            return data
+          }
+        },
+      ]
+    });
+  });
+</script>
+{% endblock %}

@@ -18,7 +18,6 @@ from django.urls import path, include
 
 from django.contrib.auth.decorators import permission_required
 
-from safemasks.safemasks.views import Index
 
 admin.site.login = permission_required("is_staff", raise_exception=True)(
     admin.site.login
@@ -26,9 +25,8 @@ admin.site.login = permission_required("is_staff", raise_exception=True)(
 
 app_name = "safemasks"
 urlpatterns = [
-    path("", Index.as_view(), name="index"),
+    path("", include("safemasks.resources.urls", namespace="resources")),
     path("admin/", admin.site.urls),
-    path("resources/", include("safemasks.resources.urls", namespace="resources")),
     path(r"accounts/", include("allauth.urls")),
     path(r"accounts/", include("safemasks.masks_auth.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
