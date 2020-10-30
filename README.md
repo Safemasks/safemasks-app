@@ -2,6 +2,7 @@
 
 Django web app and API interface for Safemasks project
 
+For more details see also the docs folder (currently only in German).
 
 ## Install dependencies
 
